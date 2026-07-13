@@ -397,6 +397,13 @@
                 totalOnlineSeconds += elapsed;
                 lastTickTime = now;
                 localStorage.setItem('totalOnlineSeconds', totalOnlineSeconds.toString());
+                
+                // 同时更新当天的 readingLog（只记录当天的时间）
+                const today = new Date().toISOString().split('T')[0];
+                if (!readingLog[today]) readingLog[today] = { papers: 0, hours: 0 };
+                readingLog[today].hours += elapsed / 3600; // 累加当天的小时数
+                localStorage.setItem('readingLog', JSON.stringify(readingLog));
+                
                 // 更新显示
                 const hours = totalOnlineSeconds / 3600;
                 document.getElementById('readHours').textContent = hours < 1 
@@ -559,7 +566,7 @@
         const today = new Date().toISOString().split('T')[0];
         if (!readingLog[today]) readingLog[today] = { papers: 0, hours: 0 };
         readingLog[today].papers += 1;
-        readingLog[today].hours += hours;
+        // 不再加论文预计时间，时间由 startOnlineTracking 根据在线时间累加
         localStorage.setItem('readingLog', JSON.stringify(readingLog));
         renderContribution();
     }
