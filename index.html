@@ -604,7 +604,7 @@
             return;
         }
         // 自动添加 https:// 如果没有协议
-        if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        if (!url.startsWith('http://') && !url.startsWith('https://') && !url.startsWith('file://')) {
             url = 'https://' + url;
         }
         customLinks[id] = url;
@@ -615,6 +615,31 @@
     function toggleAddLink(id) {
         const form = document.getElementById('add-link-form-' + id);
         form.classList.toggle('show');
+    }
+
+    function toggleEditLink(id) {
+        const form = document.getElementById('edit-link-form-' + id);
+        form.classList.toggle('show');
+    }
+
+    function updateArxivLink(id) {
+        const input = document.getElementById('edit-input-' + id);
+        let url = input.value.trim();
+        if (!url) {
+            if (confirm('确定要删除这个链接吗？')) {
+                delete customLinks[id];
+                localStorage.setItem('customArxivLinks', JSON.stringify(customLinks));
+                renderPapers();
+            }
+            return;
+        }
+        // 自动添加 https:// 如果没有协议
+        if (!url.startsWith('http://') && !url.startsWith('https://') && !url.startsWith('file://')) {
+            url = 'https://' + url;
+        }
+        customLinks[id] = url;
+        localStorage.setItem('customArxivLinks', JSON.stringify(customLinks));
+        renderPapers();
     }
 
     function toggleNote(id) {
@@ -661,6 +686,12 @@
                 '<div class="add-link-form" id="add-link-form-' + p.id + '">' +
                     '<input type="text" id="link-input-' + p.id + '" placeholder="输入arXiv链接">' +
                     '<button onclick="addArxivLink(' + p.id + ')">保存</button>' +
+                '</div>' : '';
+            const editLinkForm = customLinks[p.id] ? 
+                '<button class="btn btn-add-link" onclick="toggleEditLink(' + p.id + ')">修改链接</button>' +
+                '<div class="add-link-form" id="edit-link-form-' + p.id + '">' +
+                    '<input type="text" id="edit-input-' + p.id + '" value="' + (customLinks[p.id] || '') + '" placeholder="输入新链接">' +
+                    '<button onclick="updateArxivLink(' + p.id + ')">更新</button>' +
                 '</div>' : '';
             
             const notes = paperNotes[p.id] || {};
@@ -709,6 +740,7 @@
                     '</button>' +
                     '<button class="btn btn-note" onclick="toggleNote(' + p.id + ')">📝 笔记</button>' +
                     addLinkForm +
+                    editLinkForm +
                 '</div>' +
                 '<div class="notes-section" id="notes-' + p.id + '">' +
                     '<h4>阅读笔记</h4>' +
