@@ -1,0 +1,674 @@
+{
+  "papers": [
+    {
+      "id": 0,
+      "seq": 1,
+      "week": "第1周",
+      "category": "综述",
+      "title": "An Overview of Learning-Based Dexterous Grasping",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 3,
+      "goal": "建立抓取生成—执行—感知—sim2real总框架",
+      "output": "梳理分类体系；圈出与你课题最相关的10篇引用",
+      "arxivLink": "",
+      "localPath": "/data2/zmy/papers/综述/An overview of learning-based dexterous grasping.pdf"
+    },
+    {
+      "id": 1,
+      "seq": 2,
+      "week": "第1周",
+      "category": "综述",
+      "title": "Towards Robotic Dexterous Hand Intelligence: A Survey",
+      "priority": 2,
+      "readMethod": "精读",
+      "hours": 3,
+      "goal": "补齐灵巧手感知、控制、学习和硬件全景",
+      "output": "重点看动作空间、触觉和闭环控制章节",
+      "arxivLink": "",
+      "localPath": "/data2/zmy/papers/综述/Towards Robotic Dexterous Hand Intelligence A Survey.pdf"
+    },
+    {
+      "id": 2,
+      "seq": 3,
+      "week": "第1周",
+      "category": "综述",
+      "title": "The Developments and Challenges towards Dexterous and Embodied Robotic Manipulation: A Survey",
+      "priority": 2,
+      "readMethod": "泛读",
+      "hours": 2,
+      "goal": "理解具身操作的大趋势和开放问题",
+      "output": "只精读挑战、数据和评测部分",
+      "arxivLink": "",
+      "localPath": "/data2/zmy/papers/综述/Towards Robotic Dexterous Hand Intelligence A Survey.pdf"
+    },
+    {
+      "id": 3,
+      "seq": 4,
+      "week": "第1周",
+      "category": "数学原理",
+      "title": "A Mathematical Introduction to Robotic Manipulation",
+      "priority": 1,
+      "readMethod": "长期穿插",
+      "hours": 10,
+      "goal": "补齐SE(3)、twist、wrench、运动学与控制基础",
+      "output": "按章节穿插，不要求一次读完",
+      "arxivLink": "",
+      "localPath": "/data2/zmy/papers/综述/The Developments and Challenges towards Dexterous and Embodied Robotic Manipulation A Survey.pdf"
+    },
+    {
+      "id": 4,
+      "seq": 5,
+      "week": "第1周",
+      "category": "数学原理",
+      "title": "Eigengrasp",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2.5,
+      "goal": "理解低维手型协同和动作降维",
+      "output": "推导PCA/eigengrasp表示并联系DextrAH动作空间",
+      "arxivLink": "https://projects.csail.mit.edu/manipulation/rss07/paper__dexterous_grasping_via_eigengrasps_a_low_dimensional_approach_to_a_high_complexity_problem__ciocarlie.pdf",
+      "localPath": "/data2/zmy/papers/数学原理/eigengrasp.pdf"
+    },
+    {
+      "id": 5,
+      "seq": 6,
+      "week": "第2周",
+      "category": "数据集",
+      "title": "DexGraspNet",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2.5,
+      "goal": "理解大规模灵巧抓取数据的表示与生成",
+      "output": "记录数据格式、物体来源、抓取质量评估",
+      "arxivLink": "https://arxiv.org/abs/2207.02959",
+      "localPath": "/data2/zmy/papers/数据集/DexGraspNet.pdf"
+    },
+    {
+      "id": 6,
+      "seq": 7,
+      "week": "第2周",
+      "category": "抓取生成",
+      "title": "UniDexGrasp",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 3.5,
+      "goal": "理解通用抓取生成与策略执行的经典路线",
+      "output": "画出两阶段pipeline并记录观测/动作/reward",
+      "arxivLink": "https://arxiv.org/abs/2303.00938",
+      "localPath": "/data2/zmy/papers/抓取生成/UniDexGrasp.pdf"
+    },
+    {
+      "id": 7,
+      "seq": 8,
+      "week": "第2周",
+      "category": "抓取生成",
+      "title": "DexGraspAnything: Towards Universal Robotic Dexterous Grasping",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 3.5,
+      "goal": "理解扩散式抓取生成与物理约束采样",
+      "output": "重点3.2–3.4，整理正反向过程和物理引导",
+      "arxivLink": "http://arxiv.org/abs/2503.08257v2",
+      "localPath": "/data2/zmy/papers/综述/Towards Robotic Dexterous Hand Intelligence A Survey.pdf"
+    },
+    {
+      "id": 8,
+      "seq": 9,
+      "week": "第2周",
+      "category": "抓取生成",
+      "title": "D(R,O)Grasp",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 3,
+      "goal": "理解跨手形态的手—物关系表示",
+      "output": "明确表示是否能作为你的functional prior",
+      "arxivLink": "",
+      "localPath": "/data2/zmy/papers/抓取生成/D(R,O)Grasp.pdf"
+    },
+    {
+      "id": 9,
+      "seq": 10,
+      "week": "第2周",
+      "category": "抓取生成",
+      "title": "DextER",
+      "priority": 2,
+      "readMethod": "泛读",
+      "hours": 2,
+      "goal": "补充抓取生成/重定向路线",
+      "output": "关注输入输出、是否依赖目标pose",
+      "arxivLink": "",
+      "localPath": "/data2/zmy/papers/抓取生成/DextER.pdf"
+    },
+    {
+      "id": 10,
+      "seq": 11,
+      "week": "第3周",
+      "category": "抓取生成",
+      "title": "Multi-Keypoint Affordance Representation for Functional Dexterous Grasping",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 3,
+      "goal": "理解功能关键点作为中间表示",
+      "output": "比较keypoint、mask和hand-object relation三种prompt",
+      "arxivLink": "http://arxiv.org/abs/2502.20018v2",
+      "localPath": "/data2/zmy/papers/抓取执行/Dexterous Functional Grasping.pdf"
+    },
+    {
+      "id": 11,
+      "seq": 12,
+      "week": "第3周",
+      "category": "抓取生成",
+      "title": "Web2Grasp",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 3.5,
+      "goal": "理解网页HOI到机器人功能抓取数据链路",
+      "output": "拆解数据获取、重建、重定向、物理筛选",
+      "arxivLink": "https://arxiv.org/abs/2505.05517",
+      "localPath": "/data2/zmy/papers/抓取生成/Web2Grasp.pdf"
+    },
+    {
+      "id": 12,
+      "seq": 13,
+      "week": "第3周",
+      "category": "抓取生成",
+      "title": "Grasp as You Say",
+      "priority": 2,
+      "readMethod": "泛读",
+      "hours": 2,
+      "goal": "理解语言条件抓取生成",
+      "output": "记录语言如何进入几何/姿态生成",
+      "arxivLink": "http://arxiv.org/abs/2405.19291v2",
+      "localPath": "/data2/zmy/papers/抓取生成/Grasp as You Say.pdf"
+    },
+    {
+      "id": 13,
+      "seq": 14,
+      "week": "第3周",
+      "category": "抓取执行",
+      "title": "Dexterous Functional Grasping",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 3.5,
+      "goal": "理解功能区域感知与eigengrasp闭环执行",
+      "output": "重点记录上游功能区域与下游RL的接口",
+      "arxivLink": "http://arxiv.org/abs/2411.16755v1",
+      "localPath": "/data2/zmy/papers/抓取执行/Dexterous Functional Grasping.pdf"
+    },
+    {
+      "id": 14,
+      "seq": 15,
+      "week": "第3周",
+      "category": "抓取执行",
+      "title": "FunGrasp",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 3.5,
+      "goal": "理解人类功能抓取先验到动态执行",
+      "output": "比较目标pose先验与你的关系先验",
+      "arxivLink": "https://arxiv.org/abs/2411.16755",
+      "localPath": "/data2/zmy/papers/抓取执行/FunGrasp.pdf"
+    },
+    {
+      "id": 15,
+      "seq": 16,
+      "week": "第4周",
+      "category": "抓取执行",
+      "title": "Universal Dexterous Functional Grasping via Demonstration-Editing Reinforcement Learning",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 3.5,
+      "goal": "理解示范编辑和功能抓取泛化",
+      "output": "关注affordance、grasp style和policy输入",
+      "arxivLink": "http://arxiv.org/abs/2512.13380v1",
+      "localPath": "/data2/zmy/papers/综述/An overview of learning-based dexterous grasping.pdf"
+    },
+    {
+      "id": 16,
+      "seq": 17,
+      "week": "第4周",
+      "category": "抓取执行",
+      "title": "Dexterous Pre-grasp Manipulation for Human-like Functional Categorical Grasping",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 3,
+      "goal": "理解给定功能目标后的预抓取操作",
+      "output": "区分目标生成、预抓取调整和最终执行",
+      "arxivLink": "http://arxiv.org/abs/2307.16752v2",
+      "localPath": "/data2/zmy/papers/抓取执行/Dexterous Functional Grasping.pdf"
+    },
+    {
+      "id": 17,
+      "seq": 18,
+      "week": "第4周",
+      "category": "抓取执行",
+      "title": "Adaptive Motion Planning for Multi-fingered Functional Grasp via Force Feedback",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 3,
+      "goal": "理解力反馈驱动的功能抓取执行",
+      "output": "记录状态、动作、力反馈和成功判据",
+      "arxivLink": "http://arxiv.org/abs/2401.11977v3",
+      "localPath": "/data2/zmy/papers/抓取执行/Dexterous Pre-grasp Manipulation for Human-like Functional Categorical Grasping Deep Reinforcement Learning and Grasp Representations.pdf"
+    },
+    {
+      "id": 18,
+      "seq": 19,
+      "week": "第4周",
+      "category": "抓取执行",
+      "title": "CoorGrasp: Coordinated Contact Control for Adaptive Dexterous Grasping Under Uncertainty",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 3.5,
+      "goal": "理解不确定性下的接触协调控制",
+      "output": "重点看接触表示、策略结构与鲁棒性实验",
+      "arxivLink": "http://arxiv.org/abs/2607.03557v1",
+      "localPath": "/data2/zmy/papers/抓取执行/Dexterous Pre-grasp Manipulation for Human-like Functional Categorical Grasping Deep Reinforcement Learning and Grasp Representations.pdf"
+    },
+    {
+      "id": 19,
+      "seq": 20,
+      "week": "第4周",
+      "category": "抓取执行",
+      "title": "Dexterous Manipulation Based on Prior Dexterous Grasp Pose Knowledge",
+      "priority": 2,
+      "readMethod": "泛读",
+      "hours": 2,
+      "goal": "理解抓取pose先验如何用于后续操作",
+      "output": "明确它与你“不完全给答案”的边界",
+      "arxivLink": "http://arxiv.org/abs/2412.15587v1",
+      "localPath": "/data2/zmy/papers/抓取执行/Dexterous Pre-grasp Manipulation for Human-like Functional Categorical Grasping Deep Reinforcement Learning and Grasp Representations.pdf"
+    },
+    {
+      "id": 20,
+      "seq": 21,
+      "week": "第5周",
+      "category": "抓取执行",
+      "title": "DextrAH-G",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 4,
+      "goal": "直接指导你的KUKA+Allegro环境、动作空间和RL",
+      "output": "逐项对应代码：11维动作、fabrics、obs、reward、ADR",
+      "arxivLink": "https://arxiv.org/abs/2407.02274",
+      "localPath": "/data2/zmy/papers/抓取执行/DextrAH-G.pdf"
+    },
+    {
+      "id": 21,
+      "seq": 22,
+      "week": "第5周",
+      "category": "抓取执行",
+      "title": "DextrAH-RGB",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 3.5,
+      "goal": "理解视觉策略、蒸馏和DextrAH-G延伸",
+      "output": "比较teacher/student观测与RGB泛化",
+      "arxivLink": "https://arxiv.org/abs/2412.01791",
+      "localPath": "/data2/zmy/papers/抓取执行/DextrAH-RGB.pdf"
+    },
+    {
+      "id": 22,
+      "seq": 23,
+      "week": "第5周",
+      "category": "抓取执行",
+      "title": "Robust Dexterous Grasping of General Objects",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 3.5,
+      "goal": "建立稳定抓取执行基线",
+      "output": "整理训练对象、域随机化和sim2real配置",
+      "arxivLink": "http://arxiv.org/abs/2504.05287v3",
+      "localPath": "/data2/zmy/papers/综述/An overview of learning-based dexterous grasping.pdf"
+    },
+    {
+      "id": 23,
+      "seq": 24,
+      "week": "第5周",
+      "category": "抓取执行",
+      "title": "GraspXL",
+      "priority": 2,
+      "readMethod": "精读",
+      "hours": 3,
+      "goal": "补充大规模通用抓取执行与泛化",
+      "output": "关注训练规模、表示和跨对象测试",
+      "arxivLink": "",
+      "localPath": "/data2/zmy/papers/抓取执行/GraspXL.pdf"
+    },
+    {
+      "id": 24,
+      "seq": 25,
+      "week": "第5周",
+      "category": "抓取执行",
+      "title": "DexRepNet",
+      "priority": 2,
+      "readMethod": "泛读",
+      "hours": 2,
+      "goal": "了解表征学习如何服务灵巧抓取执行",
+      "output": "只抓网络输入、表征、下游任务",
+      "arxivLink": "",
+      "localPath": "/data2/zmy/papers/抓取执行/DexRepNet.pdf"
+    },
+    {
+      "id": 25,
+      "seq": 26,
+      "week": "第6周",
+      "category": "基础模型",
+      "title": "Diffusion Policy",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 4,
+      "goal": "理解动作序列扩散策略，为后续DP/VLA打基础",
+      "output": "推导训练目标、action horizon和推理采样",
+      "arxivLink": "https://arxiv.org/abs/2303.04137",
+      "localPath": "/data2/zmy/papers/基础模型/Diffusion Policy.pdf"
+    },
+    {
+      "id": 26,
+      "seq": 27,
+      "week": "第6周",
+      "category": "VLA",
+      "title": "DexGraspVLA",
+      "priority": 2,
+      "readMethod": "精读",
+      "hours": 3.5,
+      "goal": "理解VLM高层规划+低层扩散策略的分层VLA",
+      "output": "关注语言/视觉到低层动作的接口",
+      "arxivLink": "https://arxiv.org/abs/2502.20900",
+      "localPath": "/data2/zmy/papers/VLA/DexGraspVLA.pdf"
+    },
+    {
+      "id": 27,
+      "seq": 28,
+      "week": "第6周",
+      "category": "VLA",
+      "title": "DEXVLG",
+      "priority": 3,
+      "readMethod": "泛读",
+      "hours": 2,
+      "goal": "补充视觉语言引导的灵巧抓取",
+      "output": "对比DexGraspVLA的任务粒度与数据来源",
+      "arxivLink": "",
+      "localPath": "/data2/zmy/papers/VLA/DEXVLG.pdf"
+    },
+    {
+      "id": 28,
+      "seq": 29,
+      "week": "第6周",
+      "category": "VLA",
+      "title": "OmniVTLA",
+      "priority": 3,
+      "readMethod": "泛读",
+      "hours": 2,
+      "goal": "了解视觉—触觉—语言—动作融合趋势",
+      "output": "重点看模态融合和动作解码",
+      "arxivLink": "",
+      "localPath": "/data2/zmy/papers/VLA/OmniVTLA.pdf"
+    },
+    {
+      "id": 29,
+      "seq": 30,
+      "week": "第6周",
+      "category": "VLA",
+      "title": "Robotic Control via Embodied Chain-of-Thought Reasoning",
+      "priority": 3,
+      "readMethod": "泛读",
+      "hours": 2,
+      "goal": "理解具身CoT用于控制的思路",
+      "output": "关注是否真正闭环、是否依赖语言推理",
+      "arxivLink": "http://arxiv.org/abs/2407.08693v3",
+      "localPath": "/data2/zmy/papers/VLA/Robotic Control via Embodied Chain-of-Thought Reasoning.pdf"
+    },
+    {
+      "id": 30,
+      "seq": 31,
+      "week": "第7周",
+      "category": "VLA",
+      "title": "T-Rex: Tactile-Reactive Dexterous Manipulation",
+      "priority": 2,
+      "readMethod": "精读",
+      "hours": 3,
+      "goal": "理解触觉反应式闭环控制",
+      "output": "记录触觉输入、反应策略和失败恢复",
+      "arxivLink": "",
+      "localPath": "/data2/zmy/papers/VLA/T-Rex Tactile-Reactive Dexterous Manipulation.pdf"
+    },
+    {
+      "id": 31,
+      "seq": 32,
+      "week": "第7周",
+      "category": "基础模型",
+      "title": "Canonical Representation and Force-Based Pretraining of 3D Tactile",
+      "priority": 2,
+      "readMethod": "精读",
+      "hours": 3,
+      "goal": "了解3D触觉表征和力监督预训练",
+      "output": "评估未来能否接入你的触觉残差",
+      "arxivLink": "",
+      "localPath": "/data2/zmy/papers/基础模型/Canonical Representation and Force-Based Pretraining of 3D Tactile for.pdf"
+    },
+    {
+      "id": 32,
+      "seq": 33,
+      "week": "第7周",
+      "category": "基础模型",
+      "title": "TacSL",
+      "priority": 2,
+      "readMethod": "精读",
+      "hours": 3,
+      "goal": "理解大规模触觉仿真/学习基础",
+      "output": "记录传感器模型、数据接口与Isaac兼容性",
+      "arxivLink": "",
+      "localPath": "/data2/zmy/papers/基础模型/Tacsl.pdf"
+    },
+    {
+      "id": 33,
+      "seq": 34,
+      "week": "第7周",
+      "category": "基础模型",
+      "title": "UniTac: Whole-Robot Touch Sensing Without Tactile Sensors",
+      "priority": 2,
+      "readMethod": "精读",
+      "hours": 3,
+      "goal": "探索无触觉传感器条件下的接触感知",
+      "output": "判断是否适合组内无触觉硬件",
+      "arxivLink": "http://arxiv.org/abs/2507.07980v1",
+      "localPath": "/data2/zmy/papers/基础模型/UniTac Whole-Robot Touch Sensing Without Tactile Sensors.pdf"
+    },
+    {
+      "id": 34,
+      "seq": 35,
+      "week": "第7周",
+      "category": "基础模型",
+      "title": "MoiréTac",
+      "priority": 3,
+      "readMethod": "泛读",
+      "hours": 2,
+      "goal": "保留摩尔纹触觉传感器知识",
+      "output": "只保留结构、信号和力/力矩输出要点",
+      "arxivLink": "",
+      "localPath": null
+    },
+    {
+      "id": 35,
+      "seq": 36,
+      "week": "第8周",
+      "category": "World Action Model",
+      "title": "Dream-Tac",
+      "priority": 3,
+      "readMethod": "泛读",
+      "hours": 2.5,
+      "goal": "理解触觉世界模型/动作模型方向",
+      "output": "关注预测目标与闭环策略结合方式",
+      "arxivLink": "",
+      "localPath": "/data2/zmy/papers/World Action Model/Dream-Tac.pdf"
+    },
+    {
+      "id": 36,
+      "seq": 37,
+      "week": "第8周",
+      "category": "灵巧操作",
+      "title": "FBI: Learning Dexterous In-hand Manipulation with Dynamic ...",
+      "priority": 3,
+      "readMethod": "泛读",
+      "hours": 2.5,
+      "goal": "扩展到在手操作，暂不作为主线",
+      "output": "只看问题定义、动态性和奖励设计",
+      "arxivLink": "http://arxiv.org/abs/1808.00177v5",
+      "localPath": "/data2/zmy/papers/抓取执行/Dexterous Pre-grasp Manipulation for Human-like Functional Categorical Grasping Deep Reinforcement Learning and Grasp Representations.pdf"
+    },
+    {
+      "id": 37,
+      "seq": 38,
+      "week": "第8周",
+      "category": "数学原理",
+      "title": "Deep SE(3)-Equivariant Geometric Reasoning for Precise Placement Tasks",
+      "priority": 3,
+      "readMethod": "泛读",
+      "hours": 2.5,
+      "goal": "补充SE(3)等变网络直觉",
+      "output": "联系点云编码与姿态推理",
+      "arxivLink": "http://arxiv.org/abs/2404.13478v1",
+      "localPath": "/data2/zmy/papers/数学原理/DEEP SE(3)-EQUIVARIANT GEOMETRIC REASONING FOR PRECISE PLACEMENT TASKS.pdf"
+    },
+    {
+      "id": 38,
+      "seq": 39,
+      "week": "第8周",
+      "category": "数学原理",
+      "title": "IPDF",
+      "priority": 3,
+      "readMethod": "泛读",
+      "hours": 2,
+      "goal": "了解旋转/姿态概率分布建模",
+      "output": "重点理解SO(3)概率表示，不追全部细节",
+      "arxivLink": "",
+      "localPath": "/data2/zmy/papers/数学原理/ipdf.pdf"
+    }
+  ],
+  "overview": {
+    "totalPapers": 39,
+    "totalWeeks": 8,
+    "totalHours": 118.5,
+    "mainLine": "功能先验 -> 抓取生成 -> 闭环执行 -> VLA/触觉扩展",
+    "phases": [
+      {
+        "phase": "建立地图",
+        "weeks": "第1周",
+        "coreQuestion": "领域有哪些问题、方法和数学基础？",
+        "suggestedOutput": "一页领域地图",
+        "checkpoint": "能说清生成与执行的区别"
+      },
+      {
+        "phase": "抓取生成",
+        "weeks": "第2–3周",
+        "coreQuestion": "抓取pose/关系/功能先验如何产生？",
+        "suggestedOutput": "生成方法对比表",
+        "checkpoint": "确定你的functional prompt形式"
+      },
+      {
+        "phase": "闭环执行",
+        "weeks": "第4–5周",
+        "coreQuestion": "策略如何把先验变成可执行动作？",
+        "suggestedOutput": "环境设计草案",
+        "checkpoint": "定下obs/action/reward基线"
+      },
+      {
+        "phase": "策略扩展",
+        "weeks": "第6周",
+        "coreQuestion": "Diffusion/VLA如何进入低层控制？",
+        "suggestedOutput": "模型接口图",
+        "checkpoint": "明确暂缓与立即实现部分"
+      },
+      {
+        "phase": "触觉扩展",
+        "weeks": "第7周",
+        "coreQuestion": "无触觉或弱触觉如何形成闭环？",
+        "suggestedOutput": "触觉路线备忘录",
+        "checkpoint": "判断真机传感器需求"
+      }
+    ]
+  },
+  "weekly": [
+    {
+      "week": "第1周",
+      "paperCount": 5,
+      "estimatedHours": 20.5
+    },
+    {
+      "week": "第2周",
+      "paperCount": 5,
+      "estimatedHours": 14.5
+    },
+    {
+      "week": "第3周",
+      "paperCount": 5,
+      "estimatedHours": 15.5
+    },
+    {
+      "week": "第4周",
+      "paperCount": 5,
+      "estimatedHours": 15
+    },
+    {
+      "week": "第5周",
+      "paperCount": 5,
+      "estimatedHours": 16
+    },
+    {
+      "week": "第6周",
+      "paperCount": 5,
+      "estimatedHours": 13.5
+    },
+    {
+      "week": "第7周",
+      "paperCount": 5,
+      "estimatedHours": 14
+    },
+    {
+      "week": "第8周",
+      "paperCount": 4,
+      "estimatedHours": 9.5
+    }
+  ],
+  "categories": {
+    "综述": {
+      "count": 3,
+      "hours": 8
+    },
+    "数学原理": {
+      "count": 4,
+      "hours": 17.0
+    },
+    "数据集": {
+      "count": 1,
+      "hours": 2.5
+    },
+    "抓取生成": {
+      "count": 7,
+      "hours": 20.5
+    },
+    "抓取执行": {
+      "count": 12,
+      "hours": 38.0
+    },
+    "基础模型": {
+      "count": 5,
+      "hours": 15
+    },
+    "VLA": {
+      "count": 5,
+      "hours": 12.5
+    },
+    "World Action Model": {
+      "count": 1,
+      "hours": 2.5
+    },
+    "灵巧操作": {
+      "count": 1,
+      "hours": 2.5
+    }
+  },
+  "lastUpdated": "2026-07-13 18:15:34"
+}

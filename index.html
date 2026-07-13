@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>灵巧手论文8周阅读计划</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a1628;
+            color: #e2e8f0;
+            min-height: 100vh;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 20px 30px;
+            background: linear-gradient(180deg, #0f2847 0%, #0a1628 100%);
+            border-bottom: 1px solid #1e3a5f;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            font-size: 2.2em;
+            background: linear-gradient(90deg, #60a5fa, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+        .header .subtitle { color: #7dd3fc; font-size: 1em; opacity: 0.8; }
+        .header .update-time { color: #475569; font-size: 0.8em; margin-top: 10px; }
+        
+        /* Stats row */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #0f2847, #0c1f3a);
+            border: 1px solid #1e3a5f;
+            border-radius: 12px;
+            padding: 18px 14px;
+            text-align: center;
+        }
+        .stat-card .number {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #38bdf8;
+        }
+        .stat-card .label { color: #64748b; font-size: 0.85em; margin-top: 4px; }
+        
+        /* Progress */
+        .progress-section {
+            background: linear-gradient(135deg, #0f2847, #0c1f3a);
+            border: 1px solid #1e3a5f;
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 25px;
+        }
+        .progress-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
+        .progress-header span { color: #94a3b8; font-size: 0.9em; }
+        .progress-header .pct { color: #38bdf8; font-weight: bold; }
+        .progress-bar { width: 100%; height: 10px; background: #1e293b; border-radius: 5px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #2563eb, #38bdf8); border-radius: 5px; transition: width 0.4s; }
+        
+        /* Charts section */
+        .charts-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        .chart-card {
+            background: linear-gradient(135deg, #0f2847, #0c1f3a);
+            border: 1px solid #1e3a5f;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .chart-card h3 { color: #7dd3fc; font-size: 1em; margin-bottom: 15px; }
+        .chart-container { position: relative; max-height: 250px; }
+        
+        /* Filters */
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+        .filter-group { display: flex; gap: 6px; flex-wrap: wrap; }
+        .filter-btn {
+            padding: 6px 14px;
+            border: 1px solid #1e3a5f;
+            background: #0f2847;
+            color: #7dd3fc;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.2s;
+        }
+        .filter-btn:hover { border-color: #38bdf8; background: #132e4f; }
+        .filter-btn.active { background: #1d4ed8; border-color: #3b82f6; color: white; }
+        .filter-label { color: #475569; font-size: 0.8em; align-self: center; }
+        
+        /* Week tabs */
+        .week-tabs {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+        .week-tab {
+            padding: 7px 14px;
+            background: #0f2847;
+            border: 1px solid #1e3a5f;
+            border-radius: 8px;
+            cursor: pointer;
+            white-space: nowrap;
+            font-size: 0.85em;
+            color: #7dd3fc;
+            transition: all 0.2s;
+        }
+        .week-tab:hover { border-color: #38bdf8; }
+        .week-tab.active { background: #1d4ed8; border-color: #3b82f6; color: white; }
+        
+        /* Paper cards */
+        .papers-grid { display: grid; gap: 14px; }
+        .paper-card {
+            background: linear-gradient(135deg, #0f2847, #0c1f3a);
+            border: 1px solid #1e3a5f;
+            border-radius: 12px;
+            padding: 18px 20px;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .paper-card:hover { border-color: #2563eb; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(37,99,235,0.15); }
+        .paper-card.read { opacity: 0.55; border-color: #16a34a44; }
+        .paper-card.read .paper-title { text-decoration: line-through; color: #64748b; }
+        .paper-card .read-badge {
+            display: none;
+            position: absolute;
+            top: 14px;
+            right: 16px;
+            background: #16a34a22;
+            color: #4ade80;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 0.75em;
+            font-weight: 600;
+        }
+        .paper-card.read .read-badge { display: block; }
+        
+        .paper-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+        .paper-title { font-size: 1.05em; font-weight: 600; color: #f1f5f9; flex: 1; line-height: 1.4; }
+        .paper-badges { display: flex; gap: 6px; flex-wrap: wrap; flex-shrink: 0; }
+        .badge { padding: 3px 9px; border-radius: 6px; font-size: 0.72em; font-weight: 500; white-space: nowrap; }
+        .badge-p1 { background: #dc262633; color: #fca5a5; }
+        .badge-p2 { background: #d9770633; color: #fcd34d; }
+        .badge-p3 { background: #6366f133; color: #a5b4fc; }
+        .badge-method { background: #0891b233; color: #67e8f9; }
+        .badge-cat { background: #7c3aed33; color: #c4b5fd; }
+        .badge-hours { background: #059669; color: #6ee7b7; }
+        
+        .paper-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+        .meta-item { background: #071224; padding: 10px 12px; border-radius: 8px; border: 1px solid #1a2d47; }
+        .meta-label { font-size: 0.72em; color: #475569; margin-bottom: 3px; }
+        .meta-value { font-size: 0.85em; color: #94a3b8; line-height: 1.4; }
+        
+        .paper-actions { display: flex; gap: 8px; align-items: center; }
+        .btn {
+            padding: 7px 14px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.82em;
+            font-weight: 500;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .btn-arxiv { background: #b91c1c; color: white; }
+        .btn-arxiv:hover { background: #991b1b; }
+        .btn-read { background: #1e3a5f; color: #7dd3fc; border: 1px solid #2563eb44; }
+        .btn-read:hover { border-color: #3b82f6; }
+        .btn-read.is-read { background: #16a34a22; color: #4ade80; border-color: #16a34a; }
+        
+        /* Sync buttons */
+        .sync-bar {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+        .btn-sync {
+            padding: 7px 14px;
+            background: #1e3a5f;
+            color: #7dd3fc;
+            border: 1px solid #2563eb44;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.82em;
+        }
+        .btn-sync:hover { background: #2563eb33; }
+        
+        /* Empty */
+        .empty-state { text-align: center; padding: 50px; color: #475569; }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .charts-row { grid-template-columns: 1fr; }
+            .paper-meta { grid-template-columns: 1fr; }
+            .paper-top { flex-direction: column; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+        }
+        
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #0a1628; }
+        ::-webkit-scrollbar-thumb { background: #1e3a5f; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Dexterous Hand Paper Reading Plan</h1>
+        <p class="subtitle">功能先验 → 抓取生成 → 闭环执行 → VLA/触觉扩展</p>
+        <p class="update-time" id="updateTime"></p>
+    </div>
+    
+    <div class="container">
+        <div class="stats">
+            <div class="stat-card"><div class="number" id="totalPapers">-</div><div class="label">论文总数</div></div>
+            <div class="stat-card"><div class="number" id="readCount">0</div><div class="label">已读</div></div>
+            <div class="stat-card"><div class="number" id="unreadCount">-</div><div class="label">待读</div></div>
+            <div class="stat-card"><div class="number" id="totalHours">-</div><div class="label">预计总时长</div></div>
+            <div class="stat-card"><div class="number" id="readHours">0h</div><div class="label">已读时长</div></div>
+        </div>
+        
+        <div class="progress-section">
+            <div class="progress-header">
+                <span>阅读进度</span>
+                <span class="pct" id="progressText">0%</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+        </div>
+        
+        <div class="charts-row">
+            <div class="chart-card">
+                <h3>论文分类分布</h3>
+                <div class="chart-container"><canvas id="categoryPie"></canvas></div>
+            </div>
+            <div class="chart-card">
+                <h3>每周阅读量</h3>
+                <div class="chart-container"><canvas id="weeklyBar"></canvas></div>
+            </div>
+        </div>
+        
+        <div class="sync-bar">
+            <button class="btn-sync" onclick="exportStatus()">导出已读状态</button>
+            <button class="btn-sync" onclick="document.getElementById('importFile').click()">导入已读状态</button>
+            <input type="file" id="importFile" accept=".json" style="display:none" onchange="importStatus(event)">
+        </div>
+        
+        <div class="filters">
+            <span class="filter-label">状态</span>
+            <div class="filter-group" id="statusFilter">
+                <button class="filter-btn active" data-status="all">全部</button>
+                <button class="filter-btn" data-status="unread">待读</button>
+                <button class="filter-btn" data-status="read">已读</button>
+            </div>
+            <span class="filter-label">类别</span>
+            <div class="filter-group" id="categoryFilter">
+                <button class="filter-btn active" data-category="all">全部</button>
+            </div>
+            <span class="filter-label">优先级</span>
+            <div class="filter-group" id="priorityFilter">
+                <button class="filter-btn active" data-priority="all">全部</button>
+                <button class="filter-btn" data-priority="1">P1 必读</button>
+                <button class="filter-btn" data-priority="2">P2 重要</button>
+                <button class="filter-btn" data-priority="3">P3 选读</button>
+            </div>
+        </div>
+        
+        <div class="week-tabs" id="weekTabs">
+            <div class="week-tab active" data-week="all">全部</div>
+            <div class="week-tab" data-week="第1周">第1周</div>
+            <div class="week-tab" data-week="第2周">第2周</div>
+            <div class="week-tab" data-week="第3周">第3周</div>
+            <div class="week-tab" data-week="第4周">第4周</div>
+            <div class="week-tab" data-week="第5周">第5周</div>
+            <div class="week-tab" data-week="第6周">第6周</div>
+            <div class="week-tab" data-week="第7周">第7周</div>
+            <div class="week-tab" data-week="第8周">第8周</div>
+        </div>
+        
+        <div class="papers-grid" id="papersGrid"></div>
+    </div>
+
+    <script>
+    let papersData = [];
+    let categoriesData = {};
+    let weeklyData = [];
+    let readStatus = JSON.parse(localStorage.getItem('paperReadStatus') || '{}');
+    let currentFilters = { status: 'all', category: 'all', priority: 'all', week: 'all' };
+    let categoryChart = null;
+    let weeklyChart = null;
+
+    async function loadData() {
+        const resp = await fetch('data.json?t=' + Date.now());
+        const data = await resp.json();
+        papersData = data.papers;
+        categoriesData = data.categories;
+        weeklyData = data.weekly;
+        
+        document.getElementById('updateTime').textContent = '最后更新: ' + data.lastUpdated;
+        document.getElementById('totalPapers').textContent = data.overview.totalPapers;
+        document.getElementById('totalHours').textContent = data.overview.totalHours + 'h';
+        
+        // Build category filter buttons
+        const catFilter = document.getElementById('categoryFilter');
+        Object.keys(categoriesData).forEach(cat => {
+            const btn = document.createElement('button');
+            btn.className = 'filter-btn';
+            btn.dataset.category = cat;
+            btn.textContent = cat;
+            catFilter.appendChild(btn);
+        });
+        
+        // Re-attach filter listeners
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const group = this.parentElement;
+                group.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                if (this.dataset.status !== undefined) currentFilters.status = this.dataset.status;
+                if (this.dataset.category !== undefined) currentFilters.category = this.dataset.category;
+                if (this.dataset.priority !== undefined) currentFilters.priority = this.dataset.priority;
+                renderPapers();
+            });
+        });
+        
+        document.querySelectorAll('.week-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.week-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                currentFilters.week = this.dataset.week;
+                renderPapers();
+            });
+        });
+        
+        renderCharts();
+        updateStats();
+        renderPapers();
+    }
+
+    function renderCharts() {
+        // Pie chart - category distribution
+        const catLabels = Object.keys(categoriesData);
+        const catCounts = catLabels.map(c => categoriesData[c].count);
+        const catColors = ['#3b82f6','#2563eb','#60a5fa','#93c5fd','#1d4ed8','#38bdf8','#0ea5e9','#7dd3fc','#0284c7'];
+        
+        if (categoryChart) categoryChart.destroy();
+        categoryChart = new Chart(document.getElementById('categoryPie'), {
+            type: 'doughnut',
+            data: {
+                labels: catLabels,
+                datasets: [{ data: catCounts, backgroundColor: catColors, borderColor: '#0a1628', borderWidth: 2 }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'right', labels: { color: '#94a3b8', font: { size: 11 }, padding: 8 } }
+                }
+            }
+        });
+        
+        // Bar chart - weekly papers/hours
+        const weekLabels = weeklyData.map(w => w.week);
+        const weekPapers = weeklyData.map(w => w.paperCount);
+        const weekHours = weeklyData.map(w => w.estimatedHours);
+        
+        if (weeklyChart) weeklyChart.destroy();
+        weeklyChart = new Chart(document.getElementById('weeklyBar'), {
+            type: 'bar',
+            data: {
+                labels: weekLabels,
+                datasets: [
+                    { label: '论文数', data: weekPapers, backgroundColor: '#3b82f688', borderColor: '#3b82f6', borderWidth: 1, yAxisID: 'y' },
+                    { label: '预计小时', data: weekHours, backgroundColor: '#38bdf844', borderColor: '#38bdf8', borderWidth: 1, yAxisID: 'y1' }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { labels: { color: '#94a3b8', font: { size: 11 } } } },
+                scales: {
+                    x: { ticks: { color: '#64748b' }, grid: { color: '#1e3a5f33' } },
+                    y: { position: 'left', ticks: { color: '#60a5fa' }, grid: { color: '#1e3a5f33' }, title: { display: true, text: '论文数', color: '#60a5fa' } },
+                    y1: { position: 'right', ticks: { color: '#38bdf8' }, grid: { display: false }, title: { display: true, text: '小时', color: '#38bdf8' } }
+                }
+            }
+        });
+    }
+
+    function toggleRead(id) {
+        readStatus[id] = !readStatus[id];
+        localStorage.setItem('paperReadStatus', JSON.stringify(readStatus));
+        updateStats();
+        renderPapers();
+    }
+
+    function updateStats() {
+        const readCount = papersData.filter(p => readStatus[p.id]).length;
+        const unreadCount = papersData.length - readCount;
+        const progress = papersData.length ? Math.round((readCount / papersData.length) * 100) : 0;
+        const readHours = papersData.filter(p => readStatus[p.id]).reduce((s, p) => s + p.hours, 0);
+        
+        document.getElementById('readCount').textContent = readCount;
+        document.getElementById('unreadCount').textContent = unreadCount;
+        document.getElementById('readHours').textContent = readHours + 'h';
+        document.getElementById('progressText').textContent = progress + '%';
+        document.getElementById('progressFill').style.width = progress + '%';
+    }
+
+    function renderPapers() {
+        const grid = document.getElementById('papersGrid');
+        let filtered = papersData.filter(p => {
+            if (currentFilters.status === 'read' && !readStatus[p.id]) return false;
+            if (currentFilters.status === 'unread' && readStatus[p.id]) return false;
+            if (currentFilters.category !== 'all' && p.category !== currentFilters.category) return false;
+            if (currentFilters.priority !== 'all' && p.priority !== parseInt(currentFilters.priority)) return false;
+            if (currentFilters.week !== 'all' && p.week !== currentFilters.week) return false;
+            return true;
+        });
+        
+        if (!filtered.length) {
+            grid.innerHTML = '<div class="empty-state">没有匹配的论文</div>';
+            return;
+        }
+        
+        grid.innerHTML = filtered.map(p => {
+            const isRead = readStatus[p.id];
+            const pClass = p.priority === 1 ? 'badge-p1' : p.priority === 2 ? 'badge-p2' : 'badge-p3';
+            const pText = p.priority === 1 ? 'P1 必读' : p.priority === 2 ? 'P2 重要' : 'P3 选读';
+            const arxivBtn = p.arxivLink ? '<a href="' + p.arxivLink + '" target="_blank" class="btn btn-arxiv">arXiv</a>' : '';
+            
+            return '<div class="paper-card ' + (isRead ? 'read' : '') + '">' +
+                '<span class="read-badge">已读</span>' +
+                '<div class="paper-top">' +
+                    '<div class="paper-title">' + p.title + '</div>' +
+                    '<div class="paper-badges">' +
+                        '<span class="badge ' + pClass + '">' + pText + '</span>' +
+                        '<span class="badge badge-method">' + p.readMethod + '</span>' +
+                        '<span class="badge badge-cat">' + p.category + '</span>' +
+                        '<span class="badge badge-hours">' + p.hours + 'h</span>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="paper-meta">' +
+                    '<div class="meta-item"><div class="meta-label">本篇目标</div><div class="meta-value">' + p.goal + '</div></div>' +
+                    '<div class="meta-item"><div class="meta-label">阅读产出</div><div class="meta-value">' + p.output + '</div></div>' +
+                '</div>' +
+                '<div class="paper-actions">' +
+                    arxivBtn +
+                    '<button class="btn btn-read ' + (isRead ? 'is-read' : '') + '" onclick="toggleRead(' + p.id + ')">' +
+                        (isRead ? '✓ 已读' : '标记已读') +
+                    '</button>' +
+                '</div>' +
+            '</div>';
+        }).join('');
+    }
+
+    function exportStatus() {
+        const blob = new Blob([JSON.stringify(readStatus, null, 2)], { type: 'application/json' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'paper-read-status.json';
+        a.click();
+    }
+
+    function importStatus(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const imported = JSON.parse(e.target.result);
+                readStatus = Object.assign(readStatus, imported);
+                localStorage.setItem('paperReadStatus', JSON.stringify(readStatus));
+                updateStats();
+                renderPapers();
+                alert('导入成功！');
+            } catch(err) {
+                alert('导入失败：文件格式错误');
+            }
+        };
+        reader.readAsText(file);
+    }
+
+    loadData();
+    </script>
+</body>
+</html>
