@@ -586,12 +586,18 @@
 
     function addArxivLink(id) {
         const input = document.getElementById('link-input-' + id);
-        const url = input.value.trim();
-        if (url && (url.includes('arxiv.org') || url.startsWith('http'))) {
-            customLinks[id] = url;
-            localStorage.setItem('customArxivLinks', JSON.stringify(customLinks));
-            renderPapers();
+        let url = input.value.trim();
+        if (!url) {
+            alert('请输入arXiv链接');
+            return;
         }
+        // 自动添加 https:// 如果没有协议
+        if (!url.startsWith('http://') && !url.startsWith('https://')) {
+            url = 'https://' + url;
+        }
+        customLinks[id] = url;
+        localStorage.setItem('customArxivLinks', JSON.stringify(customLinks));
+        renderPapers();
     }
 
     function toggleAddLink(id) {
