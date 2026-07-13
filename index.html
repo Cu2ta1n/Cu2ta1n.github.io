@@ -694,10 +694,10 @@
                     '<input type="text" id="link-input-' + p.id + '" placeholder="输入arXiv链接">' +
                     '<button onclick="addArxivLink(' + p.id + ')">保存</button>' +
                 '</div>' : '';
-            const editLinkForm = customLinks[p.id] ? 
+            const editLinkForm = arxivLink ? 
                 '<button class="btn btn-add-link" onclick="toggleEditLink(' + p.id + ')">修改链接</button>' +
                 '<div class="add-link-form" id="edit-link-form-' + p.id + '">' +
-                    '<input type="text" id="edit-input-' + p.id + '" value="' + (customLinks[p.id] || '') + '" placeholder="输入新链接">' +
+                    '<input type="text" id="edit-input-' + p.id + '" value="' + (arxivLink || '') + '" placeholder="输入新链接">' +
                     '<button onclick="updateArxivLink(' + p.id + ')">更新</button>' +
                 '</div>' : '';
             
