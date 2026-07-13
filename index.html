@@ -484,10 +484,20 @@
             }
         });
         
-        const weekLabels = ['第1周','第2周','第3周','第4周','第5周','第6周','第7周','第8周'];
-        const weekData = weekLabels.map(w => {
-            const papers = papersData.filter(p => p.week === w && readStatus[p.id]);
-            return papers.length;
+        // 本周阅读统计：周一到周日
+        const now = new Date();
+        const dayOfWeek = now.getDay(); // 0=周日, 1=周一, ..., 6=周六
+        const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek; // 找到本周一
+        const monday = new Date(now);
+        monday.setDate(now.getDate() + mondayOffset);
+        
+        const weekLabels = ['周一','周二','周三','周四','周五','周六','周日'];
+        const weekData = weekLabels.map((label, i) => {
+            const d = new Date(monday);
+            d.setDate(monday.getDate() + i);
+            const dateStr = d.toISOString().split('T')[0];
+            const log = readingLog[dateStr] || { papers: 0, hours: 0 };
+            return log.papers;
         });
         
         if (weeklyChart) weeklyChart.destroy();
@@ -532,13 +542,15 @@
             
             const day = document.createElement('div');
             day.className = 'contribution-day';
+            // 按在线时间分级：0, <1h, <2h, <4h, >=6h
             if (log.hours > 0) {
                 if (log.hours < 1) day.classList.add('level-1');
                 else if (log.hours < 2) day.classList.add('level-2');
                 else if (log.hours < 4) day.classList.add('level-3');
-                else day.classList.add('level-4');
+                else if (log.hours >= 6) day.classList.add('level-4');
+                else day.classList.add('level-3'); // 4-6h 也算 level-3
             }
-            day.title = dateStr + ': ' + log.papers + '篇, ' + log.hours + 'h';
+            day.title = dateStr + ': ' + log.papers + '篇, ' + (log.hours < 1 ? Math.round(log.hours * 60) + 'min' : log.hours.toFixed(1) + 'h');
             grid.appendChild(day);
         }
     }
