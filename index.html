@@ -15,7 +15,6 @@
         }
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
         
-        /* Header */
         .header {
             text-align: center;
             padding: 40px 20px 30px;
@@ -34,7 +33,6 @@
         .header .subtitle { color: #64748b; font-size: 1.05em; }
         .header .update-time { color: #94a3b8; font-size: 0.8em; margin-top: 10px; }
         
-        /* Stats */
         .stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -49,10 +47,7 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             border: 1px solid #e2e8f0;
         }
-        .stat-card .number {
-            font-size: 1.8em;
-            font-weight: bold;
-        }
+        .stat-card .number { font-size: 1.8em; font-weight: bold; }
         .stat-card:nth-child(1) .number { color: #3b82f6; }
         .stat-card:nth-child(2) .number { color: #10b981; }
         .stat-card:nth-child(3) .number { color: #f59e0b; }
@@ -60,7 +55,6 @@
         .stat-card:nth-child(5) .number { color: #ec4899; }
         .stat-card .label { color: #64748b; font-size: 0.85em; margin-top: 4px; }
         
-        /* Progress */
         .progress-section {
             background: white;
             border-radius: 12px;
@@ -75,7 +69,6 @@
         .progress-bar { width: 100%; height: 10px; background: #f1f5f9; border-radius: 5px; overflow: hidden; }
         .progress-fill { height: 100%; background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899); border-radius: 5px; transition: width 0.4s; }
         
-        /* Charts */
         .charts-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -92,7 +85,6 @@
         .chart-card h3 { color: #334155; font-size: 1em; margin-bottom: 15px; }
         .chart-container { position: relative; max-height: 250px; }
         
-        /* Contribution graph */
         .contribution-card {
             background: white;
             border-radius: 12px;
@@ -103,10 +95,9 @@
         }
         .contribution-card h3 { color: #334155; font-size: 1em; margin-bottom: 15px; }
         .contribution-grid {
-            display: grid;
-            grid-template-columns: repeat(53, 1fr);
+            display: flex;
+            flex-wrap: wrap;
             gap: 3px;
-            overflow-x: auto;
             padding-bottom: 10px;
         }
         .contribution-day {
@@ -132,7 +123,6 @@
         }
         .legend-box { width: 12px; height: 12px; border-radius: 2px; }
         
-        /* Filters */
         .filters {
             display: flex;
             flex-wrap: wrap;
@@ -155,7 +145,6 @@
         .filter-btn.active { background: #3b82f6; border-color: #3b82f6; color: white; }
         .filter-label { color: #94a3b8; font-size: 0.8em; align-self: center; }
         
-        /* Paper cards */
         .papers-grid { display: grid; gap: 14px; }
         .paper-card {
             background: white;
@@ -223,7 +212,6 @@
         .btn-add-link { background: #e0e7ff; color: #6366f1; border: 1px solid #c7d2fe; }
         .btn-add-link:hover { background: #c7d2fe; }
         
-        /* Add link input */
         .add-link-form {
             display: none;
             margin-top: 10px;
@@ -250,7 +238,6 @@
             font-size: 0.85em;
         }
         
-        /* Notes section */
         .notes-section {
             display: none;
             margin-top: 14px;
@@ -275,7 +262,6 @@
         }
         .note-field textarea:focus { outline: none; border-color: #f59e0b; }
         
-        /* Sync buttons */
         .sync-bar {
             display: flex;
             gap: 10px;
@@ -293,10 +279,8 @@
         }
         .btn-sync:hover { border-color: #3b82f6; color: #3b82f6; }
         
-        /* Empty */
         .empty-state { text-align: center; padding: 50px; color: #94a3b8; }
         
-        /* Responsive */
         @media (max-width: 768px) {
             .charts-row { grid-template-columns: 1fr; }
             .paper-meta { grid-template-columns: 1fr; }
@@ -394,6 +378,8 @@
     let customLinks = JSON.parse(localStorage.getItem('customArxivLinks') || '{}');
     let paperNotes = JSON.parse(localStorage.getItem('paperNotes') || '{}');
     let readingLog = JSON.parse(localStorage.getItem('readingLog') || '{}');
+    let startDate = localStorage.getItem('readingStartDate') || new Date().toISOString().split('T')[0];
+    localStorage.setItem('readingStartDate', startDate);
     let currentFilters = { status: 'all', category: 'all', priority: 'all' };
     let categoryChart = null;
     let weeklyChart = null;
@@ -500,11 +486,13 @@
         const grid = document.getElementById('contributionGrid');
         grid.innerHTML = '';
         const today = new Date();
-        const startDate = new Date(today);
-        startDate.setDate(startDate.getDate() - 364);
+        const start = new Date(startDate);
         
-        for (let i = 0; i < 365; i++) {
-            const date = new Date(startDate);
+        const diffTime = today - start;
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        
+        for (let i = 0; i <= diffDays; i++) {
+            const date = new Date(start);
             date.setDate(date.getDate() + i);
             const dateStr = date.toISOString().split('T')[0];
             const log = readingLog[dateStr] || { papers: 0, hours: 0 };
@@ -569,6 +557,11 @@
         }
     }
 
+    function toggleAddLink(id) {
+        const form = document.getElementById('add-link-form-' + id);
+        form.classList.toggle('show');
+    }
+
     function toggleNote(id) {
         const section = document.getElementById('notes-' + id);
         section.classList.toggle('show');
@@ -591,7 +584,6 @@
             return true;
         });
         
-        // Sort: unread first, then read
         filtered.sort((a, b) => {
             const aRead = readStatus[a.id] ? 1 : 0;
             const bRead = readStatus[b.id] ? 1 : 0;
@@ -610,7 +602,7 @@
             const arxivLink = customLinks[p.id] || p.arxivLink;
             const arxivBtn = arxivLink ? '<a href="' + arxivLink + '" target="_blank" class="btn btn-arxiv">arXiv</a>' : '';
             const addLinkForm = !p.arxivLink && !customLinks[p.id] ? 
-                '<button class="btn btn-add-link" onclick="document.getElementById('add-link-form-' + p.id + '').classList.add('show')">+ 添加arXiv链接</button>' +
+                '<button class="btn btn-add-link" onclick="toggleAddLink(' + p.id + ')">+ 添加arXiv链接</button>' +
                 '<div class="add-link-form" id="add-link-form-' + p.id + '">' +
                     '<input type="text" id="link-input-' + p.id + '" placeholder="输入arXiv链接">' +
                     '<button onclick="addArxivLink(' + p.id + ')">保存</button>' +
@@ -636,7 +628,7 @@
             const notesHtml = noteFields.map(f => 
                 '<div class="note-field">' +
                     '<label>' + f.label + '</label>' +
-                    '<textarea id="note-' + p.id + '-' + f.key + '" onblur="saveNote(' + p.id + ', '' + f.key + '')">' + (notes[f.key] || '') + '</textarea>' +
+                    '<textarea id="note-' + p.id + '-' + f.key + '" data-paper-id="' + p.id + '" data-field="' + f.key + '" onblur="saveNote(this.dataset.paperId, this.dataset.field)">' + (notes[f.key] || '') + '</textarea>' +
                 '</div>'
             ).join('');
             
@@ -676,7 +668,8 @@
             readStatus: readStatus,
             customLinks: customLinks,
             paperNotes: paperNotes,
-            readingLog: readingLog
+            readingLog: readingLog,
+            startDate: startDate
         };
         const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
         const a = document.createElement('a');
@@ -707,6 +700,10 @@
                 if (data.readingLog) {
                     readingLog = Object.assign(readingLog, data.readingLog);
                     localStorage.setItem('readingLog', JSON.stringify(readingLog));
+                }
+                if (data.startDate) {
+                    startDate = data.startDate;
+                    localStorage.setItem('readingStartDate', startDate);
                 }
                 updateStats();
                 renderPapers();
