@@ -9,8 +9,8 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #fefdf8;
-            color: #2d3748;
+            background: linear-gradient(135deg, #fef9f3 0%, #f0f9ff 100%);
+            color: #1e293b;
             min-height: 100vh;
         }
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
@@ -19,24 +19,22 @@
         .header {
             text-align: center;
             padding: 40px 20px 30px;
-            background: linear-gradient(135deg, #e8f4f8 0%, #fef9e7 50%, #fce7f3 100%);
-            border-bottom: 2px solid #e2e8f0;
+            background: linear-gradient(135deg, #fef3c7 0%, #dbeafe 50%, #fce7f3 100%);
+            border-radius: 16px;
             margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
         }
         .header h1 {
             font-size: 2.2em;
-            color: #4a90a4;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 8px;
         }
-        .header .subtitle { 
-            color: #7c9eb2; 
-            font-size: 1.1em; 
-            opacity: 0.9;
-            letter-spacing: 2px;
-        }
-        .header .update-time { color: #a0aec0; font-size: 0.8em; margin-top: 10px; }
+        .header .subtitle { color: #64748b; font-size: 1.05em; }
+        .header .update-time { color: #94a3b8; font-size: 0.8em; margin-top: 10px; }
         
-        /* Stats row */
+        /* Stats */
         .stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -44,150 +42,40 @@
             margin-bottom: 25px;
         }
         .stat-card {
-            background: linear-gradient(135deg, #ffffff, #f7fafc);
-            border: 2px solid #e2e8f0;
+            background: white;
             border-radius: 12px;
             padding: 18px 14px;
             text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
         }
         .stat-card .number {
             font-size: 1.8em;
             font-weight: bold;
-            color: #4a90a4;
         }
-        .stat-card .label { color: #718096; font-size: 0.85em; margin-top: 4px; }
+        .stat-card:nth-child(1) .number { color: #3b82f6; }
+        .stat-card:nth-child(2) .number { color: #10b981; }
+        .stat-card:nth-child(3) .number { color: #f59e0b; }
+        .stat-card:nth-child(4) .number { color: #8b5cf6; }
+        .stat-card:nth-child(5) .number { color: #ec4899; }
+        .stat-card .label { color: #64748b; font-size: 0.85em; margin-top: 4px; }
         
         /* Progress */
         .progress-section {
-            background: linear-gradient(135deg, #ffffff, #f7fafc);
-            border: 2px solid #e2e8f0;
+            background: white;
             border-radius: 12px;
             padding: 18px 20px;
             margin-bottom: 25px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
         }
         .progress-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
-        .progress-header span { color: #718096; font-size: 0.9em; }
-        .progress-header .pct { color: #4a90a4; font-weight: bold; }
-        .progress-bar { width: 100%; height: 10px; background: #e2e8f0; border-radius: 5px; overflow: hidden; }
-        .progress-fill { height: 100%; background: linear-gradient(90deg, #4a90a4, #7cc6d9); border-radius: 5px; transition: width 0.4s; }
+        .progress-header span { color: #64748b; font-size: 0.9em; }
+        .progress-header .pct { color: #3b82f6; font-weight: bold; }
+        .progress-bar { width: 100%; height: 10px; background: #f1f5f9; border-radius: 5px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899); border-radius: 5px; transition: width 0.4s; }
         
-        /* Daily reading input */
-        .daily-reading-section {
-            background: linear-gradient(135deg, #ffffff, #f7fafc);
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        }
-        .daily-reading-section h3 {
-            color: #4a90a4;
-            font-size: 1.1em;
-            margin-bottom: 15px;
-        }
-        .daily-input-row {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .daily-input-group {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .daily-input-group label {
-            color: #718096;
-            font-size: 0.9em;
-        }
-        .daily-input-group input {
-            padding: 8px 12px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 0.9em;
-            width: 120px;
-        }
-        .btn-save-daily {
-            padding: 8px 20px;
-            background: #4a90a4;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.9em;
-        }
-        .btn-save-daily:hover {
-            background: #3a7a8a;
-        }
-        
-        /* GitHub contribution graph */
-        .contribution-section {
-            background: linear-gradient(135deg, #ffffff, #f7fafc);
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        }
-        .contribution-section h3 {
-            color: #4a90a4;
-            font-size: 1.1em;
-            margin-bottom: 15px;
-        }
-        .contribution-graph {
-            display: flex;
-            gap: 3px;
-            overflow-x: auto;
-            padding: 10px 0;
-        }
-        .contribution-week {
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-        }
-        .contribution-day {
-            width: 14px;
-            height: 14px;
-            border-radius: 2px;
-            background: #ebedf0;
-            position: relative;
-            cursor: pointer;
-        }
-        .contribution-day.level-1 { background: #c6e48b; }
-        .contribution-day.level-2 { background: #7bc96f; }
-        .contribution-day.level-3 { background: #239a3b; }
-        .contribution-day.level-4 { background: #196127; }
-        .contribution-day:hover::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #2d3748;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            white-space: nowrap;
-            z-index: 10;
-        }
-        .contribution-legend {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 10px;
-            font-size: 0.85em;
-            color: #718096;
-        }
-        .legend-box {
-            width: 14px;
-            height: 14px;
-            border-radius: 2px;
-        }
-        
-        /* Charts section */
+        /* Charts */
         .charts-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -195,14 +83,54 @@
             margin-bottom: 25px;
         }
         .chart-card {
-            background: linear-gradient(135deg, #ffffff, #f7fafc);
-            border: 2px solid #e2e8f0;
+            background: white;
             border-radius: 12px;
             padding: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
         }
-        .chart-card h3 { color: #4a90a4; font-size: 1em; margin-bottom: 15px; }
-        .chart-container { position: relative; max-height: 280px; }
+        .chart-card h3 { color: #334155; font-size: 1em; margin-bottom: 15px; }
+        .chart-container { position: relative; max-height: 250px; }
+        
+        /* Contribution graph */
+        .contribution-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+        .contribution-card h3 { color: #334155; font-size: 1em; margin-bottom: 15px; }
+        .contribution-grid {
+            display: grid;
+            grid-template-columns: repeat(53, 1fr);
+            gap: 3px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        .contribution-day {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            background: #f1f5f9;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .contribution-day:hover { transform: scale(1.3); }
+        .contribution-day.level-1 { background: #bfdbfe; }
+        .contribution-day.level-2 { background: #60a5fa; }
+        .contribution-day.level-3 { background: #3b82f6; }
+        .contribution-day.level-4 { background: #1d4ed8; }
+        .contribution-legend {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 10px;
+            font-size: 0.8em;
+            color: #64748b;
+        }
+        .legend-box { width: 12px; height: 12px; border-radius: 2px; }
         
         /* Filters */
         .filters {
@@ -215,61 +143,39 @@
         .filter-group { display: flex; gap: 6px; flex-wrap: wrap; }
         .filter-btn {
             padding: 6px 14px;
-            border: 2px solid #e2e8f0;
+            border: 1px solid #e2e8f0;
             background: white;
-            color: #718096;
+            color: #64748b;
             border-radius: 8px;
             cursor: pointer;
             font-size: 0.85em;
             transition: all 0.2s;
         }
-        .filter-btn:hover { border-color: #4a90a4; color: #4a90a4; }
-        .filter-btn.active { background: #4a90a4; border-color: #4a90a4; color: white; }
-        .filter-label { color: #a0aec0; font-size: 0.8em; align-self: center; }
-        
-        /* Week tabs */
-        .week-tabs {
-            display: flex;
-            gap: 6px;
-            margin-bottom: 20px;
-            overflow-x: auto;
-            padding-bottom: 5px;
-        }
-        .week-tab {
-            padding: 7px 14px;
-            background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            cursor: pointer;
-            white-space: nowrap;
-            font-size: 0.85em;
-            color: #718096;
-            transition: all 0.2s;
-        }
-        .week-tab:hover { border-color: #4a90a4; color: #4a90a4; }
-        .week-tab.active { background: #4a90a4; border-color: #4a90a4; color: white; }
+        .filter-btn:hover { border-color: #3b82f6; color: #3b82f6; }
+        .filter-btn.active { background: #3b82f6; border-color: #3b82f6; color: white; }
+        .filter-label { color: #94a3b8; font-size: 0.8em; align-self: center; }
         
         /* Paper cards */
         .papers-grid { display: grid; gap: 14px; }
         .paper-card {
-            background: linear-gradient(135deg, #ffffff, #f7fafc);
-            border: 2px solid #e2e8f0;
+            background: white;
+            border: 1px solid #e2e8f0;
             border-radius: 12px;
             padding: 18px 20px;
             transition: all 0.2s;
             position: relative;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
-        .paper-card:hover { border-color: #4a90a4; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(74,144,164,0.15); }
-        .paper-card.read { opacity: 0.6; border-color: #a8d8a8; }
-        .paper-card.read .paper-title { text-decoration: line-through; color: #a0aec0; }
+        .paper-card:hover { border-color: #3b82f6; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(59,130,246,0.1); }
+        .paper-card.read { opacity: 0.6; }
+        .paper-card.read .paper-title { text-decoration: line-through; color: #94a3b8; }
         .paper-card .read-badge {
             display: none;
             position: absolute;
             top: 14px;
             right: 16px;
-            background: #a8d8a8;
-            color: #2d5a2d;
+            background: #d1fae5;
+            color: #059669;
             padding: 3px 10px;
             border-radius: 6px;
             font-size: 0.75em;
@@ -278,22 +184,22 @@
         .paper-card.read .read-badge { display: block; }
         
         .paper-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
-        .paper-title { font-size: 1.05em; font-weight: 600; color: #2d3748; flex: 1; line-height: 1.4; }
+        .paper-title { font-size: 1.05em; font-weight: 600; color: #1e293b; flex: 1; line-height: 1.4; }
         .paper-badges { display: flex; gap: 6px; flex-wrap: wrap; flex-shrink: 0; }
         .badge { padding: 3px 9px; border-radius: 6px; font-size: 0.72em; font-weight: 500; white-space: nowrap; }
-        .badge-p1 { background: #fed7d7; color: #c53030; }
-        .badge-p2 { background: #fef3c7; color: #b7791f; }
-        .badge-p3 { background: #e9d8fd; color: #6b46c1; }
-        .badge-method { background: #bee3f8; color: #2b6cb0; }
-        .badge-cat { background: #c6f6d5; color: #276749; }
-        .badge-hours { background: #fed7e2; color: #b83280; }
+        .badge-p1 { background: #fee2e2; color: #dc2626; }
+        .badge-p2 { background: #fef3c7; color: #d97706; }
+        .badge-p3 { background: #e0e7ff; color: #6366f1; }
+        .badge-method { background: #dbeafe; color: #2563eb; }
+        .badge-cat { background: #fce7f3; color: #db2777; }
+        .badge-hours { background: #d1fae5; color: #059669; }
         
         .paper-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
-        .meta-item { background: #f7fafc; padding: 10px 12px; border-radius: 8px; border: 1px solid #e2e8f0; }
-        .meta-label { font-size: 0.72em; color: #a0aec0; margin-bottom: 3px; }
-        .meta-value { font-size: 0.85em; color: #4a5568; line-height: 1.4; }
+        .meta-item { background: #f8fafc; padding: 10px 12px; border-radius: 8px; border: 1px solid #e2e8f0; }
+        .meta-label { font-size: 0.72em; color: #94a3b8; margin-bottom: 3px; }
+        .meta-value { font-size: 0.85em; color: #475569; line-height: 1.4; }
         
-        .paper-actions { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; }
+        .paper-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
         .btn {
             padding: 7px 14px;
             border-radius: 8px;
@@ -307,49 +213,67 @@
             align-items: center;
             gap: 5px;
         }
-        .btn-arxiv { background: #e53e3e; color: white; }
-        .btn-arxiv:hover { background: #c53030; }
-        .btn-read { background: #bee3f8; color: #2b6cb0; border: 2px solid #90cdf4; }
-        .btn-read:hover { background: #90cdf4; }
-        .btn-read.is-read { background: #a8d8a8; color: #2d5a2d; border-color: #7bc96f; }
-        .btn-notes { background: #fef3c7; color: #b7791f; border: 2px solid #fbd38d; }
-        .btn-notes:hover { background: #fbd38d; }
+        .btn-arxiv { background: #dc2626; color: white; }
+        .btn-arxiv:hover { background: #b91c1c; }
+        .btn-read { background: #f1f5f9; color: #64748b; border: 1px solid #e2e8f0; }
+        .btn-read:hover { border-color: #10b981; color: #10b981; }
+        .btn-read.is-read { background: #d1fae5; color: #059669; border-color: #10b981; }
+        .btn-note { background: #fef3c7; color: #d97706; border: 1px solid #fde68a; }
+        .btn-note:hover { background: #fde68a; }
+        .btn-add-link { background: #e0e7ff; color: #6366f1; border: 1px solid #c7d2fe; }
+        .btn-add-link:hover { background: #c7d2fe; }
         
-        /* Notes section */
-        .notes-section {
-            margin-top: 12px;
-            padding: 12px;
-            background: #fffef5;
-            border: 1px solid #fbd38d;
-            border-radius: 8px;
+        /* Add link input */
+        .add-link-form {
             display: none;
-        }
-        .notes-section.show { display: block; }
-        .notes-section textarea {
-            width: 100%;
-            min-height: 100px;
+            margin-top: 10px;
             padding: 10px;
+            background: #f8fafc;
+            border-radius: 8px;
             border: 1px solid #e2e8f0;
+        }
+        .add-link-form.show { display: flex; gap: 8px; align-items: center; }
+        .add-link-form input {
+            flex: 1;
+            padding: 6px 10px;
+            border: 1px solid #cbd5e1;
             border-radius: 6px;
-            font-family: inherit;
-            font-size: 0.9em;
-            resize: vertical;
+            font-size: 0.85em;
         }
-        .notes-section .notes-actions {
-            display: flex;
-            gap: 8px;
-            margin-top: 8px;
-        }
-        .btn-save-notes {
-            padding: 6px 14px;
-            background: #4a90a4;
+        .add-link-form button {
+            padding: 6px 12px;
+            background: #3b82f6;
             color: white;
             border: none;
             border-radius: 6px;
             cursor: pointer;
             font-size: 0.85em;
         }
-        .btn-save-notes:hover { background: #3a7a8a; }
+        
+        /* Notes section */
+        .notes-section {
+            display: none;
+            margin-top: 14px;
+            padding: 14px;
+            background: #fffbeb;
+            border-radius: 8px;
+            border: 1px solid #fde68a;
+        }
+        .notes-section.show { display: block; }
+        .notes-section h4 { color: #d97706; font-size: 0.9em; margin-bottom: 10px; }
+        .note-field { margin-bottom: 10px; }
+        .note-field label { display: block; font-size: 0.75em; color: #92400e; margin-bottom: 4px; }
+        .note-field textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #fde68a;
+            border-radius: 6px;
+            font-size: 0.85em;
+            resize: vertical;
+            min-height: 60px;
+            font-family: inherit;
+        }
+        .note-field textarea:focus { outline: none; border-color: #f59e0b; }
         
         /* Sync buttons */
         .sync-bar {
@@ -361,16 +285,16 @@
         .btn-sync {
             padding: 7px 14px;
             background: white;
-            color: #4a90a4;
-            border: 2px solid #4a90a4;
+            color: #64748b;
+            border: 1px solid #e2e8f0;
             border-radius: 8px;
             cursor: pointer;
             font-size: 0.82em;
         }
-        .btn-sync:hover { background: #4a90a4; color: white; }
+        .btn-sync:hover { border-color: #3b82f6; color: #3b82f6; }
         
         /* Empty */
-        .empty-state { text-align: center; padding: 50px; color: #a0aec0; }
+        .empty-state { text-align: center; padding: 50px; color: #94a3b8; }
         
         /* Responsive */
         @media (max-width: 768px) {
@@ -381,18 +305,18 @@
         }
         
         ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #f7fafc; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e0; border-radius: 3px; }
+        ::-webkit-scrollbar-track { background: #f8fafc; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Kyle Zhu的论文阅读</h1>
-        <p class="subtitle">具身智能，灵巧手</p>
-        <p class="update-time" id="updateTime"></p>
-    </div>
-    
     <div class="container">
+        <div class="header">
+            <h1>Kyle Zhu的论文阅读</h1>
+            <p class="subtitle">具身智能，灵巧手</p>
+            <p class="update-time" id="updateTime"></p>
+        </div>
+        
         <div class="stats">
             <div class="stat-card"><div class="number" id="totalPapers">-</div><div class="label">论文总数</div></div>
             <div class="stat-card"><div class="number" id="readCount">0</div><div class="label">已读</div></div>
@@ -409,35 +333,16 @@
             <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
         </div>
         
-        <div class="daily-reading-section">
-            <h3>📊 今日阅读记录</h3>
-            <div class="daily-input-row">
-                <div class="daily-input-group">
-                    <label>日期：</label>
-                    <input type="date" id="dailyDate">
-                </div>
-                <div class="daily-input-group">
-                    <label>阅读论文数：</label>
-                    <input type="number" id="dailyPapers" min="0" value="0">
-                </div>
-                <div class="daily-input-group">
-                    <label>阅读时间(小时)：</label>
-                    <input type="number" id="dailyHours" min="0" step="0.5" value="0">
-                </div>
-                <button class="btn-save-daily" onclick="saveDailyReading()">保存今日记录</button>
-            </div>
-        </div>
-        
-        <div class="contribution-section">
-            <h3>📅 阅读贡献图（最近 90 天）</h3>
-            <div class="contribution-graph" id="contributionGraph"></div>
+        <div class="contribution-card">
+            <h3>每日阅读记录</h3>
+            <div class="contribution-grid" id="contributionGrid"></div>
             <div class="contribution-legend">
                 <span>少</span>
-                <div class="legend-box" style="background: #ebedf0;"></div>
-                <div class="legend-box" style="background: #c6e48b;"></div>
-                <div class="legend-box" style="background: #7bc96f;"></div>
-                <div class="legend-box" style="background: #239a3b;"></div>
-                <div class="legend-box" style="background: #196127;"></div>
+                <div class="legend-box" style="background:#f1f5f9"></div>
+                <div class="legend-box" style="background:#bfdbfe"></div>
+                <div class="legend-box" style="background:#60a5fa"></div>
+                <div class="legend-box" style="background:#3b82f6"></div>
+                <div class="legend-box" style="background:#1d4ed8"></div>
                 <span>多</span>
             </div>
         </div>
@@ -448,7 +353,7 @@
                 <div class="chart-container"><canvas id="categoryPie"></canvas></div>
             </div>
             <div class="chart-card">
-                <h3>最近 7 天阅读统计</h3>
+                <h3>阅读统计</h3>
                 <div class="chart-container"><canvas id="weeklyBar"></canvas></div>
             </div>
         </div>
@@ -479,18 +384,6 @@
             </div>
         </div>
         
-        <div class="week-tabs" id="weekTabs">
-            <div class="week-tab active" data-week="all">全部</div>
-            <div class="week-tab" data-week="第1周">第1周</div>
-            <div class="week-tab" data-week="第2周">第2周</div>
-            <div class="week-tab" data-week="第3周">第3周</div>
-            <div class="week-tab" data-week="第4周">第4周</div>
-            <div class="week-tab" data-week="第5周">第5周</div>
-            <div class="week-tab" data-week="第6周">第6周</div>
-            <div class="week-tab" data-week="第7周">第7周</div>
-            <div class="week-tab" data-week="第8周">第8周</div>
-        </div>
-        
         <div class="papers-grid" id="papersGrid"></div>
     </div>
 
@@ -498,14 +391,12 @@
     let papersData = [];
     let categoriesData = {};
     let readStatus = JSON.parse(localStorage.getItem('paperReadStatus') || '{}');
+    let customLinks = JSON.parse(localStorage.getItem('customArxivLinks') || '{}');
     let paperNotes = JSON.parse(localStorage.getItem('paperNotes') || '{}');
-    let dailyReading = JSON.parse(localStorage.getItem('dailyReading') || '{}');
-    let currentFilters = { status: 'all', category: 'all', priority: 'all', week: 'all' };
+    let readingLog = JSON.parse(localStorage.getItem('readingLog') || '{}');
+    let currentFilters = { status: 'all', category: 'all', priority: 'all' };
     let categoryChart = null;
     let weeklyChart = null;
-
-    // Set today's date as default
-    document.getElementById('dailyDate').valueAsDate = new Date();
 
     async function loadData() {
         const resp = await fetch('data.json?t=' + Date.now());
@@ -517,7 +408,6 @@
         document.getElementById('totalPapers').textContent = data.overview.totalPapers;
         document.getElementById('totalHours').textContent = data.overview.totalHours + 'h';
         
-        // Build category filter buttons
         const catFilter = document.getElementById('categoryFilter');
         Object.keys(categoriesData).forEach(cat => {
             const btn = document.createElement('button');
@@ -527,7 +417,6 @@
             catFilter.appendChild(btn);
         });
         
-        // Re-attach filter listeners
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 const group = this.parentElement;
@@ -540,178 +429,121 @@
             });
         });
         
-        document.querySelectorAll('.week-tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                document.querySelectorAll('.week-tab').forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
-                currentFilters.week = this.dataset.week;
-                renderPapers();
-            });
-        });
-        
         renderCharts();
+        renderContribution();
         updateStats();
         renderPapers();
-        renderContributionGraph();
     }
 
     function renderCharts() {
-        // Pie chart - category distribution with percentages
         const catLabels = Object.keys(categoriesData);
         const catCounts = catLabels.map(c => categoriesData[c].count);
-        const total = catCounts.reduce((a, b) => a + b, 0);
-        const catColors = ['#7cc6d9', '#f9d56e', '#a8d8a8', '#f8b4b4', '#c3aed6', '#f6c299', '#95e1d3', '#f38ba8', '#b8e0d2'];
+        const catColors = ['#3b82f6','#f59e0b','#10b981','#ec4899','#8b5cf6','#06b6d4','#f97316','#84cc16','#e11d48'];
         
         if (categoryChart) categoryChart.destroy();
         categoryChart = new Chart(document.getElementById('categoryPie'), {
             type: 'doughnut',
             data: {
-                labels: catLabels.map((label, i) => `${label} (${catCounts[i]}篇, ${Math.round(catCounts[i]/total*100)}%)`),
-                datasets: [{ data: catCounts, backgroundColor: catColors, borderColor: '#ffffff', borderWidth: 3 }]
+                labels: catLabels,
+                datasets: [{ data: catCounts, backgroundColor: catColors, borderColor: 'white', borderWidth: 2 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { 
-                        position: 'right', 
-                        labels: { color: '#4a5568', font: { size: 11 }, padding: 10 } 
+                    legend: { position: 'right', labels: { color: '#64748b', font: { size: 11 }, padding: 8 } },
+                    tooltip: {
+                        callbacks: {
+                            label: function(ctx) {
+                                const total = ctx.dataset.data.reduce((a,b) => a+b, 0);
+                                const pct = ((ctx.parsed / total) * 100).toFixed(1);
+                                return ctx.label + ': ' + ctx.parsed + ' (' + pct + '%)';
+                            }
+                        }
                     }
                 }
             }
         });
         
-        // Bar chart - last 7 days reading
-        const today = new Date();
-        const last7Days = [];
-        const last7Papers = [];
-        const last7Hours = [];
-        
-        for (let i = 6; i >= 0; i--) {
-            const date = new Date(today);
-            date.setDate(date.getDate() - i);
-            const dateStr = date.toISOString().split('T')[0];
-            last7Days.push(dateStr.slice(5)); // MM-DD
-            last7Papers.push(dailyReading[dateStr]?.papers || 0);
-            last7Hours.push(dailyReading[dateStr]?.hours || 0);
-        }
+        const weekLabels = ['第1周','第2周','第3周','第4周','第5周','第6周','第7周','第8周'];
+        const weekData = weekLabels.map(w => {
+            const papers = papersData.filter(p => p.week === w && readStatus[p.id]);
+            return papers.length;
+        });
         
         if (weeklyChart) weeklyChart.destroy();
         weeklyChart = new Chart(document.getElementById('weeklyBar'), {
             type: 'bar',
             data: {
-                labels: last7Days,
-                datasets: [
-                    { label: '论文数', data: last7Papers, backgroundColor: '#7cc6d988', borderColor: '#4a90a4', borderWidth: 2, yAxisID: 'y' },
-                    { label: '阅读时间(h)', data: last7Hours, backgroundColor: '#f9d56e88', borderColor: '#f6c299', borderWidth: 2, yAxisID: 'y1' }
-                ]
+                labels: weekLabels,
+                datasets: [{
+                    label: '已读论文数',
+                    data: weekData,
+                    backgroundColor: '#3b82f688',
+                    borderColor: '#3b82f6',
+                    borderWidth: 1
+                }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: { legend: { labels: { color: '#4a5568', font: { size: 11 } } } },
+                plugins: { legend: { labels: { color: '#64748b' } } },
                 scales: {
-                    x: { ticks: { color: '#718096' }, grid: { color: '#e2e8f033' } },
-                    y: { position: 'left', ticks: { color: '#4a90a4' }, grid: { color: '#e2e8f033' }, title: { display: true, text: '论文数', color: '#4a90a4' } },
-                    y1: { position: 'right', ticks: { color: '#f6c299' }, grid: { display: false }, title: { display: true, text: '小时', color: '#f6c299' } }
+                    x: { ticks: { color: '#64748b' }, grid: { color: '#f1f5f9' } },
+                    y: { ticks: { color: '#64748b' }, grid: { color: '#f1f5f9' }, beginAtZero: true }
                 }
             }
         });
     }
 
-    function renderContributionGraph() {
-        const graph = document.getElementById('contributionGraph');
-        graph.innerHTML = '';
-        
+    function renderContribution() {
+        const grid = document.getElementById('contributionGrid');
+        grid.innerHTML = '';
         const today = new Date();
         const startDate = new Date(today);
-        startDate.setDate(startDate.getDate() - 89); // 90 days
+        startDate.setDate(startDate.getDate() - 364);
         
-        // Group by weeks
-        const weeks = [];
-        let currentWeek = [];
-        
-        for (let i = 0; i < 90; i++) {
+        for (let i = 0; i < 365; i++) {
             const date = new Date(startDate);
             date.setDate(date.getDate() + i);
             const dateStr = date.toISOString().split('T')[0];
-            const reading = dailyReading[dateStr];
-            const hours = reading?.hours || 0;
+            const log = readingLog[dateStr] || { papers: 0, hours: 0 };
             
-            let level = 0;
-            if (hours > 0) level = 1;
-            if (hours >= 1) level = 2;
-            if (hours >= 2) level = 3;
-            if (hours >= 3) level = 4;
-            
-            currentWeek.push({ date: dateStr, hours, level, dayOfWeek: date.getDay() });
-            
-            if (date.getDay() === 0 || i === 89) { // End of week or last day
-                weeks.push(currentWeek);
-                currentWeek = [];
+            const day = document.createElement('div');
+            day.className = 'contribution-day';
+            if (log.hours > 0) {
+                if (log.hours < 1) day.classList.add('level-1');
+                else if (log.hours < 2) day.classList.add('level-2');
+                else if (log.hours < 4) day.classList.add('level-3');
+                else day.classList.add('level-4');
             }
+            day.title = dateStr + ': ' + log.papers + '篇, ' + log.hours + 'h';
+            grid.appendChild(day);
         }
-        
-        weeks.forEach(week => {
-            const weekDiv = document.createElement('div');
-            weekDiv.className = 'contribution-week';
-            
-            // Pad to 7 days
-            while (week.length < 7) {
-                week.unshift({ date: '', hours: 0, level: 0, dayOfWeek: -1 });
-            }
-            
-            week.forEach(day => {
-                const dayDiv = document.createElement('div');
-                dayDiv.className = 'contribution-day';
-                if (day.level > 0) {
-                    dayDiv.classList.add('level-' + day.level);
-                }
-                if (day.date) {
-                    dayDiv.setAttribute('data-tooltip', `${day.date}: ${day.hours}小时`);
-                }
-                weekDiv.appendChild(dayDiv);
-            });
-            
-            graph.appendChild(weekDiv);
-        });
     }
 
-    function saveDailyReading() {
-        const date = document.getElementById('dailyDate').value;
-        const papers = parseInt(document.getElementById('dailyPapers').value) || 0;
-        const hours = parseFloat(document.getElementById('dailyHours').value) || 0;
-        
-        if (!date) {
-            alert('请选择日期');
-            return;
-        }
-        
-        dailyReading[date] = { papers, hours };
-        localStorage.setItem('dailyReading', JSON.stringify(dailyReading));
-        
-        alert('保存成功！');
-        renderContributionGraph();
-        renderCharts();
+    function logReading(paperId, hours) {
+        const today = new Date().toISOString().split('T')[0];
+        if (!readingLog[today]) readingLog[today] = { papers: 0, hours: 0 };
+        readingLog[today].papers += 1;
+        readingLog[today].hours += hours;
+        localStorage.setItem('readingLog', JSON.stringify(readingLog));
+        renderContribution();
     }
 
     function toggleRead(id) {
+        const wasRead = readStatus[id];
         readStatus[id] = !readStatus[id];
         localStorage.setItem('paperReadStatus', JSON.stringify(readStatus));
+        
+        if (!wasRead) {
+            const paper = papersData.find(p => p.id === id);
+            if (paper) logReading(id, paper.hours);
+        }
+        
         updateStats();
         renderPapers();
-    }
-
-    function toggleNotes(id) {
-        const notesSection = document.getElementById('notes-' + id);
-        notesSection.classList.toggle('show');
-    }
-
-    function saveNotes(id) {
-        const textarea = document.getElementById('notes-textarea-' + id);
-        paperNotes[id] = textarea.value;
-        localStorage.setItem('paperNotes', JSON.stringify(paperNotes));
-        alert('笔记已保存！');
+        renderCharts();
     }
 
     function updateStats() {
@@ -727,6 +559,28 @@
         document.getElementById('progressFill').style.width = progress + '%';
     }
 
+    function addArxivLink(id) {
+        const input = document.getElementById('link-input-' + id);
+        const url = input.value.trim();
+        if (url && (url.includes('arxiv.org') || url.startsWith('http'))) {
+            customLinks[id] = url;
+            localStorage.setItem('customArxivLinks', JSON.stringify(customLinks));
+            renderPapers();
+        }
+    }
+
+    function toggleNote(id) {
+        const section = document.getElementById('notes-' + id);
+        section.classList.toggle('show');
+    }
+
+    function saveNote(id, field) {
+        const textarea = document.getElementById('note-' + id + '-' + field);
+        if (!paperNotes[id]) paperNotes[id] = {};
+        paperNotes[id][field] = textarea.value;
+        localStorage.setItem('paperNotes', JSON.stringify(paperNotes));
+    }
+
     function renderPapers() {
         const grid = document.getElementById('papersGrid');
         let filtered = papersData.filter(p => {
@@ -734,8 +588,14 @@
             if (currentFilters.status === 'unread' && readStatus[p.id]) return false;
             if (currentFilters.category !== 'all' && p.category !== currentFilters.category) return false;
             if (currentFilters.priority !== 'all' && p.priority !== parseInt(currentFilters.priority)) return false;
-            if (currentFilters.week !== 'all' && p.week !== currentFilters.week) return false;
             return true;
+        });
+        
+        // Sort: unread first, then read
+        filtered.sort((a, b) => {
+            const aRead = readStatus[a.id] ? 1 : 0;
+            const bRead = readStatus[b.id] ? 1 : 0;
+            return aRead - bRead;
         });
         
         if (!filtered.length) {
@@ -747,8 +607,38 @@
             const isRead = readStatus[p.id];
             const pClass = p.priority === 1 ? 'badge-p1' : p.priority === 2 ? 'badge-p2' : 'badge-p3';
             const pText = p.priority === 1 ? 'P1 必读' : p.priority === 2 ? 'P2 重要' : 'P3 选读';
-            const arxivBtn = p.arxivLink ? '<a href="' + p.arxivLink + '" target="_blank" class="btn btn-arxiv">arXiv</a>' : '';
-            const notes = paperNotes[p.id] || '';
+            const arxivLink = customLinks[p.id] || p.arxivLink;
+            const arxivBtn = arxivLink ? '<a href="' + arxivLink + '" target="_blank" class="btn btn-arxiv">arXiv</a>' : '';
+            const addLinkForm = !p.arxivLink && !customLinks[p.id] ? 
+                '<button class="btn btn-add-link" onclick="document.getElementById('add-link-form-' + p.id + '').classList.add('show')">+ 添加arXiv链接</button>' +
+                '<div class="add-link-form" id="add-link-form-' + p.id + '">' +
+                    '<input type="text" id="link-input-' + p.id + '" placeholder="输入arXiv链接">' +
+                    '<button onclick="addArxivLink(' + p.id + ')">保存</button>' +
+                '</div>' : '';
+            
+            const notes = paperNotes[p.id] || {};
+            const noteFields = [
+                {key: 'question', label: '一句话问题'},
+                {key: 'io', label: '核心输入/输出'},
+                {key: 'pipeline', label: '方法pipeline'},
+                {key: 'action', label: '动作空间'},
+                {key: 'obs', label: '观测空间'},
+                {key: 'training', label: '训练方式'},
+                {key: 'data', label: '数据/物体/手型'},
+                {key: 'metrics', label: '成功判据与指标'},
+                {key: 'innovation', label: '最关键创新'},
+                {key: 'limitation', label: '最大局限'},
+                {key: 'relation', label: '与我的课题关系'},
+                {key: 'code', label: '可复现代码位置'},
+                {key: 'summary', label: '五句话总结'}
+            ];
+            
+            const notesHtml = noteFields.map(f => 
+                '<div class="note-field">' +
+                    '<label>' + f.label + '</label>' +
+                    '<textarea id="note-' + p.id + '-' + f.key + '" onblur="saveNote(' + p.id + ', '' + f.key + '')">' + (notes[f.key] || '') + '</textarea>' +
+                '</div>'
+            ).join('');
             
             return '<div class="paper-card ' + (isRead ? 'read' : '') + '">' +
                 '<span class="read-badge">已读</span>' +
@@ -770,26 +660,25 @@
                     '<button class="btn btn-read ' + (isRead ? 'is-read' : '') + '" onclick="toggleRead(' + p.id + ')">' +
                         (isRead ? '✓ 已读' : '标记已读') +
                     '</button>' +
-                    '<button class="btn btn-notes" onclick="toggleNotes(' + p.id + ')">📝 阅读笔记</button>' +
+                    '<button class="btn btn-note" onclick="toggleNote(' + p.id + ')">📝 笔记</button>' +
+                    addLinkForm +
                 '</div>' +
                 '<div class="notes-section" id="notes-' + p.id + '">' +
-                    '<textarea id="notes-textarea-' + p.id + '" placeholder="在此记录阅读笔记...">' + notes + '</textarea>' +
-                    '<div class="notes-actions">' +
-                        '<button class="btn-save-notes" onclick="saveNotes(' + p.id + ')">保存笔记</button>' +
-                    '</div>' +
+                    '<h4>阅读笔记</h4>' +
+                    notesHtml +
                 '</div>' +
             '</div>';
         }).join('');
     }
 
     function exportStatus() {
-        const exportData = {
-            readStatus,
-            paperNotes,
-            dailyReading,
-            exportDate: new Date().toISOString()
+        const data = {
+            readStatus: readStatus,
+            customLinks: customLinks,
+            paperNotes: paperNotes,
+            readingLog: readingLog
         };
-        const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
         a.download = 'paper-reading-data.json';
@@ -802,17 +691,27 @@
         const reader = new FileReader();
         reader.onload = function(e) {
             try {
-                const imported = JSON.parse(e.target.result);
-                if (imported.readStatus) readStatus = Object.assign(readStatus, imported.readStatus);
-                if (imported.paperNotes) paperNotes = Object.assign(paperNotes, imported.paperNotes);
-                if (imported.dailyReading) dailyReading = Object.assign(dailyReading, imported.dailyReading);
-                localStorage.setItem('paperReadStatus', JSON.stringify(readStatus));
-                localStorage.setItem('paperNotes', JSON.stringify(paperNotes));
-                localStorage.setItem('dailyReading', JSON.stringify(dailyReading));
+                const data = JSON.parse(e.target.result);
+                if (data.readStatus) {
+                    readStatus = Object.assign(readStatus, data.readStatus);
+                    localStorage.setItem('paperReadStatus', JSON.stringify(readStatus));
+                }
+                if (data.customLinks) {
+                    customLinks = Object.assign(customLinks, data.customLinks);
+                    localStorage.setItem('customArxivLinks', JSON.stringify(customLinks));
+                }
+                if (data.paperNotes) {
+                    paperNotes = Object.assign(paperNotes, data.paperNotes);
+                    localStorage.setItem('paperNotes', JSON.stringify(paperNotes));
+                }
+                if (data.readingLog) {
+                    readingLog = Object.assign(readingLog, data.readingLog);
+                    localStorage.setItem('readingLog', JSON.stringify(readingLog));
+                }
                 updateStats();
                 renderPapers();
-                renderContributionGraph();
                 renderCharts();
+                renderContribution();
                 alert('导入成功！');
             } catch(err) {
                 alert('导入失败：文件格式错误');
