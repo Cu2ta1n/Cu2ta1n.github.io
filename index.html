@@ -125,10 +125,14 @@
         
         .filters {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
             gap: 12px;
             margin-bottom: 20px;
+        }
+        .filter-row {
+            display: flex;
             align-items: center;
+            gap: 12px;
         }
         .filter-group { display: flex; gap: 6px; flex-wrap: wrap; }
         .filter-btn {
@@ -353,27 +357,35 @@
         </div>
         
         <div class="filters">
-            <span class="filter-label">状态</span>
-            <div class="filter-group" id="statusFilter">
-                <button class="filter-btn active" data-status="all">全部</button>
-                <button class="filter-btn" data-status="unread">待读</button>
-                <button class="filter-btn" data-status="read">已读</button>
+            <div class="filter-row">
+                <span class="filter-label">状态</span>
+                <div class="filter-group" id="statusFilter">
+                    <button class="filter-btn active" data-status="all">全部</button>
+                    <button class="filter-btn" data-status="unread">待读</button>
+                    <button class="filter-btn" data-status="read">已读</button>
+                </div>
             </div>
-            <span class="filter-label">收藏</span>
-            <div class="filter-group" id="favoriteFilter">
-                <button class="filter-btn active" data-favorite="all">全部</button>
-                <button class="filter-btn" data-favorite="yes">已收藏</button>
+            <div class="filter-row">
+                <span class="filter-label">收藏</span>
+                <div class="filter-group" id="favoriteFilter">
+                    <button class="filter-btn active" data-favorite="all">全部</button>
+                    <button class="filter-btn" data-favorite="yes">已收藏</button>
+                </div>
             </div>
-            <span class="filter-label">类别</span>
-            <div class="filter-group" id="categoryFilter">
-                <button class="filter-btn active" data-category="all">全部</button>
+            <div class="filter-row">
+                <span class="filter-label">类别</span>
+                <div class="filter-group" id="categoryFilter">
+                    <button class="filter-btn active" data-category="all">全部</button>
+                </div>
             </div>
-            <span class="filter-label">优先级</span>
-            <div class="filter-group" id="priorityFilter">
-                <button class="filter-btn active" data-priority="all">全部</button>
-                <button class="filter-btn" data-priority="1">P1 必读</button>
-                <button class="filter-btn" data-priority="2">P2 重要</button>
-                <button class="filter-btn" data-priority="3">P3 选读</button>
+            <div class="filter-row">
+                <span class="filter-label">优先级</span>
+                <div class="filter-group" id="priorityFilter">
+                    <button class="filter-btn active" data-priority="all">全部</button>
+                    <button class="filter-btn" data-priority="1">P1 必读</button>
+                    <button class="filter-btn" data-priority="2">P2 重要</button>
+                    <button class="filter-btn" data-priority="3">P3 选读</button>
+                </div>
             </div>
         </div>
         
