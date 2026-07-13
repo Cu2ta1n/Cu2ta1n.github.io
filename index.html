@@ -207,6 +207,9 @@
         .btn-read { background: #f1f5f9; color: #64748b; border: 1px solid #e2e8f0; }
         .btn-read:hover { border-color: #10b981; color: #10b981; }
         .btn-read.is-read { background: #d1fae5; color: #059669; border-color: #10b981; }
+        .btn-favorite { background: #f1f5f9; color: #64748b; border: 1px solid #e2e8f0; }
+        .btn-favorite:hover { border-color: #fbbf24; color: #fbbf24; }
+        .btn-favorite.is-favorite { background: #fef3c7; color: #d97706; border-color: #fbbf24; }
         .btn-note { background: #fef3c7; color: #d97706; border: 1px solid #fde68a; }
         .btn-note:hover { background: #fde68a; }
         .btn-add-link { background: #e0e7ff; color: #6366f1; border: 1px solid #c7d2fe; }
@@ -345,6 +348,7 @@
         <div class="sync-bar">
             <button class="btn-sync" onclick="exportStatus()">导出已读状态</button>
             <button class="btn-sync" onclick="document.getElementById('importFile').click()">导入已读状态</button>
+            <button class="btn-sync" onclick="resetTodayReadingTime()">清零今日阅读时间</button>
             <input type="file" id="importFile" accept=".json" style="display:none" onchange="importStatus(event)">
         </div>
         
@@ -354,6 +358,11 @@
                 <button class="filter-btn active" data-status="all">全部</button>
                 <button class="filter-btn" data-status="unread">待读</button>
                 <button class="filter-btn" data-status="read">已读</button>
+            </div>
+            <span class="filter-label">收藏</span>
+            <div class="filter-group" id="favoriteFilter">
+                <button class="filter-btn active" data-favorite="all">全部</button>
+                <button class="filter-btn" data-favorite="yes">已收藏</button>
             </div>
             <span class="filter-label">类别</span>
             <div class="filter-group" id="categoryFilter">
@@ -378,9 +387,10 @@
     let customLinks = JSON.parse(localStorage.getItem('customArxivLinks') || '{}');
     let paperNotes = JSON.parse(localStorage.getItem('paperNotes') || '{}');
     let readingLog = JSON.parse(localStorage.getItem('readingLog') || '{}');
+    let favorites = JSON.parse(localStorage.getItem('paperFavorites') || '{}');
     let startDate = localStorage.getItem('readingStartDate') || new Date().toISOString().split('T')[0];
     localStorage.setItem('readingStartDate', startDate);
-    let currentFilters = { status: 'all', category: 'all', priority: 'all' };
+    let currentFilters = { status: 'all', category: 'all', priority: 'all', favorite: 'all' };
     let categoryChart = null;
     let weeklyChart = null;
 
@@ -586,6 +596,12 @@
         renderCharts();
     }
 
+    function toggleFavorite(id) {
+        favorites[id] = !favorites[id];
+        localStorage.setItem('paperFavorites', JSON.stringify(favorites));
+        renderPapers();
+    }
+
     function updateStats() {
         const readCount = papersData.filter(p => readStatus[p.id]).length;
         const unreadCount = papersData.length - readCount;
@@ -666,6 +682,7 @@
         let filtered = papersData.filter(p => {
             if (currentFilters.status === 'read' && !readStatus[p.id]) return false;
             if (currentFilters.status === 'unread' && readStatus[p.id]) return false;
+            if (currentFilters.favorite === 'yes' && !favorites[p.id]) return false;
             if (currentFilters.category !== 'all' && p.category !== currentFilters.category) return false;
             if (currentFilters.priority !== 'all' && p.priority !== parseInt(currentFilters.priority)) return false;
             return true;
@@ -746,6 +763,9 @@
                         (isRead ? '✓ 已读' : '标记已读') +
                     '</button>' +
                     '<button class="btn btn-note" onclick="toggleNote(' + p.id + ')">📝 笔记</button>' +
+                    '<button class="btn btn-favorite ' + (favorites[p.id] ? 'is-favorite' : '') + '" onclick="toggleFavorite(' + p.id + ')">' +
+                        (favorites[p.id] ? '★ 已收藏' : '☆ 收藏') +
+                    '</button>' +
                     addLinkForm +
                     editLinkForm +
                 '</div>' +
@@ -755,6 +775,22 @@
                 '</div>' +
             '</div>';
         }).join('');
+    }
+
+    function resetTodayReadingTime() {
+        const today = new Date().toISOString().split('T')[0];
+        if (readingLog[today]) {
+            readingLog[today].hours = 0;
+            localStorage.setItem('readingLog', JSON.stringify(readingLog));
+            totalOnlineSeconds = 0;
+            localStorage.setItem('totalOnlineSeconds', '0');
+            lastTickTime = Date.now();
+            updateStats();
+            renderContribution();
+            alert('今日阅读时间已清零');
+        } else {
+            alert('今天还没有阅读记录');
+        }
     }
 
     function exportStatus() {
