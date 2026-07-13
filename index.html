@@ -384,6 +384,38 @@
     let categoryChart = null;
     let weeklyChart = null;
 
+    // 实际在线时间追踪（秒）
+    let totalOnlineSeconds = parseFloat(localStorage.getItem('totalOnlineSeconds') || '0');
+    let lastTickTime = Date.now();
+
+    function startOnlineTracking() {
+        // 每5秒记录一次在线时间（页面可见时）
+        setInterval(function() {
+            if (document.visibilityState === 'visible') {
+                const now = Date.now();
+                const elapsed = (now - lastTickTime) / 1000;
+                totalOnlineSeconds += elapsed;
+                lastTickTime = now;
+                localStorage.setItem('totalOnlineSeconds', totalOnlineSeconds.toString());
+                // 更新显示
+                const hours = totalOnlineSeconds / 3600;
+                document.getElementById('readHours').textContent = hours < 1 
+                    ? Math.round(totalOnlineSeconds / 60) + 'min' 
+                    : hours.toFixed(1) + 'h';
+            } else {
+                // 页面不可见时重置计时基准，避免切回来时一次性加太多
+                lastTickTime = Date.now();
+            }
+        }, 5000);
+    }
+
+    function formatOnlineTime() {
+        const hours = totalOnlineSeconds / 3600;
+        return hours < 1 
+            ? Math.round(totalOnlineSeconds / 60) + 'min' 
+            : hours.toFixed(1) + 'h';
+    }
+
     async function loadData() {
         const resp = await fetch('data.json?t=' + Date.now());
         const data = await resp.json();
@@ -419,6 +451,7 @@
         renderContribution();
         updateStats();
         renderPapers();
+        startOnlineTracking(); // 启动在线时间追踪
     }
 
     function renderCharts() {
@@ -538,11 +571,15 @@
         const readCount = papersData.filter(p => readStatus[p.id]).length;
         const unreadCount = papersData.length - readCount;
         const progress = papersData.length ? Math.round((readCount / papersData.length) * 100) : 0;
-        const readHours = papersData.filter(p => readStatus[p.id]).reduce((s, p) => s + p.hours, 0);
+        // 预计总时长 = 未读文章的预计时间
+        const totalHours = papersData.filter(p => !readStatus[p.id]).reduce((s, p) => s + p.hours, 0);
+        // 已读时长 = 实际在线时间
+        const onlineTimeText = formatOnlineTime();
         
         document.getElementById('readCount').textContent = readCount;
         document.getElementById('unreadCount').textContent = unreadCount;
-        document.getElementById('readHours').textContent = readHours + 'h';
+        document.getElementById('totalHours').textContent = totalHours + 'h';
+        document.getElementById('readHours').textContent = onlineTimeText;
         document.getElementById('progressText').textContent = progress + '%';
         document.getElementById('progressFill').style.width = progress + '%';
     }
