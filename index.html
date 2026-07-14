@@ -1390,7 +1390,11 @@
             // 自定义论文排最前
             if (a.isCustom && !b.isCustom) return -1;
             if (!a.isCustom && b.isCustom) return 1;
-            // 同类型：未读排前面
+            // 自定义论文之间：按添加时间倒序（最新的在最上面）
+            if (a.isCustom && b.isCustom) {
+                return (b.addedAt || '').localeCompare(a.addedAt || '');
+            }
+            // 非自定义论文：未读排前面
             const aRead = readStatus[String(a.id)] ? 1 : 0;
             const bRead = readStatus[String(b.id)] ? 1 : 0;
             return aRead - bRead;
