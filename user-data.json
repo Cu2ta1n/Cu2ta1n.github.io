@@ -78,7 +78,7 @@
   "readingLog": {
     "2026-07-14": {
       "papers": 0,
-      "hours": 0.007862222222222224
+      "hours": 0.034271388888888886
     }
   },
   "favorites": {
@@ -88,5 +88,5 @@
     "38": true
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 28.304000000000002
+  "totalOnlineSeconds": 123.37700000000004
 }
