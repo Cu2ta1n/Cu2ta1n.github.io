@@ -1,5 +1,19 @@
 {
-  "customPapers": [],
+  "customPapers": [
+    {
+      "id": "custom_1784003742263",
+      "title": "111",
+      "category": "综述",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "111",
+      "output": "111",
+      "arxivLink": "111",
+      "isCustom": true,
+      "addedAt": "2026-07-14T04:35:42.263Z"
+    }
+  ],
   "readStatus": {
     "5": false,
     "6": false,
@@ -49,7 +63,7 @@
     "38": "https://arxiv.org/pdf/2106.05965"
   },
   "paperNotes": {
-    "0": ""
+    "0": {}
   },
   "readingLog": {
     "2026-07-13": {
@@ -58,10 +72,10 @@
     },
     "2026-07-14": {
       "papers": 0,
-      "hours": 0.33461305555555576
+      "hours": 0.354110277777778
     }
   },
   "favorites": {},
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 1204.6070000000009
+  "totalOnlineSeconds": 1274.7970000000005
 }
