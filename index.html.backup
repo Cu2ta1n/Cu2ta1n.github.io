@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kyle Zhu的论文阅读</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #fef9f3 0%, #f0f9ff 100%);
+            color: #1e293b;
+            min-height: 100vh;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        
+        .header {
+            text-align: center;
+            padding: 40px 20px 30px;
+            background: linear-gradient(135deg, #fef3c7 0%, #dbeafe 50%, #fce7f3 100%);
+            border-radius: 16px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        .header h1 {
+            font-size: 2.2em;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+        .header .subtitle { color: #64748b; font-size: 1.05em; }
+        .header .update-time { color: #94a3b8; font-size: 0.8em; margin-top: 10px; }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 18px 14px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+        .stat-card .number { font-size: 1.8em; font-weight: bold; }
+        .stat-card:nth-child(1) .number { color: #3b82f6; }
+        .stat-card:nth-child(2) .number { color: #10b981; }
+        .stat-card:nth-child(3) .number { color: #f59e0b; }
+        .stat-card:nth-child(4) .number { color: #8b5cf6; }
+        .stat-card:nth-child(5) .number { color: #ec4899; }
+        .stat-card .label { color: #64748b; font-size: 0.85em; margin-top: 4px; }
+        
+        .progress-section {
+            background: white;
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+        .progress-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
+        .progress-header span { color: #64748b; font-size: 0.9em; }
+        .progress-header .pct { color: #3b82f6; font-weight: bold; }
+        .progress-bar { width: 100%; height: 10px; background: #f1f5f9; border-radius: 5px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899); border-radius: 5px; transition: width 0.4s; }
+        
+        .charts-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        .chart-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+        .chart-card h3 { color: #334155; font-size: 1em; margin-bottom: 15px; }
+        .chart-container { position: relative; max-height: 250px; }
+        
+        .contribution-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+        .contribution-card h3 { color: #334155; font-size: 1em; margin-bottom: 15px; }
+        .contribution-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3px;
+            padding-bottom: 10px;
+        }
+        .contribution-day {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            background: #f1f5f9;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .contribution-day:hover { transform: scale(1.3); }
+        .contribution-day.level-1 { background: #bfdbfe; }
+        .contribution-day.level-2 { background: #60a5fa; }
+        .contribution-day.level-3 { background: #3b82f6; }
+        .contribution-day.level-4 { background: #1d4ed8; }
+        .contribution-legend {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 10px;
+            font-size: 0.8em;
+            color: #64748b;
+        }
+        .legend-box { width: 12px; height: 12px; border-radius: 2px; }
+        
+        .filters {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .filter-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .filter-group { display: flex; gap: 6px; flex-wrap: wrap; }
+        .filter-btn {
+            padding: 6px 14px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            color: #64748b;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.2s;
+        }
+        .filter-btn:hover { border-color: #3b82f6; color: #3b82f6; }
+        .filter-btn.active { background: #3b82f6; border-color: #3b82f6; color: white; }
+        .filter-label { color: #94a3b8; font-size: 0.8em; align-self: center; }
+        
+        .papers-grid { display: grid; gap: 14px; }
+        .paper-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 18px 20px;
+            transition: all 0.2s;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .paper-card:hover { border-color: #3b82f6; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(59,130,246,0.1); }
+        .paper-card.read { opacity: 0.6; }
+        .paper-card.read .paper-title { text-decoration: line-through; color: #94a3b8; }
+        .paper-card .read-badge {
+            display: none;
+            position: absolute;
+            top: 14px;
+            right: 16px;
+            background: #d1fae5;
+            color: #059669;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 0.75em;
+            font-weight: 600;
+        }
+        .paper-card.read .read-badge { display: block; }
+        
+        .paper-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+        .paper-title { font-size: 1.05em; font-weight: 600; color: #1e293b; flex: 1; line-height: 1.4; }
+        .paper-badges { display: flex; gap: 6px; flex-wrap: wrap; flex-shrink: 0; }
+        .badge { padding: 3px 9px; border-radius: 6px; font-size: 0.72em; font-weight: 500; white-space: nowrap; }
+        .badge-p1 { background: #fee2e2; color: #dc2626; }
+        .badge-p2 { background: #fef3c7; color: #d97706; }
+        .badge-p3 { background: #e0e7ff; color: #6366f1; }
+        .badge-method { background: #dbeafe; color: #2563eb; }
+        .badge-cat { background: #fce7f3; color: #db2777; }
+        .badge-hours { background: #d1fae5; color: #059669; }
+        
+        .paper-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+        .meta-item { background: #f8fafc; padding: 10px 12px; border-radius: 8px; border: 1px solid #e2e8f0; }
+        .meta-label { font-size: 0.72em; color: #94a3b8; margin-bottom: 3px; }
+        .meta-value { font-size: 0.85em; color: #475569; line-height: 1.4; }
+        
+        .paper-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+        .btn {
+            padding: 7px 14px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.82em;
+            font-weight: 500;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .btn-arxiv { background: #dc2626; color: white; }
+        .btn-arxiv:hover { background: #b91c1c; }
+        .btn-read { background: #f1f5f9; color: #64748b; border: 1px solid #e2e8f0; }
+        .btn-read:hover { border-color: #10b981; color: #10b981; }
+        .btn-read.is-read { background: #d1fae5; color: #059669; border-color: #10b981; }
+        .btn-favorite { background: #f1f5f9; color: #64748b; border: 1px solid #e2e8f0; }
+        .btn-favorite:hover { border-color: #fbbf24; color: #fbbf24; }
+        .btn-favorite.is-favorite { background: #fef3c7; color: #d97706; border-color: #fbbf24; }
+        .btn-note { background: #fef3c7; color: #d97706; border: 1px solid #fde68a; }
+        .btn-note:hover { background: #fde68a; }
+        .btn-add-link { background: #e0e7ff; color: #6366f1; border: 1px solid #c7d2fe; }
+        .btn-add-link:hover { background: #c7d2fe; }
+        
+        .add-link-form {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        .add-link-form.show { display: flex; gap: 8px; align-items: center; }
+        .add-link-form input {
+            flex: 1;
+            padding: 6px 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.85em;
+        }
+        .add-link-form button {
+            padding: 6px 12px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85em;
+        }
+        
+        .notes-section {
+            display: none;
+            margin-top: 14px;
+            padding: 14px;
+            background: #fffbeb;
+            border-radius: 8px;
+            border: 1px solid #fde68a;
+        }
+        .notes-section.show { display: block; }
+        .notes-section h4 { color: #d97706; font-size: 0.9em; margin-bottom: 10px; }
+        .note-field { margin-bottom: 10px; }
+        .note-field label { display: block; font-size: 0.75em; color: #92400e; margin-bottom: 4px; }
+        .note-field textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #fde68a;
+            border-radius: 6px;
+            font-size: 0.85em;
+            resize: vertical;
+            min-height: 60px;
+            font-family: inherit;
+        }
+        .note-field textarea:focus { outline: none; border-color: #f59e0b; }
+        
+        .sync-bar {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+        .btn-sync {
+            padding: 7px 14px;
+            background: white;
+            color: #64748b;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.82em;
+        }
+        .btn-sync:hover { border-color: #3b82f6; color: #3b82f6; }
+        
+        .empty-state { text-align: center; padding: 50px; color: #94a3b8; }
+        
+        @media (max-width: 768px) {
+            .charts-row { grid-template-columns: 1fr; }
+            .paper-meta { grid-template-columns: 1fr; }
+            .paper-top { flex-direction: column; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+        }
+        
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f8fafc; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Kyle Zhu的论文阅读</h1>
+            <p class="subtitle">具身智能，灵巧手</p>
+            <p class="update-time" id="updateTime"></p>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-card"><div class="number" id="totalPapers">-</div><div class="label">论文总数</div></div>
+            <div class="stat-card"><div class="number" id="readCount">0</div><div class="label">已读</div></div>
+            <div class="stat-card"><div class="number" id="unreadCount">-</div><div class="label">待读</div></div>
+            <div class="stat-card"><div class="number" id="totalHours">-</div><div class="label">预计总时长</div></div>
+            <div class="stat-card"><div class="number" id="readHours">0h</div><div class="label">已读时长</div></div>
+        </div>
+        
+        <div class="progress-section">
+            <div class="progress-header">
+                <span>阅读进度</span>
+                <span class="pct" id="progressText">0%</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+        </div>
+        
+        <div class="contribution-card">
+            <h3>每日阅读记录</h3>
+            <div class="contribution-grid" id="contributionGrid"></div>
+            <div class="contribution-legend">
+                <span>少</span>
+                <div class="legend-box" style="background:#f1f5f9"></div>
+                <div class="legend-box" style="background:#bfdbfe"></div>
+                <div class="legend-box" style="background:#60a5fa"></div>
+                <div class="legend-box" style="background:#3b82f6"></div>
+                <div class="legend-box" style="background:#1d4ed8"></div>
+                <span>多</span>
+            </div>
+        </div>
+        
+        <div class="charts-row">
+            <div class="chart-card">
+                <h3>论文分类分布</h3>
+                <div class="chart-container"><canvas id="categoryPie"></canvas></div>
+            </div>
+            <div class="chart-card">
+                <h3>阅读统计</h3>
+                <div class="chart-container"><canvas id="weeklyBar"></canvas></div>
+            </div>
+        </div>
+        
+        <div class="sync-bar">
+            <button class="btn-sync" onclick="exportStatus()">导出已读状态</button>
+            <button class="btn-sync" onclick="document.getElementById('importFile').click()">导入已读状态</button>
+            <button class="btn-sync" onclick="resetTodayReadingTime()">清零今日阅读时间</button>
+            <input type="file" id="importFile" accept=".json" style="display:none" onchange="importStatus(event)">
+        </div>
+        
+        <div class="filters">
+            <div class="filter-row">
+                <span class="filter-label">状态</span>
+                <div class="filter-group" id="statusFilter">
+                    <button class="filter-btn active" data-status="all">全部</button>
+                    <button class="filter-btn" data-status="unread">待读</button>
+                    <button class="filter-btn" data-status="read">已读</button>
+                </div>
+            </div>
+            <div class="filter-row">
+                <span class="filter-label">收藏</span>
+                <div class="filter-group" id="favoriteFilter">
+                    <button class="filter-btn active" data-favorite="all">全部</button>
+                    <button class="filter-btn" data-favorite="yes">已收藏</button>
+                </div>
+            </div>
+            <div class="filter-row">
+                <span class="filter-label">类别</span>
+                <div class="filter-group" id="categoryFilter">
+                    <button class="filter-btn active" data-category="all">全部</button>
+                </div>
+            </div>
+            <div class="filter-row">
+                <span class="filter-label">优先级</span>
+                <div class="filter-group" id="priorityFilter">
+                    <button class="filter-btn active" data-priority="all">全部</button>
+                    <button class="filter-btn" data-priority="1">P1 必读</button>
+                    <button class="filter-btn" data-priority="2">P2 重要</button>
+                    <button class="filter-btn" data-priority="3">P3 选读</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="papers-grid" id="papersGrid"></div>
+    </div>
+
+    <script>
+    let papersData = [];
+    let categoriesData = {};
+    let readStatus = JSON.parse(localStorage.getItem('paperReadStatus') || '{}');
+    let customLinks = JSON.parse(localStorage.getItem('customArxivLinks') || '{}');
+    let paperNotes = JSON.parse(localStorage.getItem('paperNotes') || '{}');
+    let readingLog = JSON.parse(localStorage.getItem('readingLog') || '{}');
+    let favorites = JSON.parse(localStorage.getItem('paperFavorites') || '{}');
+    let startDate = localStorage.getItem('readingStartDate') || new Date().toISOString().split('T')[0];
+    localStorage.setItem('readingStartDate', startDate);
+    let currentFilters = { status: 'all', category: 'all', priority: 'all', favorite: 'all' };
+    let categoryChart = null;
+    let weeklyChart = null;
+
+    // 实际在线时间追踪（秒）
+    let totalOnlineSeconds = parseFloat(localStorage.getItem('totalOnlineSeconds') || '0');
+    let lastTickTime = Date.now();
+
+    function startOnlineTracking() {
+        // 每5秒记录一次在线时间（页面可见时）
+        setInterval(function() {
+            if (document.visibilityState === 'visible') {
+                const now = Date.now();
+                const elapsed = (now - lastTickTime) / 1000;
+                totalOnlineSeconds += elapsed;
+                lastTickTime = now;
+                localStorage.setItem('totalOnlineSeconds', totalOnlineSeconds.toString());
+                
+                // 同时更新当天的 readingLog（只记录当天的时间）
+                const today = new Date().toISOString().split('T')[0];
+                if (!readingLog[today]) readingLog[today] = { papers: 0, hours: 0 };
+                readingLog[today].hours += elapsed / 3600; // 累加当天的小时数
+                localStorage.setItem('readingLog', JSON.stringify(readingLog));
+                
+                // 更新显示
+                const hours = totalOnlineSeconds / 3600;
+                document.getElementById('readHours').textContent = hours < 1 
+                    ? Math.round(totalOnlineSeconds / 60) + 'min' 
+                    : hours.toFixed(1) + 'h';
+            } else {
+                // 页面不可见时重置计时基准，避免切回来时一次性加太多
+                lastTickTime = Date.now();
+            }
+        }, 5000);
+    }
+
+    function formatOnlineTime() {
+        const hours = totalOnlineSeconds / 3600;
+        return hours < 1 
+            ? Math.round(totalOnlineSeconds / 60) + 'min' 
+            : hours.toFixed(1) + 'h';
+    }
+
+    async function loadData() {
+        const resp = await fetch('data.json?t=' + Date.now());
+        const data = await resp.json();
+        papersData = data.papers;
+        categoriesData = data.categories;
+        
+        document.getElementById('updateTime').textContent = '最后更新: ' + data.lastUpdated;
+        document.getElementById('totalPapers').textContent = data.overview.totalPapers;
+        document.getElementById('totalHours').textContent = data.overview.totalHours + 'h';
+        
+        const catFilter = document.getElementById('categoryFilter');
+        Object.keys(categoriesData).forEach(cat => {
+            const btn = document.createElement('button');
+            btn.className = 'filter-btn';
+            btn.dataset.category = cat;
+            btn.textContent = cat;
+            catFilter.appendChild(btn);
+        });
+        
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const group = this.parentElement;
+                group.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                if (this.dataset.status !== undefined) currentFilters.status = this.dataset.status;
+                if (this.dataset.category !== undefined) currentFilters.category = this.dataset.category;
+                if (this.dataset.priority !== undefined) currentFilters.priority = this.dataset.priority;
+                renderPapers();
+            });
+        });
+        
+        renderCharts();
+        renderContribution();
+        updateStats();
+        renderPapers();
+        startOnlineTracking(); // 启动在线时间追踪
+    }
+
+    function renderCharts() {
+        const catLabels = Object.keys(categoriesData);
+        const catCounts = catLabels.map(c => categoriesData[c].count);
+        const catColors = ['#3b82f6','#f59e0b','#10b981','#ec4899','#8b5cf6','#06b6d4','#f97316','#84cc16','#e11d48'];
+        
+        if (categoryChart) categoryChart.destroy();
+        categoryChart = new Chart(document.getElementById('categoryPie'), {
+            type: 'doughnut',
+            data: {
+                labels: catLabels,
+                datasets: [{ data: catCounts, backgroundColor: catColors, borderColor: 'white', borderWidth: 2 }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'right', labels: { color: '#64748b', font: { size: 11 }, padding: 8 } },
+                    tooltip: {
+                        callbacks: {
+                            label: function(ctx) {
+                                const total = ctx.dataset.data.reduce((a,b) => a+b, 0);
+                                const pct = ((ctx.parsed / total) * 100).toFixed(1);
+                                return ctx.label + ': ' + ctx.parsed + ' (' + pct + '%)';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        // 本周阅读统计：周一到周日
+        const now = new Date();
+        const dayOfWeek = now.getDay(); // 0=周日, 1=周一, ..., 6=周六
+        const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek; // 找到本周一
+        const monday = new Date(now);
+        monday.setDate(now.getDate() + mondayOffset);
+        
+        const weekLabels = ['周一','周二','周三','周四','周五','周六','周日'];
+        const weekData = weekLabels.map((label, i) => {
+            const d = new Date(monday);
+            d.setDate(monday.getDate() + i);
+            const dateStr = d.toISOString().split('T')[0];
+            const log = readingLog[dateStr] || { papers: 0, hours: 0 };
+            return log.papers;
+        });
+        
+        if (weeklyChart) weeklyChart.destroy();
+        weeklyChart = new Chart(document.getElementById('weeklyBar'), {
+            type: 'bar',
+            data: {
+                labels: weekLabels,
+                datasets: [{
+                    label: '已读论文数',
+                    data: weekData,
+                    backgroundColor: '#3b82f688',
+                    borderColor: '#3b82f6',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { labels: { color: '#64748b' } } },
+                scales: {
+                    x: { ticks: { color: '#64748b' }, grid: { color: '#f1f5f9' } },
+                    y: { ticks: { color: '#64748b' }, grid: { color: '#f1f5f9' }, beginAtZero: true }
+                }
+            }
+        });
+    }
+
+    function renderContribution() {
+        const grid = document.getElementById('contributionGrid');
+        grid.innerHTML = '';
+        const today = new Date();
+        const start = new Date(startDate);
+        
+        const diffTime = today - start;
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        
+        for (let i = 0; i <= diffDays; i++) {
+            const date = new Date(start);
+            date.setDate(date.getDate() + i);
+            const dateStr = date.toISOString().split('T')[0];
+            const log = readingLog[dateStr] || { papers: 0, hours: 0 };
+            
+            const day = document.createElement('div');
+            day.className = 'contribution-day';
+            // 按在线时间分级：0, <1h, <2h, <4h, >=6h
+            if (log.hours > 0) {
+                if (log.hours < 1) day.classList.add('level-1');
+                else if (log.hours < 2) day.classList.add('level-2');
+                else if (log.hours < 4) day.classList.add('level-3');
+                else if (log.hours >= 6) day.classList.add('level-4');
+                else day.classList.add('level-3'); // 4-6h 也算 level-3
+            }
+            day.title = dateStr + ': ' + log.papers + '篇, ' + (log.hours < 1 ? Math.round(log.hours * 60) + 'min' : log.hours.toFixed(1) + 'h');
+            grid.appendChild(day);
+        }
+    }
+
+    function logReading(paperId, hours) {
+        const today = new Date().toISOString().split('T')[0];
+        if (!readingLog[today]) readingLog[today] = { papers: 0, hours: 0 };
+        readingLog[today].papers += 1;
+        // 不再加论文预计时间，时间由 startOnlineTracking 根据在线时间累加
+        localStorage.setItem('readingLog', JSON.stringify(readingLog));
+        renderContribution();
+    }
+
+    function toggleRead(id) {
+        const wasRead = readStatus[id];
+        readStatus[id] = !readStatus[id];
+        localStorage.setItem('paperReadStatus', JSON.stringify(readStatus));
+        
+        if (!wasRead) {
+            const paper = papersData.find(p => p.id === id);
+            if (paper) logReading(id, paper.hours);
+        }
+        
+        updateStats();
+        renderPapers();
+        renderCharts();
+    }
+
+    function toggleFavorite(id) {
+        favorites[id] = !favorites[id];
+        localStorage.setItem('paperFavorites', JSON.stringify(favorites));
+        renderPapers();
+    }
+
+    function updateStats() {
+        const readCount = papersData.filter(p => readStatus[p.id]).length;
+        const unreadCount = papersData.length - readCount;
+        const progress = papersData.length ? Math.round((readCount / papersData.length) * 100) : 0;
+        // 预计总时长 = 未读文章的预计时间
+        const totalHours = papersData.filter(p => !readStatus[p.id]).reduce((s, p) => s + p.hours, 0);
+        // 已读时长 = 实际在线时间
+        const onlineTimeText = formatOnlineTime();
+        
+        document.getElementById('readCount').textContent = readCount;
+        document.getElementById('unreadCount').textContent = unreadCount;
+        document.getElementById('totalHours').textContent = totalHours + 'h';
+        document.getElementById('readHours').textContent = onlineTimeText;
+        document.getElementById('progressText').textContent = progress + '%';
+        document.getElementById('progressFill').style.width = progress + '%';
+    }
+
+    function addArxivLink(id) {
+        const input = document.getElementById('link-input-' + id);
+        let url = input.value.trim();
+        if (!url) {
+            alert('请输入arXiv链接');
+            return;
+        }
+        // 自动添加 https:// 如果没有协议
+        if (!url.startsWith('http://') && !url.startsWith('https://') && !url.startsWith('file://')) {
+            url = 'https://' + url;
+        }
+        customLinks[id] = url;
+        localStorage.setItem('customArxivLinks', JSON.stringify(customLinks));
+        renderPapers();
+    }
+
+    function toggleAddLink(id) {
+        const form = document.getElementById('add-link-form-' + id);
+        form.classList.toggle('show');
+    }
+
+    function toggleEditLink(id) {
+        const form = document.getElementById('edit-link-form-' + id);
+        form.classList.toggle('show');
+    }
+
+    function updateArxivLink(id) {
+        const input = document.getElementById('edit-input-' + id);
+        let url = input.value.trim();
+        if (!url) {
+            if (confirm('确定要删除这个链接吗？')) {
+                delete customLinks[id];
+                localStorage.setItem('customArxivLinks', JSON.stringify(customLinks));
+                renderPapers();
+            }
+            return;
+        }
+        // 自动添加 https:// 如果没有协议
+        if (!url.startsWith('http://') && !url.startsWith('https://') && !url.startsWith('file://')) {
+            url = 'https://' + url;
+        }
+        customLinks[id] = url;
+        localStorage.setItem('customArxivLinks', JSON.stringify(customLinks));
+        renderPapers();
+    }
+
+    function toggleNote(id) {
+        const section = document.getElementById('notes-' + id);
+        section.classList.toggle('show');
+    }
+
+    function saveNote(id, field) {
+        const textarea = document.getElementById('note-' + id + '-' + field);
+        if (!paperNotes[id]) paperNotes[id] = {};
+        paperNotes[id][field] = textarea.value;
+        localStorage.setItem('paperNotes', JSON.stringify(paperNotes));
+    }
+
+    function renderPapers() {
+        const grid = document.getElementById('papersGrid');
+        let filtered = papersData.filter(p => {
+            if (currentFilters.status === 'read' && !readStatus[p.id]) return false;
+            if (currentFilters.status === 'unread' && readStatus[p.id]) return false;
+            if (currentFilters.favorite === 'yes' && !favorites[p.id]) return false;
+            if (currentFilters.category !== 'all' && p.category !== currentFilters.category) return false;
+            if (currentFilters.priority !== 'all' && p.priority !== parseInt(currentFilters.priority)) return false;
+            return true;
+        });
+        
+        filtered.sort((a, b) => {
+            const aRead = readStatus[a.id] ? 1 : 0;
+            const bRead = readStatus[b.id] ? 1 : 0;
+            return aRead - bRead;
+        });
+        
+        if (!filtered.length) {
+            grid.innerHTML = '<div class="empty-state">没有匹配的论文</div>';
+            return;
+        }
+        
+        grid.innerHTML = filtered.map(p => {
+            const isRead = readStatus[p.id];
+            const pClass = p.priority === 1 ? 'badge-p1' : p.priority === 2 ? 'badge-p2' : 'badge-p3';
+            const pText = p.priority === 1 ? 'P1 必读' : p.priority === 2 ? 'P2 重要' : 'P3 选读';
+            const arxivLink = customLinks[p.id] || p.arxivLink;
+            const arxivBtn = arxivLink ? '<a href="' + arxivLink + '" target="_blank" class="btn btn-arxiv">arXiv</a>' : '';
+            const addLinkForm = !p.arxivLink && !customLinks[p.id] ? 
+                '<button class="btn btn-add-link" onclick="toggleAddLink(' + p.id + ')">+ 添加arXiv链接</button>' +
+                '<div class="add-link-form" id="add-link-form-' + p.id + '">' +
+                    '<input type="text" id="link-input-' + p.id + '" placeholder="输入arXiv链接">' +
+                    '<button onclick="addArxivLink(' + p.id + ')">保存</button>' +
+                '</div>' : '';
+            const editLinkForm = arxivLink ? 
+                '<button class="btn btn-add-link" onclick="toggleEditLink(' + p.id + ')">修改链接</button>' +
+                '<div class="add-link-form" id="edit-link-form-' + p.id + '">' +
+                    '<input type="text" id="edit-input-' + p.id + '" value="' + (arxivLink || '') + '" placeholder="输入新链接">' +
+                    '<button onclick="updateArxivLink(' + p.id + ')">更新</button>' +
+                '</div>' : '';
+            
+            const notes = paperNotes[p.id] || {};
+            const noteFields = [
+                {key: 'question', label: '一句话问题'},
+                {key: 'io', label: '核心输入/输出'},
+                {key: 'pipeline', label: '方法pipeline'},
+                {key: 'action', label: '动作空间'},
+                {key: 'obs', label: '观测空间'},
+                {key: 'training', label: '训练方式'},
+                {key: 'data', label: '数据/物体/手型'},
+                {key: 'metrics', label: '成功判据与指标'},
+                {key: 'innovation', label: '最关键创新'},
+                {key: 'limitation', label: '最大局限'},
+                {key: 'relation', label: '与我的课题关系'},
+                {key: 'code', label: '可复现代码位置'},
+                {key: 'summary', label: '五句话总结'}
+            ];
+            
+            const notesHtml = noteFields.map(f => 
+                '<div class="note-field">' +
+                    '<label>' + f.label + '</label>' +
+                    '<textarea id="note-' + p.id + '-' + f.key + '" data-paper-id="' + p.id + '" data-field="' + f.key + '" onblur="saveNote(this.dataset.paperId, this.dataset.field)">' + (notes[f.key] || '') + '</textarea>' +
+                '</div>'
+            ).join('');
+            
+            return '<div class="paper-card ' + (isRead ? 'read' : '') + '">' +
+                '<span class="read-badge">已读</span>' +
+                '<div class="paper-top">' +
+                    '<div class="paper-title">' + p.title + '</div>' +
+                    '<div class="paper-badges">' +
+                        '<span class="badge ' + pClass + '">' + pText + '</span>' +
+                        '<span class="badge badge-method">' + p.readMethod + '</span>' +
+                        '<span class="badge badge-cat">' + p.category + '</span>' +
+                        '<span class="badge badge-hours">' + p.hours + 'h</span>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="paper-meta">' +
+                    '<div class="meta-item"><div class="meta-label">本篇目标</div><div class="meta-value">' + p.goal + '</div></div>' +
+                    '<div class="meta-item"><div class="meta-label">阅读产出</div><div class="meta-value">' + p.output + '</div></div>' +
+                '</div>' +
+                '<div class="paper-actions">' +
+                    arxivBtn +
+                    '<button class="btn btn-read ' + (isRead ? 'is-read' : '') + '" onclick="toggleRead(' + p.id + ')">' +
+                        (isRead ? '✓ 已读' : '标记已读') +
+                    '</button>' +
+                    '<button class="btn btn-note" onclick="toggleNote(' + p.id + ')">📝 笔记</button>' +
+                    '<button class="btn btn-favorite ' + (favorites[p.id] ? 'is-favorite' : '') + '" onclick="toggleFavorite(' + p.id + ')">' +
+                        (favorites[p.id] ? '★ 已收藏' : '☆ 收藏') +
+                    '</button>' +
+                    addLinkForm +
+                    editLinkForm +
+                '</div>' +
+                '<div class="notes-section" id="notes-' + p.id + '">' +
+                    '<h4>阅读笔记</h4>' +
+                    notesHtml +
+                '</div>' +
+            '</div>';
+        }).join('');
+    }
+
+    function resetTodayReadingTime() {
+        const today = new Date().toISOString().split('T')[0];
+        if (readingLog[today]) {
+            readingLog[today].hours = 0;
+            localStorage.setItem('readingLog', JSON.stringify(readingLog));
+            totalOnlineSeconds = 0;
+            localStorage.setItem('totalOnlineSeconds', '0');
+            lastTickTime = Date.now();
+            updateStats();
+            renderContribution();
+            alert('今日阅读时间已清零');
+        } else {
+            alert('今天还没有阅读记录');
+        }
+    }
+
+    function exportStatus() {
+        const data = {
+            readStatus: readStatus,
+            customLinks: customLinks,
+            paperNotes: paperNotes,
+            readingLog: readingLog,
+            startDate: startDate
+        };
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'paper-reading-data.json';
+        a.click();
+    }
+
+    function importStatus(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const data = JSON.parse(e.target.result);
+                if (data.readStatus) {
+                    readStatus = Object.assign(readStatus, data.readStatus);
+                    localStorage.setItem('paperReadStatus', JSON.stringify(readStatus));
+                }
+                if (data.customLinks) {
+                    customLinks = Object.assign(customLinks, data.customLinks);
+                    localStorage.setItem('customArxivLinks', JSON.stringify(customLinks));
+                }
+                if (data.paperNotes) {
+                    paperNotes = Object.assign(paperNotes, data.paperNotes);
+                    localStorage.setItem('paperNotes', JSON.stringify(paperNotes));
+                }
+                if (data.readingLog) {
+                    readingLog = Object.assign(readingLog, data.readingLog);
+                    localStorage.setItem('readingLog', JSON.stringify(readingLog));
+                }
+                if (data.startDate) {
+                    startDate = data.startDate;
+                    localStorage.setItem('readingStartDate', startDate);
+                }
+                updateStats();
+                renderPapers();
+                renderCharts();
+                renderContribution();
+                alert('导入成功！');
+            } catch(err) {
+                alert('导入失败：文件格式错误');
+            }
+        };
+        reader.readAsText(file);
+    }
+
+    loadData();
+    </script>
+</body>
+</html>

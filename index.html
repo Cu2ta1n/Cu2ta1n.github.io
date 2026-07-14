@@ -1313,13 +1313,14 @@
     }
 
     function addArxivLink(id) {
+        const idStr = String(id);
         const input = document.getElementById('link-input-' + id);
         let url = input.value.trim();
         if (!url) { alert('请输入链接'); return; }
         if (!url.startsWith('http://') && !url.startsWith('https://') && !url.startsWith('file://')) {
             url = 'https://' + url;
         }
-        customLinks[id] = url;
+        customLinks[idStr] = url;
         saveToLocalStorage();
         if (githubToken) debouncedSave();
         renderPapers();
@@ -1334,11 +1335,12 @@
     }
 
     function updateArxivLink(id) {
+        const idStr = String(id);
         const input = document.getElementById('edit-input-' + id);
         let url = input.value.trim();
         if (!url) {
             if (confirm('确定要删除这个链接吗？')) {
-                delete customLinks[id];
+                delete customLinks[idStr];
                 saveToLocalStorage();
                 if (githubToken) debouncedSave();
                 renderPapers();
@@ -1348,7 +1350,7 @@
         if (!url.startsWith('http://') && !url.startsWith('https://') && !url.startsWith('file://')) {
             url = 'https://' + url;
         }
-        customLinks[id] = url;
+        customLinks[idStr] = url;
         saveToLocalStorage();
         if (githubToken) debouncedSave();
         renderPapers();
@@ -1359,9 +1361,10 @@
     }
 
     function saveNote(id, field) {
+        const idStr = String(id);
         const textarea = document.getElementById('note-' + id + '-' + field);
-        if (!paperNotes[id]) paperNotes[id] = {};
-        paperNotes[id][field] = textarea.value;
+        if (!paperNotes[idStr]) paperNotes[idStr] = {};
+        paperNotes[idStr][field] = textarea.value;
         saveToLocalStorage();
         if (githubToken) debouncedSave();
     }
@@ -1373,9 +1376,10 @@
         const searchTerm = document.getElementById('searchBox').value.trim().toLowerCase();
         
         let filtered = allPapers.filter(p => {
-            if (currentFilters.status === 'read' && !readStatus[p.id]) return false;
-            if (currentFilters.status === 'unread' && readStatus[p.id]) return false;
-            if (currentFilters.favorite === 'yes' && !favorites[p.id]) return false;
+            const idStr = String(p.id);
+            if (currentFilters.status === 'read' && !readStatus[idStr]) return false;
+            if (currentFilters.status === 'unread' && readStatus[idStr]) return false;
+            if (currentFilters.favorite === 'yes' && !favorites[idStr]) return false;
             if (currentFilters.category !== 'all' && p.category !== currentFilters.category) return false;
             if (currentFilters.priority !== 'all' && p.priority !== parseInt(currentFilters.priority)) return false;
             if (searchTerm && !p.title.toLowerCase().includes(searchTerm)) return false;
@@ -1387,8 +1391,8 @@
             if (a.isCustom && !b.isCustom) return -1;
             if (!a.isCustom && b.isCustom) return 1;
             // 同类型：未读排前面
-            const aRead = readStatus[a.id] ? 1 : 0;
-            const bRead = readStatus[b.id] ? 1 : 0;
+            const aRead = readStatus[String(a.id)] ? 1 : 0;
+            const bRead = readStatus[String(b.id)] ? 1 : 0;
             return aRead - bRead;
         });
         
@@ -1398,13 +1402,14 @@
         }
         
         grid.innerHTML = filtered.map(p => {
-            const isRead = readStatus[p.id];
+            const idStr = String(p.id);
+            const isRead = readStatus[idStr];
             const pClass = p.priority === 1 ? 'badge-p1' : p.priority === 2 ? 'badge-p2' : 'badge-p3';
             const pText = p.priority === 1 ? 'P1 必读' : p.priority === 2 ? 'P2 重要' : 'P3 选读';
-            const arxivLink = customLinks[p.id] || p.arxivLink;
+            const arxivLink = customLinks[idStr] || p.arxivLink;
             const sid = safeId(p.id);
             const arxivBtn = arxivLink ? '<a href="' + arxivLink + '" target="_blank" class="btn btn-arxiv">arXiv</a>' : '';
-            const addLinkForm = !p.arxivLink && !customLinks[p.id] ? 
+            const addLinkForm = !p.arxivLink && !customLinks[idStr] ? 
                 '<button class="btn btn-add-link" onclick="toggleAddLink(' + sid + ')">+ 添加链接</button>' +
                 '<div class="add-link-form" id="add-link-form-' + p.id + '">' +
                     '<input type="text" id="link-input-' + p.id + '" placeholder="输入链接">' +
