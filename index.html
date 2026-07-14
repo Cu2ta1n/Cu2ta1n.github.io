@@ -709,7 +709,12 @@
             if (!resp.ok) throw new Error('HTTP ' + resp.status);
             const data = await resp.json();
             userDataSha = data.sha;
-            const content = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ''))));
+            const binaryStr = atob(data.content.replace(/\n/g, ''));
+            const bytes = new Uint8Array(binaryStr.length);
+            for (let i = 0; i < binaryStr.length; i++) {
+                bytes[i] = binaryStr.charCodeAt(i);
+            }
+            const content = new TextDecoder('utf-8').decode(bytes);
             return JSON.parse(content);
         } catch (e) {
             console.error('Load from GitHub failed:', e);
@@ -839,7 +844,14 @@
     }
 
     function mergeUserData(remote) {
-        if (remote.customPapers) customPapers = remote.customPapers;
+        if (remote.customPapers) {
+            // 确保远程数据正确解码
+            customPapers = remote.customPapers.map(p => ({
+                ...p,
+                category: p.category || '',
+                readMethod: p.readMethod || ''
+            }));
+        }
         if (remote.readStatus) readStatus = Object.assign(readStatus, remote.readStatus);
         if (remote.customLinks) customLinks = Object.assign(customLinks, remote.customLinks);
         if (remote.paperNotes) {
