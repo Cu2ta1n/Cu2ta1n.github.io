@@ -64,7 +64,10 @@
     "38": "https://arxiv.org/pdf/2106.05965"
   },
   "paperNotes": {
-    "0": {}
+    "0": {},
+    "1": {
+      "question": ""
+    }
   },
   "readingLog": {
     "2026-07-13": {
@@ -73,11 +76,11 @@
     },
     "2026-07-14": {
       "papers": 2,
-      "hours": 0.7000477777777796
+      "hours": 0.7303991666666685
     }
   },
   "favorites": {},
   "deletedPaperIds": {},
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 2520.171999999992
+  "totalOnlineSeconds": 2629.4369999999913
 }
