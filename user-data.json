@@ -1,10 +1,67 @@
 {
-  "papers": [],
-  "readStatus": {},
-  "customLinks": {},
-  "paperNotes": {},
-  "readingLog": {},
+  "customPapers": [],
+  "readStatus": {
+    "5": false,
+    "6": false,
+    "7": false,
+    "8": false,
+    "34": false
+  },
+  "customLinks": {
+    "0": "https://link.springer.com/article/10.1007/s10462-025-11262-2",
+    "1": "https://arxiv.org/pdf/2605.13925",
+    "2": "https://arxiv.org/pdf/2507.11840",
+    "3": "https://file:///Users/zmy/Desktop/%E7%81%B5%E5%B7%A7%E6%89%8B/%E8%AE%BA%E6%96%87/%E6%95%B0%E5%AD%A6%E5%8E%9F%E7%90%86/A%20Mathematical%20Introduction%20to%20Robotic%20Manipulation.pdf",
+    "4": "https://projects.csail.mit.edu/manipulation/rss07/paper__dexterous_grasping_via_eigengrasps_a_low_dimensional_approach_to_a_high_complexity_problem__ciocarlie.pdf",
+    "5": "https://arxiv.org/pdf/2207.02959",
+    "6": "https://arxiv.org/pdf/2303.00938",
+    "7": "http://arxiv.org/pdf/2503.08257v2",
+    "8": "https://arxiv.org/pdf/2410.01702",
+    "9": "https://arxiv.org/pdf/2601.16046",
+    "10": "http://arxiv.org/pdf/2502.20018v2",
+    "11": "https://arxiv.org/pdf/2505.05517",
+    "12": "http://arxiv.org/pdf/2405.19291v2",
+    "13": "http://arxiv.org/pdf/2411.16755v1",
+    "14": "https://arxiv.org/pdf/2411.16755",
+    "15": "http://arxiv.org/pdf/2512.13380v1",
+    "16": "http://arxiv.org/pdf/2307.16752v2",
+    "17": "http://arxiv.org/pdf/2401.11977v3",
+    "18": "http://arxiv.org/pdf/2607.03557v1",
+    "19": "http://arxiv.org/pdf/2412.15587v1",
+    "20": "https://arxiv.org/pdf/2407.02274",
+    "21": "https://arxiv.org/pdf/2412.01791",
+    "22": "http://arxiv.org/pdf/2504.05287v3",
+    "23": "https://arxiv.org/pdf/2403.19649",
+    "24": "https://arxiv.org/pdf/2303.09806",
+    "25": "https://arxiv.org/pdf/2303.04137",
+    "26": "https://arxiv.org/pdf/2502.20900",
+    "27": "https://arxiv.org/pdf/2507.02747",
+    "28": "https://arxiv.org/pdf/2508.08706",
+    "29": "https://arxiv.org/pdf/2407.08693v3",
+    "30": "https://arxiv.org/pdf/2606.17055",
+    "31": "https://arxiv.org/pdf/2409.17549",
+    "32": "https://arxiv.org/pdf/2408.06506",
+    "33": "https://arxiv.org/pdf/2507.07980",
+    "34": "https://arxiv.org/pdf/2509.12714",
+    "35": "https://arxiv.org/pdf/2606.08737",
+    "36": "https://arxiv.org/pdf/1808.00177v5",
+    "37": "https://arxiv.org/pdf/2404.13478v1",
+    "38": "https://arxiv.org/pdf/2106.05965"
+  },
+  "paperNotes": {
+    "0": ""
+  },
+  "readingLog": {
+    "2026-07-13": {
+      "papers": 3,
+      "hours": 0.03487305555555555
+    },
+    "2026-07-14": {
+      "papers": 0,
+      "hours": 0.1673397222222222
+    }
+  },
   "favorites": {},
-  "startDate": null,
-  "totalOnlineSeconds": 0
+  "startDate": "2026-07-13",
+  "totalOnlineSeconds": 602.4229999999999
 }
