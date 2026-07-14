@@ -1,5 +1,19 @@
 {
-  "customPapers": [],
+  "customPapers": [
+    {
+      "id": "custom_1784005827661",
+      "title": "IPDF",
+      "category": "数学原理",
+      "priority": 3,
+      "readMethod": "泛读",
+      "hours": 2,
+      "goal": "了解旋转/姿态概率分布建模",
+      "output": "重点理解SO(3)概率表示，不追全部细节",
+      "arxivLink": "",
+      "isCustom": true,
+      "addedAt": "2026-07-14T05:10:27.661Z"
+    }
+  ],
   "readStatus": {
     "5": false,
     "6": false,
@@ -66,7 +80,7 @@
     },
     "2026-07-14": {
       "papers": 2,
-      "hours": 0.8013180555555575
+      "hours": 0.8027083333333352
     }
   },
   "favorites": {},
@@ -74,5 +88,5 @@
     "38": true
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 2884.7449999999913
+  "totalOnlineSeconds": 2889.7499999999914
 }
