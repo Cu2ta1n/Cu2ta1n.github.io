@@ -12,6 +12,19 @@
       "arxivLink": "",
       "isCustom": true,
       "addedAt": "2026-07-14T05:10:27.661Z"
+    },
+    {
+      "id": "custom_1784016674089",
+      "title": "Robotic Grasping and Contact: A Review",
+      "category": "综述",
+      "priority": 2,
+      "readMethod": "精读",
+      "hours": 3,
+      "goal": "建立机器人抓取与接触力学的基础框架，理解接触模型、抓取矩阵、wrench、静力平衡、form closure、force closure、抓取稳定性及抓取质量指标，并明确这些理论概念如何对应到当前 Isaac Lab 灵巧手稳定抓取任务中的观测、奖励函数、接触约束和成功判据。",
+      "output": "输出核心概念关系图和一页阅读笔记；区分三类接触模型及 form/force closure；结合当前 Isaac Lab 环境，设计一版稳定抓取成功判据、奖励项和评价指标。",
+      "arxivLink": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=844081",
+      "isCustom": true,
+      "addedAt": "2026-07-14T08:11:14.089Z"
     }
   ],
   "readStatus": {
@@ -81,7 +94,7 @@
   "readingLog": {
     "2026-07-14": {
       "papers": 9,
-      "hours": 0.06759527777777781
+      "hours": 0.08010527777777783
     }
   },
   "favorites": {
@@ -92,5 +105,5 @@
     "38": true
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 243.3429999999999
+  "totalOnlineSeconds": 288.37899999999996
 }
