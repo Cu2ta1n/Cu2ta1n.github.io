@@ -221,31 +221,6 @@
         .btn-delete { background: #fee2e2; color: #dc2626; border: 1px solid #fecaca; }
         .btn-delete:hover { background: #fecaca; }
         
-        /* 右键菜单 */
-        .context-menu {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-            padding: 4px 0;
-            min-width: 150px;
-        }
-        .context-menu.show { display: block; }
-        .context-menu-item {
-            padding: 9px 16px;
-            cursor: pointer;
-            font-size: 0.85em;
-            color: #dc2626;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: background 0.15s;
-        }
-        .context-menu-item:hover { background: #fee2e2; }
-        
         /* 删除确认弹窗 */
         .confirm-modal .modal {
             max-width: 400px;
@@ -490,11 +465,6 @@
         </div>
     </div>
 
-    <!-- 右键菜单 -->
-    <div class="context-menu" id="contextMenu">
-        <div class="context-menu-item" id="contextDeleteBtn">🗑️ 删除论文</div>
-    </div>
-
     <!-- 删除确认弹窗 -->
     <div class="modal-overlay confirm-modal" id="deleteConfirmModal">
         <div class="modal">
@@ -690,6 +660,7 @@
     let paperNotes = {};
     let readingLog = {};
     let favorites = {};
+    let deletedPaperIds = {}; // 记录被删除的 data.json 论文 ID
     let startDate = new Date().toISOString().split('T')[0];
     let totalOnlineSeconds = 0;
     let lastTickTime = Date.now();
@@ -740,6 +711,7 @@
             paperNotes: paperNotes,
             readingLog: readingLog,
             favorites: favorites,
+            deletedPaperIds: deletedPaperIds,
             startDate: startDate,
             totalOnlineSeconds: totalOnlineSeconds
         };
@@ -866,6 +838,7 @@
             }
         }
         if (remote.favorites) favorites = Object.assign(favorites, remote.favorites);
+        if (remote.deletedPaperIds) deletedPaperIds = Object.assign(deletedPaperIds, remote.deletedPaperIds);
         if (remote.startDate) startDate = remote.startDate;
         if (remote.totalOnlineSeconds) totalOnlineSeconds = Math.max(totalOnlineSeconds, remote.totalOnlineSeconds);
         
@@ -879,6 +852,7 @@
         localStorage.setItem('paperNotes', JSON.stringify(paperNotes));
         localStorage.setItem('readingLog', JSON.stringify(readingLog));
         localStorage.setItem('paperFavorites', JSON.stringify(favorites));
+        localStorage.setItem('deletedPaperIds', JSON.stringify(deletedPaperIds));
         localStorage.setItem('readingStartDate', startDate);
         localStorage.setItem('totalOnlineSeconds', totalOnlineSeconds.toString());
         localStorage.setItem('customPapers', JSON.stringify(customPapers));
@@ -890,6 +864,7 @@
         paperNotes = JSON.parse(localStorage.getItem('paperNotes') || '{}');
         readingLog = JSON.parse(localStorage.getItem('readingLog') || '{}');
         favorites = JSON.parse(localStorage.getItem('paperFavorites') || '{}');
+        deletedPaperIds = JSON.parse(localStorage.getItem('deletedPaperIds') || '{}');
         startDate = localStorage.getItem('readingStartDate') || new Date().toISOString().split('T')[0];
         totalOnlineSeconds = parseFloat(localStorage.getItem('totalOnlineSeconds') || '0');
         customPapers = JSON.parse(localStorage.getItem('customPapers') || '[]');
@@ -1237,7 +1212,7 @@
 
     // ============ 统计 ============
     function getAllPapers() {
-        return papersData.concat(customPapers);
+        return papersData.concat(customPapers).filter(p => !deletedPaperIds[p.id]);
     }
 
     function updateStats() {
@@ -1378,7 +1353,7 @@
                     '<input type="text" id="edit-input-' + p.id + '" value="' + (arxivLink || '') + '" placeholder="输入新链接">' +
                     '<button onclick="updateArxivLink(' + JSON.stringify(p.id) + ')">更新</button>' +
                 '</div>' : '';
-            const deleteBtn = ''; // 删除按钮已改为右键/长按触发，不再直接显示
+            const deleteBtn = '<button class="btn btn-delete" onclick="showDeleteConfirm(' + JSON.stringify(p.id) + ')">删除</button>';
             
             const notes = paperNotes[p.id] || {};
             const noteFields = [
@@ -1518,69 +1493,11 @@
         reader.readAsText(file);
     }
 
-    // ============ 右键/长按删除 ============
-    let contextMenuPaperId = null;
-    let longPressTimer = null;
-    let longPressTriggered = false;
-
-    // 右键菜单（桌面端）
-    document.addEventListener('contextmenu', function(e) {
-        const card = e.target.closest('.paper-card[data-custom-id]');
-        if (!card) return;
-        e.preventDefault();
-        contextMenuPaperId = card.dataset.customId;
-        const menu = document.getElementById('contextMenu');
-        menu.style.left = e.clientX + 'px';
-        menu.style.top = e.clientY + 'px';
-        menu.classList.add('show');
-    });
-
-    // 点击其他地方关闭右键菜单
-    document.addEventListener('click', function() {
-        document.getElementById('contextMenu').classList.remove('show');
-    });
-
-    // 右键菜单删除按钮
-    document.getElementById('contextDeleteBtn').addEventListener('click', function() {
-        document.getElementById('contextMenu').classList.remove('show');
-        if (contextMenuPaperId) {
-            showDeleteConfirm(contextMenuPaperId);
-        }
-    });
-
-    // 长按（移动端）
-    document.addEventListener('touchstart', function(e) {
-        const card = e.target.closest('.paper-card[data-custom-id]');
-        if (!card) return;
-        longPressTriggered = false;
-        longPressTimer = setTimeout(function() {
-            longPressTriggered = true;
-            contextMenuPaperId = card.dataset.customId;
-            // 震动反馈
-            if (navigator.vibrate) navigator.vibrate(50);
-            showDeleteConfirm(contextMenuPaperId);
-        }, 600);
-    }, { passive: true });
-
-    document.addEventListener('touchend', function() {
-        clearTimeout(longPressTimer);
-    });
-
-    document.addEventListener('touchmove', function() {
-        clearTimeout(longPressTimer);
-    });
-
-    // 阻止长按后触发点击
-    document.addEventListener('click', function(e) {
-        if (longPressTriggered) {
-            e.preventDefault();
-            e.stopPropagation();
-            longPressTriggered = false;
-        }
-    }, true);
+    // ============ 删除论文 ============
 
     function showDeleteConfirm(paperId) {
-        const paper = customPapers.find(p => p.id === paperId);
+        const allPapers = getAllPapers();
+        const paper = allPapers.find(p => p.id === paperId);
         if (!paper) return;
         contextMenuPaperId = paperId;
         document.getElementById('deletePaperName').textContent = paper.title;
@@ -1594,8 +1511,31 @@
 
     async function confirmDeletePaper() {
         if (!contextMenuPaperId) return;
-        await deleteCustomPaper(contextMenuPaperId);
+        await deletePaper(contextMenuPaperId);
         closeDeleteConfirm();
+    }
+
+    async function deletePaper(paperId) {
+        const isCustom = customPapers.some(p => p.id === paperId);
+        
+        if (isCustom) {
+            // 自定义论文：直接从数组移除
+            customPapers = customPapers.filter(p => p.id !== paperId);
+        } else {
+            // data.json 论文：加入隐藏列表
+            deletedPaperIds[paperId] = true;
+        }
+        
+        // 清理相关数据
+        delete readStatus[paperId];
+        delete customLinks[paperId];
+        delete paperNotes[paperId];
+        delete favorites[paperId];
+        
+        saveToLocalStorage();
+        await saveToGitHub();
+        buildCategoryFilter();
+        refreshAll();
     }
 
     // ============ 启动 ============
