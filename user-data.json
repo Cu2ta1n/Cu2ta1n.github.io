@@ -3,9 +3,9 @@
     {
       "id": "custom_1784003742263",
       "title": "111",
-      "category": "综述",
+      "category": "ç»¼è¿°",
       "priority": 1,
-      "readMethod": "精读",
+      "readMethod": "ç²¾è¯»",
       "hours": 2,
       "goal": "111",
       "output": "111",
@@ -72,10 +72,10 @@
     },
     "2026-07-14": {
       "papers": 0,
-      "hours": 0.368010277777778
+      "hours": 0.4002911111111114
     }
   },
   "favorites": {},
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 1324.837
+  "totalOnlineSeconds": 1441.0479999999989
 }
