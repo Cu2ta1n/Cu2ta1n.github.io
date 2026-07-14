@@ -1,5 +1,19 @@
 {
-  "customPapers": [],
+  "customPapers": [
+    {
+      "id": "custom_1784005116138",
+      "title": "test",
+      "category": "数学原理",
+      "priority": 2,
+      "readMethod": "泛读",
+      "hours": 2,
+      "goal": "test",
+      "output": "test",
+      "arxivLink": "test",
+      "isCustom": true,
+      "addedAt": "2026-07-14T04:58:36.138Z"
+    }
+  ],
   "readStatus": {
     "5": false,
     "6": false,
@@ -59,11 +73,11 @@
     },
     "2026-07-14": {
       "papers": 2,
-      "hours": 0.670531111111113
+      "hours": 0.6774783333333352
     }
   },
   "favorites": {},
   "deletedPaperIds": {},
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 2413.911999999992
+  "totalOnlineSeconds": 2438.9219999999923
 }
