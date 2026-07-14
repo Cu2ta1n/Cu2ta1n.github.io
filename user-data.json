@@ -1,19 +1,6 @@
 {
   "customPapers": [
     {
-      "id": "custom_1784005116138",
-      "title": "test",
-      "category": "æ°å­¦åç",
-      "priority": 2,
-      "readMethod": "æ³è¯»",
-      "hours": 2,
-      "goal": "test",
-      "output": "test",
-      "arxivLink": "test",
-      "isCustom": true,
-      "addedAt": "2026-07-14T04:58:36.138Z"
-    },
-    {
       "id": "custom_1784005591908",
       "title": "test2",
       "category": "综述",
@@ -95,11 +82,11 @@
     },
     "2026-07-14": {
       "papers": 2,
-      "hours": 0.7443288888888907
+      "hours": 0.7471091666666685
     }
   },
   "favorites": {},
   "deletedPaperIds": {},
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 2679.583999999992
+  "totalOnlineSeconds": 2689.592999999992
 }
