@@ -12,6 +12,19 @@
       "arxivLink": "",
       "isCustom": true,
       "addedAt": "2026-07-14T05:10:27.661Z"
+    },
+    {
+      "id": "custom_1784007399844",
+      "title": "test",
+      "category": "综述",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "",
+      "isCustom": true,
+      "addedAt": "2026-07-14T05:36:39.844Z"
     }
   ],
   "readStatus": {
@@ -78,7 +91,7 @@
   "readingLog": {
     "2026-07-14": {
       "papers": 0,
-      "hours": 0.034271388888888886
+      "hours": 0.03596666666666666
     }
   },
   "favorites": {
@@ -88,5 +101,5 @@
     "38": true
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 123.37700000000004
+  "totalOnlineSeconds": 129.48000000000005
 }
