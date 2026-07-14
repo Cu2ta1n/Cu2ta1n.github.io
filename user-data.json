@@ -15,10 +15,10 @@
     }
   ],
   "readStatus": {
-    "5": false,
-    "6": false,
-    "7": false,
-    "8": false,
+    "5": true,
+    "6": true,
+    "7": true,
+    "8": true,
     "34": false,
     "custom_1784005827661": false
   },
@@ -77,8 +77,8 @@
   },
   "readingLog": {
     "2026-07-14": {
-      "papers": 0,
-      "hours": 0.1336075
+      "papers": 4,
+      "hours": 0.14795416666666666
     }
   },
   "favorites": {
@@ -88,5 +88,5 @@
     "38": true
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 480.98699999999997
+  "totalOnlineSeconds": 532.6350000000001
 }
