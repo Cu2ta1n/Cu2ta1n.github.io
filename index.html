@@ -689,6 +689,7 @@
     let userDataSha = ''; // 用于更新文件
     let isSyncing = false;
     let saveTimer = null;
+    let lastSyncTime = localStorage.getItem('lastSyncTime') || ''; // 最后同步时间
 
     // ============ GitHub API ============
     function getHeaders() {
@@ -776,6 +777,10 @@
             }
             const result = await resp.json();
             userDataSha = result.content.sha;
+            // 记录同步时间
+            lastSyncTime = new Date().toLocaleString('zh-CN', { hour12: false });
+            localStorage.setItem('lastSyncTime', lastSyncTime);
+            document.getElementById('updateTime').textContent = '最后更新: ' + lastSyncTime;
             updateSyncIndicator('connected');
         } catch (e) {
             console.error('Save to GitHub failed:', e);
@@ -972,7 +977,12 @@
         papersData = data.papers;
         categoriesData = data.categories;
         
-        document.getElementById('updateTime').textContent = '最后更新: ' + data.lastUpdated;
+        // 显示最后同步时间（如果有）
+        if (lastSyncTime) {
+            document.getElementById('updateTime').textContent = '最后更新: ' + lastSyncTime;
+        } else {
+            document.getElementById('updateTime').textContent = '最后更新: 尚未同步';
+        }
         
         // 如果有 token，从 GitHub 加载用户数据
         if (githubToken) {
