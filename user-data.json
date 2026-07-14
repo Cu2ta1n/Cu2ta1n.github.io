@@ -60,7 +60,8 @@
     "34": "https://arxiv.org/pdf/2509.12714",
     "35": "https://arxiv.org/pdf/2606.08737",
     "36": "https://arxiv.org/pdf/1808.00177v5",
-    "37": "https://arxiv.org/pdf/2404.13478v1"
+    "37": "https://arxiv.org/pdf/2404.13478v1",
+    "custom_1784005827661": "https://arxiv.org/pdf/2106.05965"
   },
   "paperNotes": {
     "0": {},
@@ -81,7 +82,7 @@
     },
     "2026-07-14": {
       "papers": 2,
-      "hours": 0.8334083333333353
+      "hours": 0.8681636111111132
     }
   },
   "favorites": {},
@@ -89,5 +90,5 @@
     "38": true
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 3000.2699999999923
+  "totalOnlineSeconds": 3125.3889999999906
 }
