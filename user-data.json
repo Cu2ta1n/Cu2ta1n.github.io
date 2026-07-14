@@ -19,7 +19,8 @@
     "6": true,
     "7": true,
     "8": true,
-    "34": false,
+    "32": true,
+    "34": true,
     "custom_1784005827661": false
   },
   "customLinks": {
@@ -77,8 +78,8 @@
   },
   "readingLog": {
     "2026-07-14": {
-      "papers": 4,
-      "hours": 0.14795416666666666
+      "papers": 6,
+      "hours": 0.1507338888888889
     }
   },
   "favorites": {
@@ -88,5 +89,5 @@
     "38": true
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 532.6350000000001
+  "totalOnlineSeconds": 542.6420000000002
 }
