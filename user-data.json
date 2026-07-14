@@ -1,27 +1,12 @@
 {
-  "customPapers": [
-    {
-      "id": "custom_1784003742263",
-      "title": "111",
-      "category": "Ã§Â»Â¼Ã¨Â¿Â°",
-      "priority": 1,
-      "readMethod": "Ã§Â²Â¾Ã¨Â¯Â»",
-      "hours": 2,
-      "goal": "111",
-      "output": "111",
-      "arxivLink": "111",
-      "isCustom": true,
-      "addedAt": "2026-07-14T04:35:42.263Z"
-    }
-  ],
+  "customPapers": [],
   "readStatus": {
     "5": false,
     "6": false,
     "7": false,
     "8": false,
     "34": false,
-    "38": false,
-    "custom_1784003742263": false
+    "38": false
   },
   "customLinks": {
     "0": "https://link.springer.com/article/10.1007/s10462-025-11262-2",
@@ -77,9 +62,7 @@
       "hours": 0.670531111111113
     }
   },
-  "favorites": {
-    "custom_1784003742263": false
-  },
+  "favorites": {},
   "deletedPaperIds": {},
   "startDate": "2026-07-13",
   "totalOnlineSeconds": 2413.911999999992
