@@ -68,6 +68,11 @@
     "1": {
       "question": "",
       "pipeline": ""
+    },
+    "4": {
+      "training": "",
+      "obs": "",
+      "relation": ""
     }
   },
   "readingLog": {
@@ -77,11 +82,11 @@
     },
     "2026-07-14": {
       "papers": 2,
-      "hours": 0.7317891666666685
+      "hours": 0.7331791666666685
     }
   },
   "favorites": {},
   "deletedPaperIds": {},
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 2634.440999999991
+  "totalOnlineSeconds": 2639.444999999991
 }
