@@ -3,9 +3,9 @@
     {
       "id": "custom_1784005116138",
       "title": "test",
-      "category": "数学原理",
+      "category": "æ°å­¦åç",
       "priority": 2,
-      "readMethod": "泛读",
+      "readMethod": "æ³è¯»",
       "hours": 2,
       "goal": "test",
       "output": "test",
@@ -73,11 +73,11 @@
     },
     "2026-07-14": {
       "papers": 2,
-      "hours": 0.6774783333333352
+      "hours": 0.7000477777777796
     }
   },
   "favorites": {},
   "deletedPaperIds": {},
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 2438.9219999999923
+  "totalOnlineSeconds": 2520.171999999992
 }
