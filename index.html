@@ -218,6 +218,8 @@
         .btn-note:hover { background: #fde68a; }
         .btn-add-link { background: #e0e7ff; color: #6366f1; border: 1px solid #c7d2fe; }
         .btn-add-link:hover { background: #c7d2fe; }
+        .btn-delete { background: #fee2e2; color: #dc2626; border: 1px solid #fecaca; }
+        .btn-delete:hover { background: #fecaca; }
         
         .add-link-form {
             display: none;
@@ -274,6 +276,7 @@
             gap: 10px;
             justify-content: flex-end;
             margin-bottom: 20px;
+            flex-wrap: wrap;
         }
         .btn-sync {
             padding: 7px 14px;
@@ -285,14 +288,134 @@
             font-size: 0.82em;
         }
         .btn-sync:hover { border-color: #3b82f6; color: #3b82f6; }
+        .btn-add-paper {
+            padding: 7px 14px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.82em;
+            font-weight: 600;
+        }
+        .btn-add-paper:hover { opacity: 0.9; }
         
         .empty-state { text-align: center; padding: 50px; color: #94a3b8; }
+        
+        /* Token 登录弹窗 */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-overlay.show { display: flex; }
+        .modal {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+        .modal h2 { color: #1e293b; margin-bottom: 8px; font-size: 1.3em; }
+        .modal p { color: #64748b; font-size: 0.9em; margin-bottom: 16px; line-height: 1.5; }
+        .modal input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.9em;
+            margin-bottom: 12px;
+        }
+        .modal input:focus { outline: none; border-color: #3b82f6; }
+        .modal .modal-btns { display: flex; gap: 10px; justify-content: flex-end; }
+        .modal .btn-primary {
+            padding: 8px 20px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        .modal .btn-primary:hover { background: #2563eb; }
+        .modal .btn-secondary {
+            padding: 8px 20px;
+            background: #f1f5f9;
+            color: #64748b;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        .modal .btn-secondary:hover { background: #e2e8f0; }
+        .modal .sync-status {
+            font-size: 0.8em;
+            padding: 6px 10px;
+            border-radius: 6px;
+            margin-top: 8px;
+        }
+        .modal .sync-status.success { background: #d1fae5; color: #059669; }
+        .modal .sync-status.error { background: #fee2e2; color: #dc2626; }
+        .modal .sync-status.info { background: #dbeafe; color: #2563eb; }
+        
+        /* 添加论文弹窗 */
+        .add-paper-modal .modal {
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .form-group { margin-bottom: 14px; }
+        .form-group label {
+            display: block;
+            font-size: 0.85em;
+            color: #334155;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.9em;
+            font-family: inherit;
+        }
+        .form-group textarea { min-height: 60px; resize: vertical; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        
+        .sync-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.75em;
+            color: #94a3b8;
+            margin-left: 10px;
+        }
+        .sync-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: #94a3b8;
+        }
+        .sync-dot.connected { background: #10b981; }
+        .sync-dot.saving { background: #f59e0b; animation: pulse 1s infinite; }
+        .sync-dot.error { background: #dc2626; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
         
         @media (max-width: 768px) {
             .charts-row { grid-template-columns: 1fr; }
             .paper-meta { grid-template-columns: 1fr; }
             .paper-top { flex-direction: column; }
             .stats { grid-template-columns: repeat(2, 1fr); }
+            .form-row { grid-template-columns: 1fr; }
         }
         
         ::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -301,11 +424,98 @@
     </style>
 </head>
 <body>
+    <!-- Token 登录弹窗 -->
+    <div class="modal-overlay" id="tokenModal">
+        <div class="modal">
+            <h2>🔐 连接 GitHub 同步</h2>
+            <p>输入你的 GitHub Personal Access Token 来同步阅读数据。<br>
+            数据存储在 GitHub 仓库中，换设备也能看到。<br>
+            <a href="https://github.com/settings/tokens/new?scopes=repo&description=paper-website" target="_blank" style="color:#3b82f6">点此生成 token</a>（勾选 repo 权限即可）</p>
+            <input type="password" id="tokenInput" placeholder="粘贴 GitHub Token (ghp_xxx 或 github_pat_xxx)">
+            <div id="tokenStatus"></div>
+            <div class="modal-btns">
+                <button class="btn-secondary" onclick="skipToken()">跳过（仅本地）</button>
+                <button class="btn-primary" onclick="saveToken()">连接</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加论文弹窗 -->
+    <div class="modal-overlay add-paper-modal" id="addPaperModal">
+        <div class="modal">
+            <h2>📄 添加新论文</h2>
+            <div class="form-group">
+                <label>论文标题 *</label>
+                <input type="text" id="newTitle" placeholder="自定义显示名称">
+            </div>
+            <div class="form-group">
+                <label>链接</label>
+                <input type="text" id="newLink" placeholder="arXiv 或其他链接">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>分类 *</label>
+                    <select id="newCategory">
+                        <option value="综述">综述</option>
+                        <option value="数学原理">数学原理</option>
+                        <option value="数据集">数据集</option>
+                        <option value="抓取生成">抓取生成</option>
+                        <option value="抓取执行">抓取执行</option>
+                        <option value="基础模型">基础模型</option>
+                        <option value="VLA">VLA</option>
+                        <option value="World Action Model">World Action Model</option>
+                        <option value="灵巧操作">灵巧操作</option>
+                        <option value="__custom__">自定义分类...</option>
+                    </select>
+                    <input type="text" id="newCategoryCustom" placeholder="输入自定义分类名" style="display:none; margin-top:6px">
+                </div>
+                <div class="form-group">
+                    <label>优先级 *</label>
+                    <select id="newPriority">
+                        <option value="1">P1 必读</option>
+                        <option value="2">P2 重要</option>
+                        <option value="3">P3 选读</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>阅读方式 *</label>
+                    <select id="newMethod">
+                        <option value="精读">精读</option>
+                        <option value="泛读">泛读</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>预计时长(小时) *</label>
+                    <input type="number" id="newHours" value="2" min="0.5" step="0.5">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>本篇目标</label>
+                <textarea id="newGoal" placeholder="读这篇论文要达成什么目标"></textarea>
+            </div>
+            <div class="form-group">
+                <label>阅读产出</label>
+                <textarea id="newOutput" placeholder="读完后应该产出什么"></textarea>
+            </div>
+            <div id="addPaperStatus"></div>
+            <div class="modal-btns">
+                <button class="btn-secondary" onclick="closeAddPaper()">取消</button>
+                <button class="btn-primary" onclick="submitNewPaper()">添加</button>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <div class="header">
             <h1>Kyle Zhu的论文阅读</h1>
             <p class="subtitle">具身智能，灵巧手</p>
             <p class="update-time" id="updateTime"></p>
+            <div class="sync-indicator" id="syncIndicator" style="display:none">
+                <div class="sync-dot" id="syncDot"></div>
+                <span id="syncText"></span>
+            </div>
         </div>
         
         <div class="stats">
@@ -350,6 +560,9 @@
         </div>
         
         <div class="sync-bar">
+            <button class="btn-add-paper" onclick="openAddPaper()">+ 添加论文</button>
+            <button class="btn-sync" onclick="manualSync()">🔄 同步数据</button>
+            <button class="btn-sync" onclick="showTokenModal()">⚙️ 同步设置</button>
             <button class="btn-sync" onclick="exportStatus()">导出已读状态</button>
             <button class="btn-sync" onclick="document.getElementById('importFile').click()">导入已读状态</button>
             <button class="btn-sync" onclick="resetTodayReadingTime()">清零今日阅读时间</button>
@@ -393,46 +606,263 @@
     </div>
 
     <script>
+    // ============ 配置 ============
+    const GITHUB_OWNER = 'Cu2ta1n';
+    const GITHUB_REPO = 'Cu2ta1n.github.io';
+    const GITHUB_BRANCH = 'main';
+    const USER_DATA_PATH = 'user-data.json';
+    const API_BASE = 'https://api.github.com/repos/' + GITHUB_OWNER + '/' + GITHUB_REPO;
+
+    // ============ 全局状态 ============
     let papersData = [];
+    let customPapers = [];
     let categoriesData = {};
-    let readStatus = JSON.parse(localStorage.getItem('paperReadStatus') || '{}');
-    let customLinks = JSON.parse(localStorage.getItem('customArxivLinks') || '{}');
-    let paperNotes = JSON.parse(localStorage.getItem('paperNotes') || '{}');
-    let readingLog = JSON.parse(localStorage.getItem('readingLog') || '{}');
-    let favorites = JSON.parse(localStorage.getItem('paperFavorites') || '{}');
-    let startDate = localStorage.getItem('readingStartDate') || new Date().toISOString().split('T')[0];
-    localStorage.setItem('readingStartDate', startDate);
+    let readStatus = {};
+    let customLinks = {};
+    let paperNotes = {};
+    let readingLog = {};
+    let favorites = {};
+    let startDate = new Date().toISOString().split('T')[0];
+    let totalOnlineSeconds = 0;
+    let lastTickTime = Date.now();
     let currentFilters = { status: 'all', category: 'all', priority: 'all', favorite: 'all' };
     let categoryChart = null;
     let weeklyChart = null;
+    let githubToken = localStorage.getItem('githubToken') || '';
+    let userDataSha = ''; // 用于更新文件
+    let isSyncing = false;
+    let saveTimer = null;
 
-    // 实际在线时间追踪（秒）
-    let totalOnlineSeconds = parseFloat(localStorage.getItem('totalOnlineSeconds') || '0');
-    let lastTickTime = Date.now();
+    // ============ GitHub API ============
+    function getHeaders() {
+        return {
+            'Authorization': 'token ' + githubToken,
+            'Accept': 'application/vnd.github.v3+json',
+            'Content-Type': 'application/json'
+        };
+    }
 
+    async function loadFromGitHub() {
+        if (!githubToken) return null;
+        try {
+            const resp = await fetch(API_BASE + '/contents/' + USER_DATA_PATH + '?ref=' + GITHUB_BRANCH, {
+                headers: getHeaders()
+            });
+            if (resp.status === 404) return null;
+            if (!resp.ok) throw new Error('HTTP ' + resp.status);
+            const data = await resp.json();
+            userDataSha = data.sha;
+            const content = atob(data.content.replace(/\n/g, ''));
+            return JSON.parse(content);
+        } catch (e) {
+            console.error('Load from GitHub failed:', e);
+            return null;
+        }
+    }
+
+    async function saveToGitHub() {
+        if (!githubToken || isSyncing) return;
+        isSyncing = true;
+        updateSyncIndicator('saving');
+        
+        const data = {
+            customPapers: customPapers,
+            readStatus: readStatus,
+            customLinks: customLinks,
+            paperNotes: paperNotes,
+            readingLog: readingLog,
+            favorites: favorites,
+            startDate: startDate,
+            totalOnlineSeconds: totalOnlineSeconds
+        };
+        
+        const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+        const body = {
+            message: 'Sync user data - ' + new Date().toISOString(),
+            content: content,
+            branch: GITHUB_BRANCH
+        };
+        if (userDataSha) body.sha = userDataSha;
+        
+        try {
+            const resp = await fetch(API_BASE + '/contents/' + USER_DATA_PATH, {
+                method: 'PUT',
+                headers: getHeaders(),
+                body: JSON.stringify(body)
+            });
+            if (!resp.ok) {
+                const errData = await resp.json();
+                throw new Error(errData.message || 'HTTP ' + resp.status);
+            }
+            const result = await resp.json();
+            userDataSha = result.content.sha;
+            updateSyncIndicator('connected');
+        } catch (e) {
+            console.error('Save to GitHub failed:', e);
+            updateSyncIndicator('error');
+            // 如果 sha 冲突，重新获取 sha 再试一次
+            if (e.message.includes('sha')) {
+                userDataSha = '';
+                const freshData = await loadFromGitHub();
+                if (freshData) {
+                    // 合并远程数据
+                    mergeUserData(freshData);
+                    // 重试保存
+                    setTimeout(() => { isSyncing = false; saveToGitHub(); }, 1000);
+                    return;
+                }
+            }
+        }
+        isSyncing = false;
+    }
+
+    function debouncedSave() {
+        if (saveTimer) clearTimeout(saveTimer);
+        saveTimer = setTimeout(saveToGitHub, 3000);
+    }
+
+    function updateSyncIndicator(status) {
+        const indicator = document.getElementById('syncIndicator');
+        const dot = document.getElementById('syncDot');
+        const text = document.getElementById('syncText');
+        indicator.style.display = 'inline-flex';
+        dot.className = 'sync-dot ' + (status === 'connected' ? 'connected' : status === 'saving' ? 'saving' : status === 'error' ? 'error' : '');
+        text.textContent = status === 'connected' ? '已同步' : status === 'saving' ? '保存中...' : status === 'error' ? '同步失败' : '未连接';
+    }
+
+    // ============ Token 管理 ============
+    function showTokenModal() {
+        document.getElementById('tokenModal').classList.add('show');
+        document.getElementById('tokenInput').value = githubToken;
+        document.getElementById('tokenStatus').innerHTML = githubToken ? '<div class="sync-status success">当前已连接</div>' : '';
+    }
+
+    async function saveToken() {
+        const token = document.getElementById('tokenInput').value.trim();
+        if (!token) {
+            document.getElementById('tokenStatus').innerHTML = '<div class="sync-status error">请输入 token</div>';
+            return;
+        }
+        // 验证 token
+        document.getElementById('tokenStatus').innerHTML = '<div class="sync-status info">验证中...</div>';
+        try {
+            const resp = await fetch('https://api.github.com/user', {
+                headers: { 'Authorization': 'token ' + token }
+            });
+            if (!resp.ok) throw new Error('Invalid token');
+            const user = await resp.json();
+            
+            githubToken = token;
+            localStorage.setItem('githubToken', token);
+            document.getElementById('tokenStatus').innerHTML = '<div class="sync-status success">✓ 已连接为 ' + user.login + '，正在同步数据...</div>';
+            
+            // 加载远程数据
+            const remoteData = await loadFromGitHub();
+            if (remoteData) {
+                mergeUserData(remoteData);
+            }
+            
+            setTimeout(() => {
+                document.getElementById('tokenModal').classList.remove('show');
+                updateSyncIndicator('connected');
+                refreshAll();
+            }, 1000);
+        } catch (e) {
+            document.getElementById('tokenStatus').innerHTML = '<div class="sync-status error">Token 无效或无权限，请检查</div>';
+        }
+    }
+
+    function skipToken() {
+        document.getElementById('tokenModal').classList.remove('show');
+        // 从 localStorage 恢复
+        loadFromLocalStorage();
+        refreshAll();
+        startOnlineTracking();
+    }
+
+    function mergeUserData(remote) {
+        if (remote.customPapers) customPapers = remote.customPapers;
+        if (remote.readStatus) readStatus = Object.assign(readStatus, remote.readStatus);
+        if (remote.customLinks) customLinks = Object.assign(customLinks, remote.customLinks);
+        if (remote.paperNotes) {
+            for (const id in remote.paperNotes) {
+                if (!paperNotes[id]) paperNotes[id] = {};
+                Object.assign(paperNotes[id], remote.paperNotes[id]);
+            }
+        }
+        if (remote.readingLog) {
+            for (const date in remote.readingLog) {
+                if (!readingLog[date]) readingLog[date] = { papers: 0, hours: 0 };
+                readingLog[date].papers = Math.max(readingLog[date].papers, remote.readingLog[date].papers || 0);
+                readingLog[date].hours = Math.max(readingLog[date].hours, remote.readingLog[date].hours || 0);
+            }
+        }
+        if (remote.favorites) favorites = Object.assign(favorites, remote.favorites);
+        if (remote.startDate) startDate = remote.startDate;
+        if (remote.totalOnlineSeconds) totalOnlineSeconds = Math.max(totalOnlineSeconds, remote.totalOnlineSeconds);
+        
+        // 同步到 localStorage
+        saveToLocalStorage();
+    }
+
+    function saveToLocalStorage() {
+        localStorage.setItem('paperReadStatus', JSON.stringify(readStatus));
+        localStorage.setItem('customArxivLinks', JSON.stringify(customLinks));
+        localStorage.setItem('paperNotes', JSON.stringify(paperNotes));
+        localStorage.setItem('readingLog', JSON.stringify(readingLog));
+        localStorage.setItem('paperFavorites', JSON.stringify(favorites));
+        localStorage.setItem('readingStartDate', startDate);
+        localStorage.setItem('totalOnlineSeconds', totalOnlineSeconds.toString());
+        localStorage.setItem('customPapers', JSON.stringify(customPapers));
+    }
+
+    function loadFromLocalStorage() {
+        readStatus = JSON.parse(localStorage.getItem('paperReadStatus') || '{}');
+        customLinks = JSON.parse(localStorage.getItem('customArxivLinks') || '{}');
+        paperNotes = JSON.parse(localStorage.getItem('paperNotes') || '{}');
+        readingLog = JSON.parse(localStorage.getItem('readingLog') || '{}');
+        favorites = JSON.parse(localStorage.getItem('paperFavorites') || '{}');
+        startDate = localStorage.getItem('readingStartDate') || new Date().toISOString().split('T')[0];
+        totalOnlineSeconds = parseFloat(localStorage.getItem('totalOnlineSeconds') || '0');
+        customPapers = JSON.parse(localStorage.getItem('customPapers') || '[]');
+    }
+
+    async function manualSync() {
+        if (!githubToken) {
+            showTokenModal();
+            return;
+        }
+        updateSyncIndicator('saving');
+        await saveToGitHub();
+    }
+
+    // ============ 在线时间追踪 ============
     function startOnlineTracking() {
-        // 每5秒记录一次在线时间（页面可见时）
         setInterval(function() {
             if (document.visibilityState === 'visible') {
                 const now = Date.now();
                 const elapsed = (now - lastTickTime) / 1000;
                 totalOnlineSeconds += elapsed;
                 lastTickTime = now;
-                localStorage.setItem('totalOnlineSeconds', totalOnlineSeconds.toString());
                 
-                // 同时更新当天的 readingLog（只记录当天的时间）
                 const today = new Date().toISOString().split('T')[0];
                 if (!readingLog[today]) readingLog[today] = { papers: 0, hours: 0 };
-                readingLog[today].hours += elapsed / 3600; // 累加当天的小时数
+                readingLog[today].hours += elapsed / 3600;
+                
+                // 每30秒保存一次到 localStorage
+                localStorage.setItem('totalOnlineSeconds', totalOnlineSeconds.toString());
                 localStorage.setItem('readingLog', JSON.stringify(readingLog));
                 
-                // 更新显示
+                // 每2分钟同步到 GitHub
+                if (githubToken && Math.floor(totalOnlineSeconds) % 120 < 5) {
+                    debouncedSave();
+                }
+                
                 const hours = totalOnlineSeconds / 3600;
                 document.getElementById('readHours').textContent = hours < 1 
                     ? Math.round(totalOnlineSeconds / 60) + 'min' 
                     : hours.toFixed(1) + 'h';
             } else {
-                // 页面不可见时重置计时基准，避免切回来时一次性加太多
                 lastTickTime = Date.now();
             }
         }, 5000);
@@ -445,6 +875,7 @@
             : hours.toFixed(1) + 'h';
     }
 
+    // ============ 数据加载 ============
     async function loadData() {
         const resp = await fetch('data.json?t=' + Date.now());
         const data = await resp.json();
@@ -452,11 +883,43 @@
         categoriesData = data.categories;
         
         document.getElementById('updateTime').textContent = '最后更新: ' + data.lastUpdated;
-        document.getElementById('totalPapers').textContent = data.overview.totalPapers;
-        document.getElementById('totalHours').textContent = data.overview.totalHours + 'h';
         
+        // 如果有 token，从 GitHub 加载用户数据
+        if (githubToken) {
+            updateSyncIndicator('saving');
+            const remoteData = await loadFromGitHub();
+            if (remoteData) {
+                mergeUserData(remoteData);
+                updateSyncIndicator('connected');
+            } else {
+                // 远程没有数据，从 localStorage 恢复并上传
+                loadFromLocalStorage();
+                if (Object.keys(readStatus).length > 0 || customPapers.length > 0) {
+                    await saveToGitHub();
+                }
+                updateSyncIndicator('connected');
+            }
+        } else {
+            loadFromLocalStorage();
+            // 显示 token 弹窗
+            document.getElementById('tokenModal').classList.add('show');
+        }
+        
+        buildCategoryFilter();
+        refreshAll();
+        startOnlineTracking();
+    }
+
+    function buildCategoryFilter() {
         const catFilter = document.getElementById('categoryFilter');
-        Object.keys(categoriesData).forEach(cat => {
+        // 清除旧的动态分类按钮（保留"全部"）
+        while (catFilter.children.length > 1) catFilter.removeChild(catFilter.lastChild);
+        
+        // 合并 data.json 的分类和自定义论文的分类
+        const allCats = new Set(Object.keys(categoriesData));
+        customPapers.forEach(p => allCats.add(p.category));
+        
+        allCats.forEach(cat => {
             const btn = document.createElement('button');
             btn.className = 'filter-btn';
             btn.dataset.category = cat;
@@ -464,29 +927,142 @@
             catFilter.appendChild(btn);
         });
         
+        // 重新绑定事件
         document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const group = this.parentElement;
-                group.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                if (this.dataset.status !== undefined) currentFilters.status = this.dataset.status;
-                if (this.dataset.category !== undefined) currentFilters.category = this.dataset.category;
-                if (this.dataset.priority !== undefined) currentFilters.priority = this.dataset.priority;
-                renderPapers();
-            });
+            btn.removeEventListener('click', filterClickHandler);
+            btn.addEventListener('click', filterClickHandler);
         });
-        
-        renderCharts();
-        renderContribution();
-        updateStats();
-        renderPapers();
-        startOnlineTracking(); // 启动在线时间追踪
     }
 
+    function filterClickHandler() {
+        const group = this.parentElement;
+        group.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        if (this.dataset.status !== undefined) currentFilters.status = this.dataset.status;
+        if (this.dataset.category !== undefined) currentFilters.category = this.dataset.category;
+        if (this.dataset.priority !== undefined) currentFilters.priority = this.dataset.priority;
+        if (this.dataset.favorite !== undefined) currentFilters.favorite = this.dataset.favorite;
+        renderPapers();
+    }
+
+    function refreshAll() {
+        updateStats();
+        renderCharts();
+        renderContribution();
+        renderPapers();
+    }
+
+    // ============ 添加论文 ============
+    function openAddPaper() {
+        if (!githubToken) {
+            alert('请先连接 GitHub 同步后再添加论文');
+            showTokenModal();
+            return;
+        }
+        document.getElementById('addPaperModal').classList.add('show');
+        document.getElementById('addPaperStatus').innerHTML = '';
+        // 重置表单
+        document.getElementById('newTitle').value = '';
+        document.getElementById('newLink').value = '';
+        document.getElementById('newCategory').value = '综述';
+        document.getElementById('newCategoryCustom').style.display = 'none';
+        document.getElementById('newCategoryCustom').value = '';
+        document.getElementById('newPriority').value = '1';
+        document.getElementById('newMethod').value = '精读';
+        document.getElementById('newHours').value = '2';
+        document.getElementById('newGoal').value = '';
+        document.getElementById('newOutput').value = '';
+    }
+
+    function closeAddPaper() {
+        document.getElementById('addPaperModal').classList.remove('show');
+    }
+
+    // 自定义分类下拉
+    document.getElementById('newCategory').addEventListener('change', function() {
+        const customInput = document.getElementById('newCategoryCustom');
+        customInput.style.display = this.value === '__custom__' ? 'block' : 'none';
+    });
+
+    async function submitNewPaper() {
+        const title = document.getElementById('newTitle').value.trim();
+        if (!title) {
+            document.getElementById('addPaperStatus').innerHTML = '<div class="sync-status error">请输入论文标题</div>';
+            return;
+        }
+        
+        let category = document.getElementById('newCategory').value;
+        if (category === '__custom__') {
+            category = document.getElementById('newCategoryCustom').value.trim();
+            if (!category) {
+                document.getElementById('addPaperStatus').innerHTML = '<div class="sync-status error">请输入自定义分类名</div>';
+                return;
+            }
+        }
+        
+        const link = document.getElementById('newLink').value.trim();
+        const priority = parseInt(document.getElementById('newPriority').value);
+        const method = document.getElementById('newMethod').value;
+        const hours = parseFloat(document.getElementById('newHours').value) || 2;
+        const goal = document.getElementById('newGoal').value.trim() || '待补充';
+        const output = document.getElementById('newOutput').value.trim() || '待补充';
+        
+        // 生成 ID
+        const newId = 'custom_' + Date.now();
+        const newPaper = {
+            id: newId,
+            title: title,
+            category: category,
+            priority: priority,
+            readMethod: method,
+            hours: hours,
+            goal: goal,
+            output: output,
+            arxivLink: link,
+            isCustom: true,
+            addedAt: new Date().toISOString()
+        };
+        
+        customPapers.push(newPaper);
+        saveToLocalStorage();
+        
+        document.getElementById('addPaperStatus').innerHTML = '<div class="sync-status info">正在同步到 GitHub...</div>';
+        await saveToGitHub();
+        document.getElementById('addPaperStatus').innerHTML = '<div class="sync-status success">✓ 添加成功！</div>';
+        
+        setTimeout(() => {
+            closeAddPaper();
+            buildCategoryFilter();
+            refreshAll();
+        }, 800);
+    }
+
+    async function deleteCustomPaper(paperId) {
+        if (!confirm('确定要删除这篇论文吗？')) return;
+        customPapers = customPapers.filter(p => p.id !== paperId);
+        delete readStatus[paperId];
+        delete customLinks[paperId];
+        delete paperNotes[paperId];
+        delete favorites[paperId];
+        saveToLocalStorage();
+        await saveToGitHub();
+        buildCategoryFilter();
+        refreshAll();
+    }
+
+    // ============ 图表 ============
     function renderCharts() {
-        const catLabels = Object.keys(categoriesData);
-        const catCounts = catLabels.map(c => categoriesData[c].count);
-        const catColors = ['#3b82f6','#f59e0b','#10b981','#ec4899','#8b5cf6','#06b6d4','#f97316','#84cc16','#e11d48'];
+        // 合并分类数据
+        const mergedCats = Object.assign({}, categoriesData);
+        customPapers.forEach(p => {
+            if (!mergedCats[p.category]) mergedCats[p.category] = { count: 0, hours: 0 };
+            mergedCats[p.category].count++;
+            mergedCats[p.category].hours += p.hours;
+        });
+        
+        const catLabels = Object.keys(mergedCats);
+        const catCounts = catLabels.map(c => mergedCats[c].count);
+        const catColors = ['#3b82f6','#f59e0b','#10b981','#ec4899','#8b5cf6','#06b6d4','#f97316','#84cc16','#e11d48','#64748b','#a855f7','#14b8a6'];
         
         if (categoryChart) categoryChart.destroy();
         categoryChart = new Chart(document.getElementById('categoryPie'), {
@@ -513,10 +1089,9 @@
             }
         });
         
-        // 本周阅读统计：周一到周日
         const now = new Date();
-        const dayOfWeek = now.getDay(); // 0=周日, 1=周一, ..., 6=周六
-        const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek; // 找到本周一
+        const dayOfWeek = now.getDay();
+        const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
         const monday = new Date(now);
         monday.setDate(now.getDate() + mondayOffset);
         
@@ -571,13 +1146,12 @@
             
             const day = document.createElement('div');
             day.className = 'contribution-day';
-            // 按在线时间分级：0, <1h, <2h, <4h, >=6h
             if (log.hours > 0) {
                 if (log.hours < 1) day.classList.add('level-1');
                 else if (log.hours < 2) day.classList.add('level-2');
                 else if (log.hours < 4) day.classList.add('level-3');
                 else if (log.hours >= 6) day.classList.add('level-4');
-                else day.classList.add('level-3'); // 4-6h 也算 level-3
+                else day.classList.add('level-3');
             }
             day.title = dateStr + ': ' + log.papers + '篇, ' + (log.hours < 1 ? Math.round(log.hours * 60) + 'min' : log.hours.toFixed(1) + 'h');
             grid.appendChild(day);
@@ -588,18 +1162,43 @@
         const today = new Date().toISOString().split('T')[0];
         if (!readingLog[today]) readingLog[today] = { papers: 0, hours: 0 };
         readingLog[today].papers += 1;
-        // 不再加论文预计时间，时间由 startOnlineTracking 根据在线时间累加
-        localStorage.setItem('readingLog', JSON.stringify(readingLog));
+        saveToLocalStorage();
+        if (githubToken) debouncedSave();
         renderContribution();
     }
 
+    // ============ 统计 ============
+    function getAllPapers() {
+        return papersData.concat(customPapers);
+    }
+
+    function updateStats() {
+        const allPapers = getAllPapers();
+        const readCount = allPapers.filter(p => readStatus[p.id]).length;
+        const unreadCount = allPapers.length - readCount;
+        const progress = allPapers.length ? Math.round((readCount / allPapers.length) * 100) : 0;
+        const totalHours = allPapers.filter(p => !readStatus[p.id]).reduce((s, p) => s + p.hours, 0);
+        const onlineTimeText = formatOnlineTime();
+        
+        document.getElementById('totalPapers').textContent = allPapers.length;
+        document.getElementById('readCount').textContent = readCount;
+        document.getElementById('unreadCount').textContent = unreadCount;
+        document.getElementById('totalHours').textContent = totalHours + 'h';
+        document.getElementById('readHours').textContent = onlineTimeText;
+        document.getElementById('progressText').textContent = progress + '%';
+        document.getElementById('progressFill').style.width = progress + '%';
+    }
+
+    // ============ 论文操作 ============
     function toggleRead(id) {
         const wasRead = readStatus[id];
         readStatus[id] = !readStatus[id];
-        localStorage.setItem('paperReadStatus', JSON.stringify(readStatus));
+        saveToLocalStorage();
+        if (githubToken) debouncedSave();
         
         if (!wasRead) {
-            const paper = papersData.find(p => p.id === id);
+            const allPapers = getAllPapers();
+            const paper = allPapers.find(p => p.id === id);
             if (paper) logReading(id, paper.hours);
         }
         
@@ -610,51 +1209,30 @@
 
     function toggleFavorite(id) {
         favorites[id] = !favorites[id];
-        localStorage.setItem('paperFavorites', JSON.stringify(favorites));
+        saveToLocalStorage();
+        if (githubToken) debouncedSave();
         renderPapers();
-    }
-
-    function updateStats() {
-        const readCount = papersData.filter(p => readStatus[p.id]).length;
-        const unreadCount = papersData.length - readCount;
-        const progress = papersData.length ? Math.round((readCount / papersData.length) * 100) : 0;
-        // 预计总时长 = 未读文章的预计时间
-        const totalHours = papersData.filter(p => !readStatus[p.id]).reduce((s, p) => s + p.hours, 0);
-        // 已读时长 = 实际在线时间
-        const onlineTimeText = formatOnlineTime();
-        
-        document.getElementById('readCount').textContent = readCount;
-        document.getElementById('unreadCount').textContent = unreadCount;
-        document.getElementById('totalHours').textContent = totalHours + 'h';
-        document.getElementById('readHours').textContent = onlineTimeText;
-        document.getElementById('progressText').textContent = progress + '%';
-        document.getElementById('progressFill').style.width = progress + '%';
     }
 
     function addArxivLink(id) {
         const input = document.getElementById('link-input-' + id);
         let url = input.value.trim();
-        if (!url) {
-            alert('请输入arXiv链接');
-            return;
-        }
-        // 自动添加 https:// 如果没有协议
+        if (!url) { alert('请输入链接'); return; }
         if (!url.startsWith('http://') && !url.startsWith('https://') && !url.startsWith('file://')) {
             url = 'https://' + url;
         }
         customLinks[id] = url;
-        localStorage.setItem('customArxivLinks', JSON.stringify(customLinks));
+        saveToLocalStorage();
+        if (githubToken) debouncedSave();
         renderPapers();
     }
 
     function toggleAddLink(id) {
-        const form = document.getElementById('add-link-form-' + id);
-        form.classList.toggle('show');
+        document.getElementById('add-link-form-' + id).classList.toggle('show');
     }
 
     function toggleEditLink(id) {
-        const form = document.getElementById('edit-link-form-' + id);
-        form.classList.toggle('show');
+        document.getElementById('edit-link-form-' + id).classList.toggle('show');
     }
 
     function updateArxivLink(id) {
@@ -663,35 +1241,38 @@
         if (!url) {
             if (confirm('确定要删除这个链接吗？')) {
                 delete customLinks[id];
-                localStorage.setItem('customArxivLinks', JSON.stringify(customLinks));
+                saveToLocalStorage();
+                if (githubToken) debouncedSave();
                 renderPapers();
             }
             return;
         }
-        // 自动添加 https:// 如果没有协议
         if (!url.startsWith('http://') && !url.startsWith('https://') && !url.startsWith('file://')) {
             url = 'https://' + url;
         }
         customLinks[id] = url;
-        localStorage.setItem('customArxivLinks', JSON.stringify(customLinks));
+        saveToLocalStorage();
+        if (githubToken) debouncedSave();
         renderPapers();
     }
 
     function toggleNote(id) {
-        const section = document.getElementById('notes-' + id);
-        section.classList.toggle('show');
+        document.getElementById('notes-' + id).classList.toggle('show');
     }
 
     function saveNote(id, field) {
         const textarea = document.getElementById('note-' + id + '-' + field);
         if (!paperNotes[id]) paperNotes[id] = {};
         paperNotes[id][field] = textarea.value;
-        localStorage.setItem('paperNotes', JSON.stringify(paperNotes));
+        saveToLocalStorage();
+        if (githubToken) debouncedSave();
     }
 
+    // ============ 渲染论文列表 ============
     function renderPapers() {
+        const allPapers = getAllPapers();
         const grid = document.getElementById('papersGrid');
-        let filtered = papersData.filter(p => {
+        let filtered = allPapers.filter(p => {
             if (currentFilters.status === 'read' && !readStatus[p.id]) return false;
             if (currentFilters.status === 'unread' && readStatus[p.id]) return false;
             if (currentFilters.favorite === 'yes' && !favorites[p.id]) return false;
@@ -718,17 +1299,18 @@
             const arxivLink = customLinks[p.id] || p.arxivLink;
             const arxivBtn = arxivLink ? '<a href="' + arxivLink + '" target="_blank" class="btn btn-arxiv">arXiv</a>' : '';
             const addLinkForm = !p.arxivLink && !customLinks[p.id] ? 
-                '<button class="btn btn-add-link" onclick="toggleAddLink(' + p.id + ')">+ 添加arXiv链接</button>' +
+                '<button class="btn btn-add-link" onclick="toggleAddLink(' + JSON.stringify(p.id) + ')">+ 添加链接</button>' +
                 '<div class="add-link-form" id="add-link-form-' + p.id + '">' +
-                    '<input type="text" id="link-input-' + p.id + '" placeholder="输入arXiv链接">' +
-                    '<button onclick="addArxivLink(' + p.id + ')">保存</button>' +
+                    '<input type="text" id="link-input-' + p.id + '" placeholder="输入链接">' +
+                    '<button onclick="addArxivLink(' + JSON.stringify(p.id) + ')">保存</button>' +
                 '</div>' : '';
             const editLinkForm = arxivLink ? 
-                '<button class="btn btn-add-link" onclick="toggleEditLink(' + p.id + ')">修改链接</button>' +
+                '<button class="btn btn-add-link" onclick="toggleEditLink(' + JSON.stringify(p.id) + ')">修改链接</button>' +
                 '<div class="add-link-form" id="edit-link-form-' + p.id + '">' +
                     '<input type="text" id="edit-input-' + p.id + '" value="' + (arxivLink || '') + '" placeholder="输入新链接">' +
-                    '<button onclick="updateArxivLink(' + p.id + ')">更新</button>' +
+                    '<button onclick="updateArxivLink(' + JSON.stringify(p.id) + ')">更新</button>' +
                 '</div>' : '';
+            const deleteBtn = p.isCustom ? '<button class="btn btn-delete" onclick="deleteCustomPaper(' + JSON.stringify(p.id) + ')">删除</button>' : '';
             
             const notes = paperNotes[p.id] || {};
             const noteFields = [
@@ -771,15 +1353,16 @@
                 '</div>' +
                 '<div class="paper-actions">' +
                     arxivBtn +
-                    '<button class="btn btn-read ' + (isRead ? 'is-read' : '') + '" onclick="toggleRead(' + p.id + ')">' +
+                    '<button class="btn btn-read ' + (isRead ? 'is-read' : '') + '" onclick="toggleRead(' + JSON.stringify(p.id) + ')">' +
                         (isRead ? '✓ 已读' : '标记已读') +
                     '</button>' +
-                    '<button class="btn btn-note" onclick="toggleNote(' + p.id + ')">📝 笔记</button>' +
-                    '<button class="btn btn-favorite ' + (favorites[p.id] ? 'is-favorite' : '') + '" onclick="toggleFavorite(' + p.id + ')">' +
+                    '<button class="btn btn-note" onclick="toggleNote(' + JSON.stringify(p.id) + ')">📝 笔记</button>' +
+                    '<button class="btn btn-favorite ' + (favorites[p.id] ? 'is-favorite' : '') + '" onclick="toggleFavorite(' + JSON.stringify(p.id) + ')">' +
                         (favorites[p.id] ? '★ 已收藏' : '☆ 收藏') +
                     '</button>' +
                     addLinkForm +
                     editLinkForm +
+                    deleteBtn +
                 '</div>' +
                 '<div class="notes-section" id="notes-' + p.id + '">' +
                     '<h4>阅读笔记</h4>' +
@@ -789,13 +1372,14 @@
         }).join('');
     }
 
+    // ============ 其他功能 ============
     function resetTodayReadingTime() {
         const today = new Date().toISOString().split('T')[0];
         if (readingLog[today]) {
             readingLog[today].hours = 0;
-            localStorage.setItem('readingLog', JSON.stringify(readingLog));
             totalOnlineSeconds = 0;
-            localStorage.setItem('totalOnlineSeconds', '0');
+            saveToLocalStorage();
+            if (githubToken) debouncedSave();
             lastTickTime = Date.now();
             updateStats();
             renderContribution();
@@ -811,7 +1395,10 @@
             customLinks: customLinks,
             paperNotes: paperNotes,
             readingLog: readingLog,
-            startDate: startDate
+            favorites: favorites,
+            startDate: startDate,
+            customPapers: customPapers,
+            totalOnlineSeconds: totalOnlineSeconds
         };
         const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
         const a = document.createElement('a');
@@ -827,26 +1414,30 @@
         reader.onload = function(e) {
             try {
                 const data = JSON.parse(e.target.result);
-                if (data.readStatus) {
-                    readStatus = Object.assign(readStatus, data.readStatus);
-                    localStorage.setItem('paperReadStatus', JSON.stringify(readStatus));
-                }
-                if (data.customLinks) {
-                    customLinks = Object.assign(customLinks, data.customLinks);
-                    localStorage.setItem('customArxivLinks', JSON.stringify(customLinks));
-                }
+                if (data.readStatus) readStatus = Object.assign(readStatus, data.readStatus);
+                if (data.customLinks) customLinks = Object.assign(customLinks, data.customLinks);
                 if (data.paperNotes) {
-                    paperNotes = Object.assign(paperNotes, data.paperNotes);
-                    localStorage.setItem('paperNotes', JSON.stringify(paperNotes));
+                    for (const id in data.paperNotes) {
+                        if (!paperNotes[id]) paperNotes[id] = {};
+                        Object.assign(paperNotes[id], data.paperNotes[id]);
+                    }
                 }
                 if (data.readingLog) {
-                    readingLog = Object.assign(readingLog, data.readingLog);
-                    localStorage.setItem('readingLog', JSON.stringify(readingLog));
+                    for (const date in data.readingLog) {
+                        if (!readingLog[date]) readingLog[date] = { papers: 0, hours: 0 };
+                        readingLog[date].papers = Math.max(readingLog[date].papers, data.readingLog[date].papers || 0);
+                        readingLog[date].hours = Math.max(readingLog[date].hours, data.readingLog[date].hours || 0);
+                    }
                 }
-                if (data.startDate) {
-                    startDate = data.startDate;
-                    localStorage.setItem('readingStartDate', startDate);
-                }
+                if (data.favorites) favorites = Object.assign(favorites, data.favorites);
+                if (data.startDate) startDate = data.startDate;
+                if (data.customPapers) customPapers = data.customPapers;
+                if (data.totalOnlineSeconds) totalOnlineSeconds = Math.max(totalOnlineSeconds, data.totalOnlineSeconds);
+                
+                saveToLocalStorage();
+                if (githubToken) saveToGitHub();
+                
+                buildCategoryFilter();
                 updateStats();
                 renderPapers();
                 renderCharts();
@@ -859,6 +1450,7 @@
         reader.readAsText(file);
     }
 
+    // ============ 启动 ============
     loadData();
     </script>
 </body>
