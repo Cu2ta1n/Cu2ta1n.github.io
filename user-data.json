@@ -5,8 +5,7 @@
     "6": false,
     "7": false,
     "8": false,
-    "34": false,
-    "38": false
+    "34": false
   },
   "customLinks": {
     "0": "https://link.springer.com/article/10.1007/s10462-025-11262-2",
@@ -46,8 +45,7 @@
     "34": "https://arxiv.org/pdf/2509.12714",
     "35": "https://arxiv.org/pdf/2606.08737",
     "36": "https://arxiv.org/pdf/1808.00177v5",
-    "37": "https://arxiv.org/pdf/2404.13478v1",
-    "38": "https://arxiv.org/pdf/2106.05965"
+    "37": "https://arxiv.org/pdf/2404.13478v1"
   },
   "paperNotes": {
     "0": {},
@@ -68,11 +66,13 @@
     },
     "2026-07-14": {
       "papers": 2,
-      "hours": 0.7679588888888907
+      "hours": 0.774908611111113
     }
   },
   "favorites": {},
-  "deletedPaperIds": {},
+  "deletedPaperIds": {
+    "38": true
+  },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 2764.6519999999914
+  "totalOnlineSeconds": 2789.670999999991
 }
