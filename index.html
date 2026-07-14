@@ -221,6 +221,56 @@
         .btn-delete { background: #fee2e2; color: #dc2626; border: 1px solid #fecaca; }
         .btn-delete:hover { background: #fecaca; }
         
+        /* 右键菜单 */
+        .context-menu {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            padding: 4px 0;
+            min-width: 150px;
+        }
+        .context-menu.show { display: block; }
+        .context-menu-item {
+            padding: 9px 16px;
+            cursor: pointer;
+            font-size: 0.85em;
+            color: #dc2626;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.15s;
+        }
+        .context-menu-item:hover { background: #fee2e2; }
+        
+        /* 删除确认弹窗 */
+        .confirm-modal .modal {
+            max-width: 400px;
+            text-align: center;
+        }
+        .confirm-modal .modal h2 { color: #dc2626; }
+        .confirm-modal .paper-name { 
+            color: #334155; 
+            font-weight: 600; 
+            margin: 10px 0 20px;
+            word-break: break-word;
+            line-height: 1.4;
+        }
+        .confirm-modal .btn-danger {
+            padding: 8px 20px;
+            background: #dc2626;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+        .confirm-modal .btn-danger:hover { background: #b91c1c; }
+        
         .add-link-form {
             display: none;
             margin-top: 10px;
@@ -436,6 +486,24 @@
             <div class="modal-btns">
                 <button class="btn-secondary" onclick="skipToken()">跳过（仅本地）</button>
                 <button class="btn-primary" onclick="saveToken()">连接</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 右键菜单 -->
+    <div class="context-menu" id="contextMenu">
+        <div class="context-menu-item" id="contextDeleteBtn">🗑️ 删除论文</div>
+    </div>
+
+    <!-- 删除确认弹窗 -->
+    <div class="modal-overlay confirm-modal" id="deleteConfirmModal">
+        <div class="modal">
+            <h2>🗑️ 确认删除</h2>
+            <p>确定要删除这篇论文吗？此操作不可撤销。</p>
+            <div class="paper-name" id="deletePaperName"></div>
+            <div class="modal-btns">
+                <button class="btn-secondary" onclick="closeDeleteConfirm()">取消</button>
+                <button class="btn-danger" onclick="confirmDeletePaper()">确认删除</button>
             </div>
         </div>
     </div>
@@ -1310,7 +1378,7 @@
                     '<input type="text" id="edit-input-' + p.id + '" value="' + (arxivLink || '') + '" placeholder="输入新链接">' +
                     '<button onclick="updateArxivLink(' + JSON.stringify(p.id) + ')">更新</button>' +
                 '</div>' : '';
-            const deleteBtn = p.isCustom ? '<button class="btn btn-delete" onclick="deleteCustomPaper(' + JSON.stringify(p.id) + ')">删除</button>' : '';
+            const deleteBtn = ''; // 删除按钮已改为右键/长按触发，不再直接显示
             
             const notes = paperNotes[p.id] || {};
             const noteFields = [
@@ -1336,7 +1404,7 @@
                 '</div>'
             ).join('');
             
-            return '<div class="paper-card ' + (isRead ? 'read' : '') + '">' +
+            return '<div class="paper-card ' + (isRead ? 'read' : '') + '"' + (p.isCustom ? ' data-custom-id="' + p.id + '"' : '') + '>' +
                 '<span class="read-badge">已读</span>' +
                 '<div class="paper-top">' +
                     '<div class="paper-title">' + p.title + '</div>' +
@@ -1448,6 +1516,86 @@
             }
         };
         reader.readAsText(file);
+    }
+
+    // ============ 右键/长按删除 ============
+    let contextMenuPaperId = null;
+    let longPressTimer = null;
+    let longPressTriggered = false;
+
+    // 右键菜单（桌面端）
+    document.addEventListener('contextmenu', function(e) {
+        const card = e.target.closest('.paper-card[data-custom-id]');
+        if (!card) return;
+        e.preventDefault();
+        contextMenuPaperId = card.dataset.customId;
+        const menu = document.getElementById('contextMenu');
+        menu.style.left = e.clientX + 'px';
+        menu.style.top = e.clientY + 'px';
+        menu.classList.add('show');
+    });
+
+    // 点击其他地方关闭右键菜单
+    document.addEventListener('click', function() {
+        document.getElementById('contextMenu').classList.remove('show');
+    });
+
+    // 右键菜单删除按钮
+    document.getElementById('contextDeleteBtn').addEventListener('click', function() {
+        document.getElementById('contextMenu').classList.remove('show');
+        if (contextMenuPaperId) {
+            showDeleteConfirm(contextMenuPaperId);
+        }
+    });
+
+    // 长按（移动端）
+    document.addEventListener('touchstart', function(e) {
+        const card = e.target.closest('.paper-card[data-custom-id]');
+        if (!card) return;
+        longPressTriggered = false;
+        longPressTimer = setTimeout(function() {
+            longPressTriggered = true;
+            contextMenuPaperId = card.dataset.customId;
+            // 震动反馈
+            if (navigator.vibrate) navigator.vibrate(50);
+            showDeleteConfirm(contextMenuPaperId);
+        }, 600);
+    }, { passive: true });
+
+    document.addEventListener('touchend', function() {
+        clearTimeout(longPressTimer);
+    });
+
+    document.addEventListener('touchmove', function() {
+        clearTimeout(longPressTimer);
+    });
+
+    // 阻止长按后触发点击
+    document.addEventListener('click', function(e) {
+        if (longPressTriggered) {
+            e.preventDefault();
+            e.stopPropagation();
+            longPressTriggered = false;
+        }
+    }, true);
+
+    function showDeleteConfirm(paperId) {
+        const paper = customPapers.find(p => p.id === paperId);
+        if (!paper) return;
+        contextMenuPaperId = paperId;
+        document.getElementById('deletePaperName').textContent = paper.title;
+        document.getElementById('deleteConfirmModal').classList.add('show');
+    }
+
+    function closeDeleteConfirm() {
+        document.getElementById('deleteConfirmModal').classList.remove('show');
+        contextMenuPaperId = null;
+    }
+
+    async function confirmDeletePaper() {
+        if (!contextMenuPaperId) return;
+        await deleteCustomPaper(contextMenuPaperId);
+        closeDeleteConfirm();
     }
 
     // ============ 启动 ============
