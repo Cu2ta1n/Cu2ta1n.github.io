@@ -722,8 +722,19 @@
         }
     }
 
-    async function saveToGitHub() {
-        if (!githubToken || isSyncing) return;
+    async function saveToGitHub(force = false) {
+        if (!githubToken) return;
+        if (isSyncing && !force) return;
+        
+        // 如果是强制保存但正在同步中，等待当前同步完成
+        if (isSyncing && force) {
+            let waitCount = 0;
+            while (isSyncing && waitCount < 20) {
+                await new Promise(resolve => setTimeout(resolve, 500));
+                waitCount++;
+            }
+        }
+        
         isSyncing = true;
         updateSyncIndicator('saving');
         
@@ -912,7 +923,7 @@
             return;
         }
         updateSyncIndicator('saving');
-        await saveToGitHub();
+        await saveToGitHub(true);
     }
 
     // ============ 在线时间追踪 ============
@@ -974,7 +985,7 @@
                 // 远程没有数据，从 localStorage 恢复并上传
                 loadFromLocalStorage();
                 if (Object.keys(readStatus).length > 0 || customPapers.length > 0) {
-                    await saveToGitHub();
+                    await saveToGitHub(true);
                 }
                 updateSyncIndicator('connected');
             }
@@ -1116,7 +1127,7 @@
         saveToLocalStorage();
         
         document.getElementById('addPaperStatus').innerHTML = '<div class="sync-status info">正在同步到 GitHub...</div>';
-        await saveToGitHub();
+        await saveToGitHub(true);  // 强制保存，确保数据立即同步
         document.getElementById('addPaperStatus').innerHTML = '<div class="sync-status success">✓ 添加成功！</div>';
         
         setTimeout(() => {
@@ -1307,7 +1318,7 @@
         saveToLocalStorage();
         if (githubToken) {
             // 立即保存，不用 debounce，避免刷新前丢失
-            saveToGitHub();
+            saveToGitHub(true);
         }
         renderPapers();
     }
@@ -1550,7 +1561,7 @@
                 if (data.totalOnlineSeconds) totalOnlineSeconds = Math.max(totalOnlineSeconds, data.totalOnlineSeconds);
                 
                 saveToLocalStorage();
-                if (githubToken) saveToGitHub();
+                if (githubToken) saveToGitHub(true);
                 
                 buildCategoryFilter();
                 updateStats();
@@ -1607,7 +1618,7 @@
         delete favorites[idStr];
         
         saveToLocalStorage();
-        await saveToGitHub();
+        await saveToGitHub(true);  // 强制保存，确保数据立即同步
         buildCategoryFilter();
         refreshAll();
     }
