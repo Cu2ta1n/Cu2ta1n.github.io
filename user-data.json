@@ -66,7 +66,8 @@
   "paperNotes": {
     "0": {},
     "1": {
-      "question": ""
+      "question": "",
+      "pipeline": ""
     }
   },
   "readingLog": {
@@ -76,11 +77,11 @@
     },
     "2026-07-14": {
       "papers": 2,
-      "hours": 0.7303991666666685
+      "hours": 0.7317891666666685
     }
   },
   "favorites": {},
   "deletedPaperIds": {},
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 2629.4369999999913
+  "totalOnlineSeconds": 2634.440999999991
 }
