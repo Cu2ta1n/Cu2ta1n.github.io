@@ -129,6 +129,23 @@
             gap: 12px;
             margin-bottom: 20px;
         }
+        .search-box {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 0.9em;
+            background: white;
+            transition: all 0.2s;
+        }
+        .search-box:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+        }
+        .search-box::placeholder {
+            color: #94a3b8;
+        }
         .filter-row {
             display: flex;
             align-items: center;
@@ -608,6 +625,7 @@
         </div>
         
         <div class="filters">
+            <input type="text" class="search-box" id="searchBox" placeholder="🔍 搜索论文标题...">
             <div class="filter-row">
                 <span class="filter-label">状态</span>
                 <div class="filter-group" id="statusFilter">
@@ -988,6 +1006,16 @@
         renderPapers();
     }
 
+    // 搜索功能
+    document.getElementById('searchBox').addEventListener('input', function() {
+        renderPapers();
+    });
+
+    // 安全地生成 onclick 中的 ID 字符串
+    function safeId(id) {
+        return typeof id === 'string' ? "'" + id.replace(/'/g, "\\'") + "'" : id;
+    }
+
     function refreshAll() {
         updateStats();
         renderCharts();
@@ -1080,18 +1108,7 @@
         }, 800);
     }
 
-    async function deleteCustomPaper(paperId) {
-        if (!confirm('确定要删除这篇论文吗？')) return;
-        customPapers = customPapers.filter(p => p.id !== paperId);
-        delete readStatus[paperId];
-        delete customLinks[paperId];
-        delete paperNotes[paperId];
-        delete favorites[paperId];
-        saveToLocalStorage();
-        await saveToGitHub();
-        buildCategoryFilter();
-        refreshAll();
-    }
+
 
     // ============ 图表 ============
     function renderCharts() {
@@ -1315,16 +1332,23 @@
     function renderPapers() {
         const allPapers = getAllPapers();
         const grid = document.getElementById('papersGrid');
+        const searchTerm = document.getElementById('searchBox').value.trim().toLowerCase();
+        
         let filtered = allPapers.filter(p => {
             if (currentFilters.status === 'read' && !readStatus[p.id]) return false;
             if (currentFilters.status === 'unread' && readStatus[p.id]) return false;
             if (currentFilters.favorite === 'yes' && !favorites[p.id]) return false;
             if (currentFilters.category !== 'all' && p.category !== currentFilters.category) return false;
             if (currentFilters.priority !== 'all' && p.priority !== parseInt(currentFilters.priority)) return false;
+            if (searchTerm && !p.title.toLowerCase().includes(searchTerm)) return false;
             return true;
         });
         
         filtered.sort((a, b) => {
+            // 自定义论文排最前
+            if (a.isCustom && !b.isCustom) return -1;
+            if (!a.isCustom && b.isCustom) return 1;
+            // 同类型：未读排前面
             const aRead = readStatus[a.id] ? 1 : 0;
             const bRead = readStatus[b.id] ? 1 : 0;
             return aRead - bRead;
@@ -1340,20 +1364,21 @@
             const pClass = p.priority === 1 ? 'badge-p1' : p.priority === 2 ? 'badge-p2' : 'badge-p3';
             const pText = p.priority === 1 ? 'P1 必读' : p.priority === 2 ? 'P2 重要' : 'P3 选读';
             const arxivLink = customLinks[p.id] || p.arxivLink;
+            const sid = safeId(p.id);
             const arxivBtn = arxivLink ? '<a href="' + arxivLink + '" target="_blank" class="btn btn-arxiv">arXiv</a>' : '';
             const addLinkForm = !p.arxivLink && !customLinks[p.id] ? 
-                '<button class="btn btn-add-link" onclick="toggleAddLink(' + JSON.stringify(p.id) + ')">+ 添加链接</button>' +
+                '<button class="btn btn-add-link" onclick="toggleAddLink(' + sid + ')">+ 添加链接</button>' +
                 '<div class="add-link-form" id="add-link-form-' + p.id + '">' +
                     '<input type="text" id="link-input-' + p.id + '" placeholder="输入链接">' +
-                    '<button onclick="addArxivLink(' + JSON.stringify(p.id) + ')">保存</button>' +
+                    '<button onclick="addArxivLink(' + sid + ')">保存</button>' +
                 '</div>' : '';
             const editLinkForm = arxivLink ? 
-                '<button class="btn btn-add-link" onclick="toggleEditLink(' + JSON.stringify(p.id) + ')">修改链接</button>' +
+                '<button class="btn btn-add-link" onclick="toggleEditLink(' + sid + ')">修改链接</button>' +
                 '<div class="add-link-form" id="edit-link-form-' + p.id + '">' +
                     '<input type="text" id="edit-input-' + p.id + '" value="' + (arxivLink || '') + '" placeholder="输入新链接">' +
-                    '<button onclick="updateArxivLink(' + JSON.stringify(p.id) + ')">更新</button>' +
+                    '<button onclick="updateArxivLink(' + sid + ')">更新</button>' +
                 '</div>' : '';
-            const deleteBtn = '<button class="btn btn-delete" onclick="showDeleteConfirm(' + JSON.stringify(p.id) + ')">删除</button>';
+            const deleteBtn = '<button class="btn btn-delete" onclick="showDeleteConfirm(' + sid + ')">删除</button>';
             
             const notes = paperNotes[p.id] || {};
             const noteFields = [
@@ -1379,7 +1404,7 @@
                 '</div>'
             ).join('');
             
-            return '<div class="paper-card ' + (isRead ? 'read' : '') + '"' + (p.isCustom ? ' data-custom-id="' + p.id + '"' : '') + '>' +
+            return '<div class="paper-card ' + (isRead ? 'read' : '') + '">' +
                 '<span class="read-badge">已读</span>' +
                 '<div class="paper-top">' +
                     '<div class="paper-title">' + p.title + '</div>' +
@@ -1396,11 +1421,11 @@
                 '</div>' +
                 '<div class="paper-actions">' +
                     arxivBtn +
-                    '<button class="btn btn-read ' + (isRead ? 'is-read' : '') + '" onclick="toggleRead(' + JSON.stringify(p.id) + ')">' +
+                    '<button class="btn btn-read ' + (isRead ? 'is-read' : '') + '" onclick="toggleRead(' + sid + ')">' +
                         (isRead ? '✓ 已读' : '标记已读') +
                     '</button>' +
-                    '<button class="btn btn-note" onclick="toggleNote(' + JSON.stringify(p.id) + ')">📝 笔记</button>' +
-                    '<button class="btn btn-favorite ' + (favorites[p.id] ? 'is-favorite' : '') + '" onclick="toggleFavorite(' + JSON.stringify(p.id) + ')">' +
+                    '<button class="btn btn-note" onclick="toggleNote(' + sid + ')">📝 笔记</button>' +
+                    '<button class="btn btn-favorite ' + (favorites[p.id] ? 'is-favorite' : '') + '" onclick="toggleFavorite(' + sid + ')">' +
                         (favorites[p.id] ? '★ 已收藏' : '☆ 收藏') +
                     '</button>' +
                     addLinkForm +
