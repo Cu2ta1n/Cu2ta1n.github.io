@@ -82,15 +82,15 @@
     },
     "2026-07-14": {
       "papers": 2,
-      "hours": 0.9090822222222243
+      "hours": 0.9108700000000022
     }
   },
   "favorites": {
-    "custom_1784005827661": true
+    "custom_1784005827661": false
   },
   "deletedPaperIds": {
     "38": true
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 3272.6959999999895
+  "totalOnlineSeconds": 3279.1319999999896
 }
