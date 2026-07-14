@@ -75,7 +75,12 @@
       "relation": ""
     }
   },
-  "readingLog": {},
+  "readingLog": {
+    "2026-07-14": {
+      "papers": 0,
+      "hours": 0.0007155555555555555
+    }
+  },
   "favorites": {
     "custom_1784005827661": false
   },
@@ -83,5 +88,5 @@
     "38": true
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 3279.1319999999896
+  "totalOnlineSeconds": 2.576
 }
