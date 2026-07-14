@@ -25,6 +25,19 @@
       "arxivLink": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=844081",
       "isCustom": true,
       "addedAt": "2026-07-14T08:11:14.089Z"
+    },
+    {
+      "id": "custom_1784023737208",
+      "title": "Cross-Embodiment Robot Manipulation via a Unified Hand Action Space",
+      "category": "Cross-Embodiment",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "理解跨形态机器人操作中统一动作空间的构建方法，分析不同机器人手之间如何通过共享 latent representation 和 embodiment-specific decoder 实现动作迁移，重点理解其 latent action space 的定义、学习方式以及与传统 joint-space control 的区别，并评估该方法对自身灵巧手 cross-embodiment 研究的启发。",
+      "output": "1. 总结论文提出的 unified hand action space 架构，包括 encoder、latent space 和 decoder 的作用；\n2. 明确共享 latent representation 如何实现不同机器人手之间的动作迁移；\n3. 梳理该方法与 eigengrasp、动作降维、传统 retargeting 方法的区别；\n4. 分析 latent dimension、训练目标和 embodiment alignment 方法；\n5. 思考如何将 unified action space 与结构化任务 prompt、关系表示和闭环控制结合。",
+      "arxivLink": "https://arxiv.org/pdf/2607.03570",
+      "isCustom": true,
+      "addedAt": "2026-07-14T10:08:57.208Z"
     }
   ],
   "readStatus": {
@@ -94,7 +107,7 @@
   "readingLog": {
     "2026-07-14": {
       "papers": 9,
-      "hours": 0.10135972222222228
+      "hours": 0.1236000000000001
     }
   },
   "favorites": {
@@ -105,5 +118,5 @@
     "38": true
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 364.895
+  "totalOnlineSeconds": 444.9600000000001
 }
