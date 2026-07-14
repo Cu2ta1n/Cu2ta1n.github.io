@@ -1564,10 +1564,11 @@
     // ============ 删除论文 ============
 
     function showDeleteConfirm(paperId) {
+        const idStr = String(paperId);
         const allPapers = getAllPapers();
-        const paper = allPapers.find(p => p.id === paperId);
+        const paper = allPapers.find(p => String(p.id) === idStr);
         if (!paper) return;
-        contextMenuPaperId = paperId;
+        contextMenuPaperId = idStr;
         document.getElementById('deletePaperName').textContent = paper.title;
         document.getElementById('deleteConfirmModal').classList.add('show');
     }
@@ -1584,12 +1585,12 @@
     }
 
     async function deletePaper(paperId) {
-        const isCustom = customPapers.some(p => p.id === paperId);
         const idStr = String(paperId);
+        const isCustom = customPapers.some(p => String(p.id) === idStr);
         
         if (isCustom) {
             // 自定义论文：直接从数组移除
-            customPapers = customPapers.filter(p => p.id !== paperId);
+            customPapers = customPapers.filter(p => String(p.id) !== idStr);
         } else {
             // data.json 论文：加入隐藏列表（统一用字符串键）
             deletedPaperIds[idStr] = true;
