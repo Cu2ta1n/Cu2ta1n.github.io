@@ -1257,15 +1257,15 @@
 
     // ============ 统计 ============
     function getAllPapers() {
-        return papersData.concat(customPapers).filter(p => !deletedPaperIds[p.id]);
+        return papersData.concat(customPapers).filter(p => !deletedPaperIds[String(p.id)]);
     }
 
     function updateStats() {
         const allPapers = getAllPapers();
-        const readCount = allPapers.filter(p => readStatus[p.id]).length;
+        const readCount = allPapers.filter(p => readStatus[String(p.id)]).length;
         const unreadCount = allPapers.length - readCount;
         const progress = allPapers.length ? Math.round((readCount / allPapers.length) * 100) : 0;
-        const totalHours = allPapers.filter(p => !readStatus[p.id]).reduce((s, p) => s + p.hours, 0);
+        const totalHours = allPapers.filter(p => !readStatus[String(p.id)]).reduce((s, p) => s + p.hours, 0);
         const onlineTimeText = formatOnlineTime();
         
         document.getElementById('totalPapers').textContent = allPapers.length;
@@ -1279,20 +1279,21 @@
 
     // ============ 论文操作 ============
     function toggleRead(id) {
-        const wasRead = readStatus[id];
-        readStatus[id] = !readStatus[id];
+        const idStr = String(id);
+        const wasRead = readStatus[idStr];
+        readStatus[idStr] = !readStatus[idStr];
         saveToLocalStorage();
         if (githubToken) debouncedSave();
         
         const allPapers = getAllPapers();
-        const paper = allPapers.find(p => p.id === id);
+        const paper = allPapers.find(p => String(p.id) === idStr);
         
         if (!wasRead) {
             // 标记为已读
-            if (paper) logReading(id, paper.hours);
+            if (paper) logReading(idStr, paper.hours);
         } else {
             // 取消已读
-            if (paper) unlogReading(id, paper.hours);
+            if (paper) unlogReading(idStr, paper.hours);
         }
         
         updateStats();
@@ -1301,9 +1302,13 @@
     }
 
     function toggleFavorite(id) {
-        favorites[id] = !favorites[id];
+        const idStr = String(id);
+        favorites[idStr] = !favorites[idStr];
         saveToLocalStorage();
-        if (githubToken) debouncedSave();
+        if (githubToken) {
+            // 立即保存，不用 debounce，避免刷新前丢失
+            saveToGitHub();
+        }
         renderPapers();
     }
 
@@ -1568,27 +1573,28 @@
     }
 
     async function confirmDeletePaper() {
-        if (!contextMenuPaperId) return;
+        if (contextMenuPaperId === null || contextMenuPaperId === undefined) return;
         await deletePaper(contextMenuPaperId);
         closeDeleteConfirm();
     }
 
     async function deletePaper(paperId) {
         const isCustom = customPapers.some(p => p.id === paperId);
+        const idStr = String(paperId);
         
         if (isCustom) {
             // 自定义论文：直接从数组移除
             customPapers = customPapers.filter(p => p.id !== paperId);
         } else {
-            // data.json 论文：加入隐藏列表
-            deletedPaperIds[paperId] = true;
+            // data.json 论文：加入隐藏列表（统一用字符串键）
+            deletedPaperIds[idStr] = true;
         }
         
-        // 清理相关数据
-        delete readStatus[paperId];
-        delete customLinks[paperId];
-        delete paperNotes[paperId];
-        delete favorites[paperId];
+        // 清理相关数据（统一用字符串键）
+        delete readStatus[idStr];
+        delete customLinks[idStr];
+        delete paperNotes[idStr];
+        delete favorites[idStr];
         
         saveToLocalStorage();
         await saveToGitHub();
