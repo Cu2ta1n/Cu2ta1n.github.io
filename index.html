@@ -739,7 +739,13 @@
             totalOnlineSeconds: totalOnlineSeconds
         };
         
-        const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+        const jsonStr = JSON.stringify(data, null, 2);
+        const bytes = new TextEncoder().encode(jsonStr);
+        let binary = '';
+        for (let i = 0; i < bytes.length; i++) {
+            binary += String.fromCharCode(bytes[i]);
+        }
+        const content = btoa(binary);
         const body = {
             message: 'Sync user data - ' + new Date().toISOString(),
             content: content,
@@ -1239,6 +1245,16 @@
         renderContribution();
     }
 
+    function unlogReading(paperId, hours) {
+        const today = new Date().toISOString().split('T')[0];
+        if (readingLog[today] && readingLog[today].papers > 0) {
+            readingLog[today].papers -= 1;
+            saveToLocalStorage();
+            if (githubToken) debouncedSave();
+            renderContribution();
+        }
+    }
+
     // ============ 统计 ============
     function getAllPapers() {
         return papersData.concat(customPapers).filter(p => !deletedPaperIds[p.id]);
@@ -1268,10 +1284,15 @@
         saveToLocalStorage();
         if (githubToken) debouncedSave();
         
+        const allPapers = getAllPapers();
+        const paper = allPapers.find(p => p.id === id);
+        
         if (!wasRead) {
-            const allPapers = getAllPapers();
-            const paper = allPapers.find(p => p.id === id);
+            // 标记为已读
             if (paper) logReading(id, paper.hours);
+        } else {
+            // 取消已读
+            if (paper) unlogReading(id, paper.hours);
         }
         
         updateStats();
