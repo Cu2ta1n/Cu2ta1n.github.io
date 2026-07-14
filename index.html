@@ -1257,7 +1257,7 @@
 
     // ============ 统计 ============
     function getAllPapers() {
-        return papersData.concat(customPapers).filter(p => !deletedPaperIds[String(p.id)]);
+        return customPapers.concat(papersData).filter(p => !deletedPaperIds[String(p.id)]);
     }
 
     function updateStats() {
