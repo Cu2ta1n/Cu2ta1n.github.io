@@ -116,7 +116,11 @@
     "4": {
       "training": "",
       "obs": "",
-      "relation": ""
+      "relation": "",
+      "question": "",
+      "io": "",
+      "pipeline": "",
+      "action": ""
     }
   },
   "readingLog": {
@@ -126,7 +130,7 @@
     },
     "2026-07-15": {
       "papers": 1,
-      "hours": 0.03620333333333334
+      "hours": 0.040373055555555565
     }
   },
   "favorites": {
@@ -137,5 +141,5 @@
     "38": true
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 2664.3339999999916
+  "totalOnlineSeconds": 2679.3449999999916
 }
