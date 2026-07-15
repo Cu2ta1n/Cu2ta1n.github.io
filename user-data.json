@@ -38,6 +38,19 @@
       "arxivLink": "https://arxiv.org/pdf/2607.03570",
       "isCustom": true,
       "addedAt": "2026-07-14T10:08:57.208Z"
+    },
+    {
+      "id": "custom_1784089166212",
+      "title": "OakInk: A Large-scale Knowledge Repository for Understanding Hand-Object Interaction",
+      "category": "数据集",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "1. 理解 OakInk 数据集的整体构建方式，包括 OakBase（物体 affordance 知识库）和 InkBase（人手-物体交互知识库）的组织形式。\n\n2. 掌握数据集中包含的数据模态：\n- object mesh\n- object part-level affordance annotation\n- human hand pose / MANO mesh\n- hand-object interaction pose\n- RGB image/video sequence\n\n3. 分析 OakInk 如何从真实人类交互数据中构建 affordance-aware hand-object interaction supervision。\n\n4. 重点研究如何利用 OakInk 构建 human-object interaction encoder：\nimage + object mesh + hand representation → contact/affordance/interation representation。\n\n5. 了解数据 annotation 格式，为后续构建 embodiment-agnostic structured interaction prompt 数据集做准备。",
+      "output": "1. 完成 OakInk 数据结构总结，包括：\n- OakBase\n- OakInk-Image\n- OakInk-Shape\n\n2. 整理一个数据转换 pipeline：\n\nOakInk raw data\n        ↓\nobject mesh extraction\n        ↓\nhuman hand representation extraction\n        ↓\ncontact / affordance label generation\n        ↓\nstructured interaction prompt dataset\n\n\n3. 明确能够用于 semantic encoder 的监督信号：\n- object affordance region\n- hand contact region\n- hand-object relative pose\n- contact relationship\n\n\n4. 实现 OakInk 数据读取与可视化代码，验证：\nobject mesh + human hand mesh + interaction annotation\n\n5. 形成自己的训练数据格式，为后续 interaction encoder 训练准备。",
+      "arxivLink": "https://arxiv.org/pdf/2203.15709",
+      "isCustom": true,
+      "addedAt": "2026-07-15T04:19:26.212Z"
     }
   ],
   "readStatus": {
@@ -109,6 +122,10 @@
     "2026-07-14": {
       "papers": 10,
       "hours": 0.7038894444444457
+    },
+    "2026-07-15": {
+      "papers": 0,
+      "hours": 0.018133888888888894
     }
   },
   "favorites": {
@@ -119,5 +136,5 @@
     "38": true
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 2534.001999999991
+  "totalOnlineSeconds": 2599.283999999992
 }
