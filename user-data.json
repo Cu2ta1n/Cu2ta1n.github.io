@@ -425,7 +425,7 @@
   "readingLog": {
     "2026-08-30": {
       "papers": 0,
-      "hours": 0.17647944444444458
+      "hours": 0.17786944444444458
     },
     "2026-07-20": {
       "papers": 0,
@@ -458,7 +458,8 @@
   },
   "favorites": {
     "34": true,
-    "custom_1784005827661": true
+    "custom_1784005827661": true,
+    "custom_1788075212185": false
   },
   "deletedPaperIds": {
     "38": true,
@@ -466,5 +467,5 @@
     "custom_1788074505852": true
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 6482.800999999947
+  "totalOnlineSeconds": 6487.804999999947
 }
