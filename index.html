@@ -195,13 +195,13 @@
         
         .paper-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
         .paper-title { font-size: 1.05em; font-weight: 600; color: #1e293b; flex: 1; line-height: 1.4; }
-        .paper-badges { display: flex; gap: 6px; flex-wrap: wrap; flex-shrink: 0; }
+        .paper-badges { display: flex; gap: 6px; flex-wrap: wrap; flex-shrink: 0; align-items: center; }
         .badge { padding: 3px 9px; border-radius: 6px; font-size: 0.72em; font-weight: 500; white-space: nowrap; }
         .badge-p1 { background: #fee2e2; color: #dc2626; }
         .badge-p2 { background: #fef3c7; color: #d97706; }
         .badge-p3 { background: #e0e7ff; color: #6366f1; }
         .badge-method { background: #dbeafe; color: #2563eb; }
-        .badge-cat { background: #fce7f3; color: #db2777; }
+        .badge-tag { background: #fce7f3; color: #db2777; }
         .badge-hours { background: #d1fae5; color: #059669; }
         
         .paper-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
@@ -233,6 +233,8 @@
         .btn-favorite.is-favorite { background: #fef3c7; color: #d97706; border-color: #fbbf24; }
         .btn-note { background: #fef3c7; color: #d97706; border: 1px solid #fde68a; }
         .btn-note:hover { background: #fde68a; }
+        .btn-edit { background: #e0e7ff; color: #6366f1; border: 1px solid #c7d2fe; }
+        .btn-edit:hover { background: #c7d2fe; }
         .btn-add-link { background: #e0e7ff; color: #6366f1; border: 1px solid #c7d2fe; }
         .btn-add-link:hover { background: #c7d2fe; }
         .btn-delete { background: #fee2e2; color: #dc2626; border: 1px solid #fecaca; }
@@ -365,7 +367,7 @@
         }
         .modal h2 { color: #1e293b; margin-bottom: 8px; font-size: 1.3em; }
         .modal p { color: #64748b; font-size: 0.9em; margin-bottom: 16px; line-height: 1.5; }
-        .modal input {
+        .modal input[type="text"], .modal input[type="password"], .modal input[type="number"] {
             width: 100%;
             padding: 10px 14px;
             border: 1px solid #e2e8f0;
@@ -405,8 +407,8 @@
         .modal .sync-status.error { background: #fee2e2; color: #dc2626; }
         .modal .sync-status.info { background: #dbeafe; color: #2563eb; }
         
-        /* 添加论文弹窗 */
-        .add-paper-modal .modal {
+        /* 添加/编辑论文弹窗 */
+        .paper-modal .modal {
             max-width: 600px;
             max-height: 90vh;
             overflow-y: auto;
@@ -433,6 +435,73 @@
             border-color: #3b82f6;
         }
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        
+        /* 标签输入 */
+        .tags-input-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 8px 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            min-height: 40px;
+            align-items: center;
+            cursor: text;
+            transition: all 0.2s;
+        }
+        .tags-input-wrapper:focus-within {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+        }
+        .tag-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            background: #fce7f3;
+            color: #db2777;
+            border-radius: 6px;
+            font-size: 0.82em;
+            font-weight: 500;
+        }
+        .tag-chip .tag-remove {
+            cursor: pointer;
+            font-size: 1.1em;
+            line-height: 1;
+            opacity: 0.6;
+            margin-left: 2px;
+        }
+        .tag-chip .tag-remove:hover { opacity: 1; }
+        .tags-input-wrapper input {
+            border: none;
+            outline: none;
+            flex: 1;
+            min-width: 80px;
+            font-size: 0.85em;
+            padding: 2px 0;
+            box-shadow: none;
+        }
+        .tag-suggestions {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+        .tag-suggestion {
+            padding: 2px 8px;
+            background: #f1f5f9;
+            color: #64748b;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            font-size: 0.75em;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tag-suggestion:hover {
+            background: #fce7f3;
+            color: #db2777;
+            border-color: #f9a8d4;
+        }
         
         .sync-indicator {
             display: inline-flex;
@@ -496,7 +565,7 @@
     </div>
 
     <!-- 添加论文弹窗 -->
-    <div class="modal-overlay add-paper-modal" id="addPaperModal">
+    <div class="modal-overlay paper-modal" id="addPaperModal">
         <div class="modal">
             <h2>📄 添加新论文</h2>
             <div class="form-group">
@@ -507,23 +576,14 @@
                 <label>链接</label>
                 <input type="text" id="newLink" placeholder="arXiv 或其他链接">
             </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>分类 *</label>
-                    <select id="newCategory">
-                        <option value="综述">综述</option>
-                        <option value="数学原理">数学原理</option>
-                        <option value="数据集">数据集</option>
-                        <option value="抓取生成">抓取生成</option>
-                        <option value="抓取执行">抓取执行</option>
-                        <option value="基础模型">基础模型</option>
-                        <option value="VLA">VLA</option>
-                        <option value="World Action Model">World Action Model</option>
-                        <option value="灵巧操作">灵巧操作</option>
-                        <option value="__custom__">自定义分类...</option>
-                    </select>
-                    <input type="text" id="newCategoryCustom" placeholder="输入自定义分类名" style="display:none; margin-top:6px">
+            <div class="form-group">
+                <label>标签 *</label>
+                <div class="tags-input-wrapper" id="newTagsWrapper" onclick="this.querySelector('input').focus()">
+                    <input type="text" id="newTagInput" placeholder="输入标签后按回车添加">
                 </div>
+                <div class="tag-suggestions" id="newTagSuggestions"></div>
+            </div>
+            <div class="form-row">
                 <div class="form-group">
                     <label>优先级 *</label>
                     <select id="newPriority">
@@ -532,8 +592,6 @@
                         <option value="3">P3 选读</option>
                     </select>
                 </div>
-            </div>
-            <div class="form-row">
                 <div class="form-group">
                     <label>阅读方式 *</label>
                     <select id="newMethod">
@@ -541,10 +599,10 @@
                         <option value="泛读">泛读</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>预计时长(小时) *</label>
-                    <input type="number" id="newHours" value="2" min="0.5" step="0.5">
-                </div>
+            </div>
+            <div class="form-group">
+                <label>预计时长(小时) *</label>
+                <input type="number" id="newHours" value="2" min="0.5" step="0.5">
             </div>
             <div class="form-group">
                 <label>本篇目标</label>
@@ -558,6 +616,58 @@
             <div class="modal-btns">
                 <button class="btn-secondary" onclick="closeAddPaper()">取消</button>
                 <button class="btn-primary" onclick="submitNewPaper()">添加</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 编辑论文弹窗 -->
+    <div class="modal-overlay paper-modal" id="editPaperModal">
+        <div class="modal">
+            <h2>✏️ 编辑论文</h2>
+            <div class="form-group">
+                <label>论文标题</label>
+                <input type="text" id="editTitle" placeholder="显示名称">
+            </div>
+            <div class="form-group">
+                <label>标签</label>
+                <div class="tags-input-wrapper" id="editTagsWrapper" onclick="this.querySelector('input').focus()">
+                    <input type="text" id="editTagInput" placeholder="输入标签后按回车添加">
+                </div>
+                <div class="tag-suggestions" id="editTagSuggestions"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>优先级</label>
+                    <select id="editPriority">
+                        <option value="1">P1 必读</option>
+                        <option value="2">P2 重要</option>
+                        <option value="3">P3 选读</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>阅读方式</label>
+                    <select id="editMethod">
+                        <option value="精读">精读</option>
+                        <option value="泛读">泛读</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>预计时长(小时)</label>
+                <input type="number" id="editHours" min="0.5" step="0.5">
+            </div>
+            <div class="form-group">
+                <label>本篇目标</label>
+                <textarea id="editGoal" placeholder="读这篇论文要达成什么目标"></textarea>
+            </div>
+            <div class="form-group">
+                <label>阅读产出</label>
+                <textarea id="editOutput" placeholder="读完后应该产出什么"></textarea>
+            </div>
+            <div id="editPaperStatus"></div>
+            <div class="modal-btns">
+                <button class="btn-secondary" onclick="closeEditPaper()">取消</button>
+                <button class="btn-primary" onclick="saveEditPaper()">保存</button>
             </div>
         </div>
     </div>
@@ -605,7 +715,7 @@
         
         <div class="charts-row">
             <div class="chart-card">
-                <h3>论文分类分布</h3>
+                <h3>标签分布</h3>
                 <div class="chart-container"><canvas id="categoryPie"></canvas></div>
             </div>
             <div class="chart-card">
@@ -642,9 +752,9 @@
                 </div>
             </div>
             <div class="filter-row">
-                <span class="filter-label">类别</span>
-                <div class="filter-group" id="categoryFilter">
-                    <button class="filter-btn active" data-category="all">全部</button>
+                <span class="filter-label">标签</span>
+                <div class="filter-group" id="tagFilter">
+                    <button class="filter-btn active" data-tag="all">全部</button>
                 </div>
             </div>
             <div class="filter-row">
@@ -678,18 +788,47 @@
     let paperNotes = {};
     let readingLog = {};
     let favorites = {};
-    let deletedPaperIds = {}; // 记录被删除的 data.json 论文 ID
+    let deletedPaperIds = {};
+    let paperOverrides = {}; // { paperId: { tags, title, priority, readMethod, hours, goal, output } }
     let startDate = new Date().toISOString().split('T')[0];
     let totalOnlineSeconds = 0;
     let lastTickTime = Date.now();
-    let currentFilters = { status: 'all', category: 'all', priority: 'all', favorite: 'all' };
+    let currentFilters = { status: 'all', tag: 'all', priority: 'all', favorite: 'all' };
     let categoryChart = null;
     let weeklyChart = null;
     let githubToken = localStorage.getItem('githubToken') || '';
-    let userDataSha = ''; // 用于更新文件
+    let userDataSha = '';
     let isSyncing = false;
     let saveTimer = null;
-    let lastSyncTime = localStorage.getItem('lastSyncTime') || ''; // 最后同步时间
+    let lastSyncTime = localStorage.getItem('lastSyncTime') || '';
+    let editingPaperId = null; // 当前编辑的论文 ID
+
+    // ============ 获取论文有效数据（合并 override） ============
+    function getEffectivePaper(p) {
+        const idStr = String(p.id);
+        const override = paperOverrides[idStr] || {};
+        const isCustom = p.isCustom;
+        
+        if (isCustom) {
+            // 自定义论文：直接使用自身数据（已包含编辑后的值）
+            return {
+                ...p,
+                tags: p.tags || (p.category ? [p.category] : [])
+            };
+        } else {
+            // data.json 论文：应用 override
+            return {
+                ...p,
+                title: override.title || p.title,
+                tags: override.tags || (p.tags ? p.tags : (p.category ? [p.category] : [])),
+                priority: override.priority !== undefined ? override.priority : p.priority,
+                readMethod: override.readMethod || p.readMethod,
+                hours: override.hours || p.hours,
+                goal: override.goal !== undefined ? override.goal : (p.goal || ''),
+                output: override.output !== undefined ? override.output : (p.output || ''),
+            };
+        }
+    }
 
     // ============ GitHub API ============
     function getHeaders() {
@@ -727,7 +866,6 @@
         if (!githubToken) return;
         if (isSyncing && !force) return;
         
-        // 如果是强制保存但正在同步中，等待当前同步完成
         if (isSyncing && force) {
             let waitCount = 0;
             while (isSyncing && waitCount < 20) {
@@ -747,6 +885,7 @@
             readingLog: readingLog,
             favorites: favorites,
             deletedPaperIds: deletedPaperIds,
+            paperOverrides: paperOverrides,
             startDate: startDate,
             totalOnlineSeconds: totalOnlineSeconds
         };
@@ -777,7 +916,6 @@
             }
             const result = await resp.json();
             userDataSha = result.content.sha;
-            // 记录同步时间
             lastSyncTime = new Date().toLocaleString('zh-CN', { hour12: false });
             localStorage.setItem('lastSyncTime', lastSyncTime);
             document.getElementById('updateTime').textContent = '最后更新: ' + lastSyncTime;
@@ -785,14 +923,11 @@
         } catch (e) {
             console.error('Save to GitHub failed:', e);
             updateSyncIndicator('error');
-            // 如果 sha 冲突，重新获取 sha 再试一次
             if (e.message.includes('sha')) {
                 userDataSha = '';
                 const freshData = await loadFromGitHub();
                 if (freshData) {
-                    // 合并远程数据
                     mergeUserData(freshData);
-                    // 重试保存
                     setTimeout(() => { isSyncing = false; saveToGitHub(); }, 1000);
                     return;
                 }
@@ -828,7 +963,6 @@
             document.getElementById('tokenStatus').innerHTML = '<div class="sync-status error">请输入 token</div>';
             return;
         }
-        // 验证 token
         document.getElementById('tokenStatus').innerHTML = '<div class="sync-status info">验证中...</div>';
         try {
             const resp = await fetch('https://api.github.com/user', {
@@ -841,7 +975,6 @@
             localStorage.setItem('githubToken', token);
             document.getElementById('tokenStatus').innerHTML = '<div class="sync-status success">✓ 已连接为 ' + user.login + '，正在同步数据...</div>';
             
-            // 加载远程数据
             const remoteData = await loadFromGitHub();
             if (remoteData) {
                 mergeUserData(remoteData);
@@ -859,7 +992,6 @@
 
     function skipToken() {
         document.getElementById('tokenModal').classList.remove('show');
-        // 从 localStorage 恢复
         loadFromLocalStorage();
         refreshAll();
         startOnlineTracking();
@@ -867,7 +999,6 @@
 
     function mergeUserData(remote) {
         if (remote.customPapers) {
-            // 确保远程数据正确解码
             customPapers = remote.customPapers.map(p => ({
                 ...p,
                 category: p.category || '',
@@ -891,10 +1022,10 @@
         }
         if (remote.favorites) favorites = Object.assign(favorites, remote.favorites);
         if (remote.deletedPaperIds) deletedPaperIds = Object.assign(deletedPaperIds, remote.deletedPaperIds);
+        if (remote.paperOverrides) paperOverrides = Object.assign(paperOverrides, remote.paperOverrides);
         if (remote.startDate) startDate = remote.startDate;
         if (remote.totalOnlineSeconds) totalOnlineSeconds = Math.max(totalOnlineSeconds, remote.totalOnlineSeconds);
         
-        // 同步到 localStorage
         saveToLocalStorage();
     }
 
@@ -905,6 +1036,7 @@
         localStorage.setItem('readingLog', JSON.stringify(readingLog));
         localStorage.setItem('paperFavorites', JSON.stringify(favorites));
         localStorage.setItem('deletedPaperIds', JSON.stringify(deletedPaperIds));
+        localStorage.setItem('paperOverrides', JSON.stringify(paperOverrides));
         localStorage.setItem('readingStartDate', startDate);
         localStorage.setItem('totalOnlineSeconds', totalOnlineSeconds.toString());
         localStorage.setItem('customPapers', JSON.stringify(customPapers));
@@ -917,6 +1049,7 @@
         readingLog = JSON.parse(localStorage.getItem('readingLog') || '{}');
         favorites = JSON.parse(localStorage.getItem('paperFavorites') || '{}');
         deletedPaperIds = JSON.parse(localStorage.getItem('deletedPaperIds') || '{}');
+        paperOverrides = JSON.parse(localStorage.getItem('paperOverrides') || '{}');
         startDate = localStorage.getItem('readingStartDate') || new Date().toISOString().split('T')[0];
         totalOnlineSeconds = parseFloat(localStorage.getItem('totalOnlineSeconds') || '0');
         customPapers = JSON.parse(localStorage.getItem('customPapers') || '[]');
@@ -944,11 +1077,9 @@
                 if (!readingLog[today]) readingLog[today] = { papers: 0, hours: 0 };
                 readingLog[today].hours += elapsed / 3600;
                 
-                // 每30秒保存一次到 localStorage
                 localStorage.setItem('totalOnlineSeconds', totalOnlineSeconds.toString());
                 localStorage.setItem('readingLog', JSON.stringify(readingLog));
                 
-                // 每2分钟同步到 GitHub
                 if (githubToken && Math.floor(totalOnlineSeconds) % 120 < 5) {
                     debouncedSave();
                 }
@@ -977,14 +1108,12 @@
         papersData = data.papers;
         categoriesData = data.categories;
         
-        // 显示最后同步时间（如果有）
         if (lastSyncTime) {
             document.getElementById('updateTime').textContent = '最后更新: ' + lastSyncTime;
         } else {
             document.getElementById('updateTime').textContent = '最后更新: 尚未同步';
         }
         
-        // 如果有 token，从 GitHub 加载用户数据
         if (githubToken) {
             updateSyncIndicator('saving');
             const remoteData = await loadFromGitHub();
@@ -992,7 +1121,6 @@
                 mergeUserData(remoteData);
                 updateSyncIndicator('connected');
             } else {
-                // 远程没有数据，从 localStorage 恢复并上传
                 loadFromLocalStorage();
                 if (Object.keys(readStatus).length > 0 || customPapers.length > 0) {
                     await saveToGitHub(true);
@@ -1001,33 +1129,37 @@
             }
         } else {
             loadFromLocalStorage();
-            // 显示 token 弹窗
             document.getElementById('tokenModal').classList.add('show');
         }
         
-        buildCategoryFilter();
+        buildTagFilter();
         refreshAll();
         startOnlineTracking();
     }
 
-    function buildCategoryFilter() {
-        const catFilter = document.getElementById('categoryFilter');
-        // 清除旧的动态分类按钮（保留"全部"）
-        while (catFilter.children.length > 1) catFilter.removeChild(catFilter.lastChild);
+    // ============ 标签筛选 ============
+    function getAllTags() {
+        const allTags = new Set();
+        getAllPapers().forEach(p => {
+            const ep = getEffectivePaper(p);
+            (ep.tags || []).forEach(t => allTags.add(t));
+        });
+        return Array.from(allTags).sort();
+    }
+
+    function buildTagFilter() {
+        const tagFilterEl = document.getElementById('tagFilter');
+        while (tagFilterEl.children.length > 1) tagFilterEl.removeChild(tagFilterEl.lastChild);
         
-        // 合并 data.json 的分类和自定义论文的分类
-        const allCats = new Set(Object.keys(categoriesData));
-        customPapers.forEach(p => allCats.add(p.category));
-        
-        allCats.forEach(cat => {
+        const allTags = getAllTags();
+        allTags.forEach(tag => {
             const btn = document.createElement('button');
             btn.className = 'filter-btn';
-            btn.dataset.category = cat;
-            btn.textContent = cat;
-            catFilter.appendChild(btn);
+            btn.dataset.tag = tag;
+            btn.textContent = tag;
+            tagFilterEl.appendChild(btn);
         });
         
-        // 重新绑定事件
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.removeEventListener('click', filterClickHandler);
             btn.addEventListener('click', filterClickHandler);
@@ -1039,18 +1171,16 @@
         group.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
         this.classList.add('active');
         if (this.dataset.status !== undefined) currentFilters.status = this.dataset.status;
-        if (this.dataset.category !== undefined) currentFilters.category = this.dataset.category;
+        if (this.dataset.tag !== undefined) currentFilters.tag = this.dataset.tag;
         if (this.dataset.priority !== undefined) currentFilters.priority = this.dataset.priority;
         if (this.dataset.favorite !== undefined) currentFilters.favorite = this.dataset.favorite;
         renderPapers();
     }
 
-    // 搜索功能
     document.getElementById('searchBox').addEventListener('input', function() {
         renderPapers();
     });
 
-    // 安全地生成 onclick 中的 ID 字符串
     function safeId(id) {
         return typeof id === 'string' ? "'" + id.replace(/'/g, "\\'") + "'" : id;
     }
@@ -1062,6 +1192,83 @@
         renderPapers();
     }
 
+    // ============ 标签输入组件 ============
+    function setupTagInput(wrapperId, inputId, suggestionsId, initialTags) {
+        const wrapper = document.getElementById(wrapperId);
+        const input = document.getElementById(inputId);
+        const suggestionsEl = document.getElementById(suggestionsId);
+        
+        // 清除现有 chips
+        wrapper.querySelectorAll('.tag-chip').forEach(c => c.remove());
+        
+        // 添加初始标签
+        (initialTags || []).forEach(tag => addTagChip(wrapperId, inputId, tag));
+        
+        // 显示建议标签
+        renderTagSuggestions(suggestionsId, wrapperId, inputId);
+        
+        // 回车/逗号添加标签
+        input.onkeydown = function(e) {
+            if (e.key === 'Enter' || e.key === ',' || e.key === '，') {
+                e.preventDefault();
+                const val = input.value.replace(/[,，]/g, '').trim();
+                if (val) {
+                    addTagChip(wrapperId, inputId, val);
+                    input.value = '';
+                    renderTagSuggestions(suggestionsId, wrapperId, inputId);
+                }
+            }
+            if (e.key === 'Backspace' && !input.value) {
+                // 删除最后一个标签
+                const chips = wrapper.querySelectorAll('.tag-chip');
+                if (chips.length > 0) {
+                    chips[chips.length - 1].remove();
+                    renderTagSuggestions(suggestionsId, wrapperId, inputId);
+                }
+            }
+        };
+    }
+
+    function addTagChip(wrapperId, inputId, tag) {
+        const wrapper = document.getElementById(wrapperId);
+        const input = document.getElementById(inputId);
+        
+        // 检查是否已存在
+        const existing = wrapper.querySelectorAll('.tag-chip');
+        for (let i = 0; i < existing.length; i++) {
+            if (existing[i].dataset.tag === tag) return;
+        }
+        
+        const chip = document.createElement('span');
+        chip.className = 'tag-chip';
+        chip.dataset.tag = tag;
+        chip.innerHTML = tag + ' <span class="tag-remove" onclick="this.parentElement.remove(); renderTagSuggestions(\'' + suggestionsIdFromWrapper(wrapperId) + '\', \'' + wrapperId + '\', \'' + inputId + '\')">&times;</span>';
+        wrapper.insertBefore(chip, input);
+    }
+
+    function suggestionsIdFromWrapper(wrapperId) {
+        return wrapperId.replace('Wrapper', 'Suggestions').replace('Tags', 'Tag');
+    }
+
+    function getTagsFromInput(wrapperId) {
+        const wrapper = document.getElementById(wrapperId);
+        const chips = wrapper.querySelectorAll('.tag-chip');
+        return Array.from(chips).map(c => c.dataset.tag);
+    }
+
+    function renderTagSuggestions(suggestionsId, wrapperId, inputId) {
+        const suggestionsEl = document.getElementById(suggestionsId);
+        if (!suggestionsEl) return;
+        
+        const currentTags = getTagsFromInput(wrapperId);
+        const allTags = getAllTags();
+        const available = allTags.filter(t => !currentTags.includes(t));
+        
+        suggestionsEl.innerHTML = available.slice(0, 15).map(t => 
+            '<span class="tag-suggestion" onclick="addTagChip(\'' + wrapperId + '\', \'' + inputId + '\', \'' + t + '\'); this.remove();">' + t + '</span>'
+        ).join('');
+    }
+
     // ============ 添加论文 ============
     function openAddPaper() {
         if (!githubToken) {
@@ -1071,28 +1278,20 @@
         }
         document.getElementById('addPaperModal').classList.add('show');
         document.getElementById('addPaperStatus').innerHTML = '';
-        // 重置表单
         document.getElementById('newTitle').value = '';
         document.getElementById('newLink').value = '';
-        document.getElementById('newCategory').value = '综述';
-        document.getElementById('newCategoryCustom').style.display = 'none';
-        document.getElementById('newCategoryCustom').value = '';
         document.getElementById('newPriority').value = '1';
         document.getElementById('newMethod').value = '精读';
         document.getElementById('newHours').value = '2';
         document.getElementById('newGoal').value = '';
         document.getElementById('newOutput').value = '';
+        
+        setupTagInput('newTagsWrapper', 'newTagInput', 'newTagSuggestions', []);
     }
 
     function closeAddPaper() {
         document.getElementById('addPaperModal').classList.remove('show');
     }
-
-    // 自定义分类下拉
-    document.getElementById('newCategory').addEventListener('change', function() {
-        const customInput = document.getElementById('newCategoryCustom');
-        customInput.style.display = this.value === '__custom__' ? 'block' : 'none';
-    });
 
     async function submitNewPaper() {
         const title = document.getElementById('newTitle').value.trim();
@@ -1101,13 +1300,10 @@
             return;
         }
         
-        let category = document.getElementById('newCategory').value;
-        if (category === '__custom__') {
-            category = document.getElementById('newCategoryCustom').value.trim();
-            if (!category) {
-                document.getElementById('addPaperStatus').innerHTML = '<div class="sync-status error">请输入自定义分类名</div>';
-                return;
-            }
+        const tags = getTagsFromInput('newTagsWrapper');
+        if (tags.length === 0) {
+            document.getElementById('addPaperStatus').innerHTML = '<div class="sync-status error">请至少添加一个标签</div>';
+            return;
         }
         
         const link = document.getElementById('newLink').value.trim();
@@ -1117,12 +1313,12 @@
         const goal = document.getElementById('newGoal').value.trim() || '待补充';
         const output = document.getElementById('newOutput').value.trim() || '待补充';
         
-        // 生成 ID
         const newId = 'custom_' + Date.now();
         const newPaper = {
             id: newId,
             title: title,
-            category: category,
+            tags: tags,
+            category: tags[0], // 兼容旧逻辑
             priority: priority,
             readMethod: method,
             hours: hours,
@@ -1137,38 +1333,111 @@
         saveToLocalStorage();
         
         document.getElementById('addPaperStatus').innerHTML = '<div class="sync-status info">正在同步到 GitHub...</div>';
-        await saveToGitHub(true);  // 强制保存，确保数据立即同步
+        await saveToGitHub(true);
         document.getElementById('addPaperStatus').innerHTML = '<div class="sync-status success">✓ 添加成功！</div>';
         
         setTimeout(() => {
             closeAddPaper();
-            buildCategoryFilter();
+            buildTagFilter();
             refreshAll();
         }, 800);
     }
 
+    // ============ 编辑论文 ============
+    function openEditPaper(id) {
+        const idStr = String(id);
+        const allPapers = getAllPapers();
+        const paper = allPapers.find(p => String(p.id) === idStr);
+        if (!paper) return;
+        
+        const ep = getEffectivePaper(paper);
+        editingPaperId = idStr;
+        
+        document.getElementById('editPaperModal').classList.add('show');
+        document.getElementById('editPaperStatus').innerHTML = '';
+        document.getElementById('editTitle').value = ep.title;
+        document.getElementById('editPriority').value = ep.priority;
+        document.getElementById('editMethod').value = ep.readMethod;
+        document.getElementById('editHours').value = ep.hours;
+        document.getElementById('editGoal').value = ep.goal || '';
+        document.getElementById('editOutput').value = ep.output || '';
+        
+        setupTagInput('editTagsWrapper', 'editTagInput', 'editTagSuggestions', ep.tags || []);
+    }
 
+    function closeEditPaper() {
+        document.getElementById('editPaperModal').classList.remove('show');
+        editingPaperId = null;
+    }
+
+    async function saveEditPaper() {
+        if (!editingPaperId) return;
+        const idStr = editingPaperId;
+        
+        const tags = getTagsFromInput('editTagsWrapper');
+        if (tags.length === 0) {
+            document.getElementById('editPaperStatus').innerHTML = '<div class="sync-status error">请至少添加一个标签</div>';
+            return;
+        }
+        
+        const title = document.getElementById('editTitle').value.trim();
+        const priority = parseInt(document.getElementById('editPriority').value);
+        const readMethod = document.getElementById('editMethod').value;
+        const hours = parseFloat(document.getElementById('editHours').value) || 2;
+        const goal = document.getElementById('editGoal').value.trim();
+        const output = document.getElementById('editOutput').value.trim();
+        
+        const isCustom = customPapers.some(p => String(p.id) === idStr);
+        
+        if (isCustom) {
+            const paper = customPapers.find(p => String(p.id) === idStr);
+            if (paper) {
+                paper.title = title;
+                paper.tags = tags;
+                paper.category = tags[0];
+                paper.priority = priority;
+                paper.readMethod = readMethod;
+                paper.hours = hours;
+                paper.goal = goal;
+                paper.output = output;
+            }
+        } else {
+            paperOverrides[idStr] = { tags, title, priority, readMethod, hours, goal, output };
+        }
+        
+        saveToLocalStorage();
+        document.getElementById('editPaperStatus').innerHTML = '<div class="sync-status info">正在同步...</div>';
+        await saveToGitHub(true);
+        
+        setTimeout(() => {
+            closeEditPaper();
+            buildTagFilter();
+            refreshAll();
+        }, 600);
+    }
 
     // ============ 图表 ============
     function renderCharts() {
-        // 合并分类数据
-        const mergedCats = Object.assign({}, categoriesData);
-        customPapers.forEach(p => {
-            if (!mergedCats[p.category]) mergedCats[p.category] = { count: 0, hours: 0 };
-            mergedCats[p.category].count++;
-            mergedCats[p.category].hours += p.hours;
+        // 标签分布
+        const tagCounts = {};
+        getAllPapers().forEach(p => {
+            const ep = getEffectivePaper(p);
+            (ep.tags || []).forEach(t => {
+                if (!tagCounts[t]) tagCounts[t] = 0;
+                tagCounts[t]++;
+            });
         });
         
-        const catLabels = Object.keys(mergedCats);
-        const catCounts = catLabels.map(c => mergedCats[c].count);
-        const catColors = ['#3b82f6','#f59e0b','#10b981','#ec4899','#8b5cf6','#06b6d4','#f97316','#84cc16','#e11d48','#64748b','#a855f7','#14b8a6'];
+        const tagLabels = Object.keys(tagCounts).sort((a, b) => tagCounts[b] - tagCounts[a]);
+        const tagValues = tagLabels.map(t => tagCounts[t]);
+        const catColors = ['#3b82f6','#f59e0b','#10b981','#ec4899','#8b5cf6','#06b6d4','#f97316','#84cc16','#e11d48','#64748b','#a855f7','#14b8a6','#d946ef','#0ea5e9','#8b5cf6'];
         
         if (categoryChart) categoryChart.destroy();
         categoryChart = new Chart(document.getElementById('categoryPie'), {
             type: 'doughnut',
             data: {
-                labels: catLabels,
-                datasets: [{ data: catCounts, backgroundColor: catColors, borderColor: 'white', borderWidth: 2 }]
+                labels: tagLabels,
+                datasets: [{ data: tagValues, backgroundColor: catColors, borderColor: 'white', borderWidth: 2 }]
             },
             options: {
                 responsive: true,
@@ -1180,7 +1449,7 @@
                             label: function(ctx) {
                                 const total = ctx.dataset.data.reduce((a,b) => a+b, 0);
                                 const pct = ((ctx.parsed / total) * 100).toFixed(1);
-                                return ctx.label + ': ' + ctx.parsed + ' (' + pct + '%)';
+                                return ctx.label + ': ' + ctx.parsed + '篇 (' + pct + '%)';
                             }
                         }
                     }
@@ -1188,6 +1457,7 @@
             }
         });
         
+        // 每周阅读统计
         const now = new Date();
         const dayOfWeek = now.getDay();
         const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
@@ -1286,7 +1556,7 @@
         const readCount = allPapers.filter(p => readStatus[String(p.id)]).length;
         const unreadCount = allPapers.length - readCount;
         const progress = allPapers.length ? Math.round((readCount / allPapers.length) * 100) : 0;
-        const totalHours = allPapers.filter(p => !readStatus[String(p.id)]).reduce((s, p) => s + p.hours, 0);
+        const totalHours = allPapers.filter(p => !readStatus[String(p.id)]).reduce((s, p) => s + getEffectivePaper(p).hours, 0);
         const onlineTimeText = formatOnlineTime();
         
         document.getElementById('totalPapers').textContent = allPapers.length;
@@ -1308,13 +1578,12 @@
         
         const allPapers = getAllPapers();
         const paper = allPapers.find(p => String(p.id) === idStr);
+        const ep = paper ? getEffectivePaper(paper) : null;
         
         if (!wasRead) {
-            // 标记为已读
-            if (paper) logReading(idStr, paper.hours);
+            if (ep) logReading(idStr, ep.hours);
         } else {
-            // 取消已读
-            if (paper) unlogReading(idStr, paper.hours);
+            if (ep) unlogReading(idStr, ep.hours);
         }
         
         updateStats();
@@ -1327,7 +1596,6 @@
         favorites[idStr] = !favorites[idStr];
         saveToLocalStorage();
         if (githubToken) {
-            // 立即保存，不用 debounce，避免刷新前丢失
             saveToGitHub(true);
         }
         renderPapers();
@@ -1398,24 +1666,22 @@
         
         let filtered = allPapers.filter(p => {
             const idStr = String(p.id);
+            const ep = getEffectivePaper(p);
             if (currentFilters.status === 'read' && !readStatus[idStr]) return false;
             if (currentFilters.status === 'unread' && readStatus[idStr]) return false;
             if (currentFilters.favorite === 'yes' && !favorites[idStr]) return false;
-            if (currentFilters.category !== 'all' && p.category !== currentFilters.category) return false;
-            if (currentFilters.priority !== 'all' && p.priority !== parseInt(currentFilters.priority)) return false;
-            if (searchTerm && !p.title.toLowerCase().includes(searchTerm)) return false;
+            if (currentFilters.tag !== 'all' && !(ep.tags || []).includes(currentFilters.tag)) return false;
+            if (currentFilters.priority !== 'all' && ep.priority !== parseInt(currentFilters.priority)) return false;
+            if (searchTerm && !ep.title.toLowerCase().includes(searchTerm)) return false;
             return true;
         });
         
         filtered.sort((a, b) => {
-            // 自定义论文排最前
             if (a.isCustom && !b.isCustom) return -1;
             if (!a.isCustom && b.isCustom) return 1;
-            // 自定义论文之间：按添加时间倒序（最新的在最上面）
             if (a.isCustom && b.isCustom) {
                 return (b.addedAt || '').localeCompare(a.addedAt || '');
             }
-            // 非自定义论文：未读排前面
             const aRead = readStatus[String(a.id)] ? 1 : 0;
             const bRead = readStatus[String(b.id)] ? 1 : 0;
             return aRead - bRead;
@@ -1428,9 +1694,10 @@
         
         grid.innerHTML = filtered.map(p => {
             const idStr = String(p.id);
+            const ep = getEffectivePaper(p);
             const isRead = readStatus[idStr];
-            const pClass = p.priority === 1 ? 'badge-p1' : p.priority === 2 ? 'badge-p2' : 'badge-p3';
-            const pText = p.priority === 1 ? 'P1 必读' : p.priority === 2 ? 'P2 重要' : 'P3 选读';
+            const pClass = ep.priority === 1 ? 'badge-p1' : ep.priority === 2 ? 'badge-p2' : 'badge-p3';
+            const pText = ep.priority === 1 ? 'P1 必读' : ep.priority === 2 ? 'P2 重要' : 'P3 选读';
             const arxivLink = customLinks[idStr] || p.arxivLink;
             const sid = safeId(p.id);
             const arxivBtn = arxivLink ? '<a href="' + arxivLink + '" target="_blank" class="btn btn-arxiv">arXiv</a>' : '';
@@ -1447,6 +1714,10 @@
                     '<button onclick="updateArxivLink(' + sid + ')">更新</button>' +
                 '</div>' : '';
             const deleteBtn = '<button class="btn btn-delete" onclick="showDeleteConfirm(' + sid + ')">删除</button>';
+            const editBtn = '<button class="btn btn-edit" onclick="openEditPaper(' + sid + ')">✏️ 编辑</button>';
+            
+            // 标签 badges
+            const tagBadges = (ep.tags || []).map(t => '<span class="badge badge-tag">' + t + '</span>').join('');
             
             const notes = paperNotes[p.id] || {};
             const noteFields = [
@@ -1475,17 +1746,17 @@
             return '<div class="paper-card ' + (isRead ? 'read' : '') + '">' +
                 '<span class="read-badge">已读</span>' +
                 '<div class="paper-top">' +
-                    '<div class="paper-title">' + p.title + '</div>' +
+                    '<div class="paper-title">' + ep.title + '</div>' +
                     '<div class="paper-badges">' +
                         '<span class="badge ' + pClass + '">' + pText + '</span>' +
-                        '<span class="badge badge-method">' + p.readMethod + '</span>' +
-                        '<span class="badge badge-cat">' + p.category + '</span>' +
-                        '<span class="badge badge-hours">' + p.hours + 'h</span>' +
+                        '<span class="badge badge-method">' + ep.readMethod + '</span>' +
+                        tagBadges +
+                        '<span class="badge badge-hours">' + ep.hours + 'h</span>' +
                     '</div>' +
                 '</div>' +
                 '<div class="paper-meta">' +
-                    '<div class="meta-item"><div class="meta-label">本篇目标</div><div class="meta-value">' + p.goal + '</div></div>' +
-                    '<div class="meta-item"><div class="meta-label">阅读产出</div><div class="meta-value">' + p.output + '</div></div>' +
+                    '<div class="meta-item"><div class="meta-label">本篇目标</div><div class="meta-value">' + (ep.goal || '待补充') + '</div></div>' +
+                    '<div class="meta-item"><div class="meta-label">阅读产出</div><div class="meta-value">' + (ep.output || '待补充') + '</div></div>' +
                 '</div>' +
                 '<div class="paper-actions">' +
                     arxivBtn +
@@ -1496,6 +1767,7 @@
                     '<button class="btn btn-favorite ' + (favorites[p.id] ? 'is-favorite' : '') + '" onclick="toggleFavorite(' + sid + ')">' +
                         (favorites[p.id] ? '★ 已收藏' : '☆ 收藏') +
                     '</button>' +
+                    editBtn +
                     addLinkForm +
                     editLinkForm +
                     deleteBtn +
@@ -1534,6 +1806,7 @@
             favorites: favorites,
             startDate: startDate,
             customPapers: customPapers,
+            paperOverrides: paperOverrides,
             totalOnlineSeconds: totalOnlineSeconds
         };
         const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -1568,12 +1841,13 @@
                 if (data.favorites) favorites = Object.assign(favorites, data.favorites);
                 if (data.startDate) startDate = data.startDate;
                 if (data.customPapers) customPapers = data.customPapers;
+                if (data.paperOverrides) paperOverrides = Object.assign(paperOverrides, data.paperOverrides);
                 if (data.totalOnlineSeconds) totalOnlineSeconds = Math.max(totalOnlineSeconds, data.totalOnlineSeconds);
                 
                 saveToLocalStorage();
                 if (githubToken) saveToGitHub(true);
                 
-                buildCategoryFilter();
+                buildTagFilter();
                 updateStats();
                 renderPapers();
                 renderCharts();
@@ -1587,14 +1861,13 @@
     }
 
     // ============ 删除论文 ============
-
     function showDeleteConfirm(paperId) {
         const idStr = String(paperId);
         const allPapers = getAllPapers();
         const paper = allPapers.find(p => String(p.id) === idStr);
         if (!paper) return;
         contextMenuPaperId = idStr;
-        document.getElementById('deletePaperName').textContent = paper.title;
+        document.getElementById('deletePaperName').textContent = getEffectivePaper(paper).title;
         document.getElementById('deleteConfirmModal').classList.add('show');
     }
 
@@ -1614,22 +1887,20 @@
         const isCustom = customPapers.some(p => String(p.id) === idStr);
         
         if (isCustom) {
-            // 自定义论文：直接从数组移除
             customPapers = customPapers.filter(p => String(p.id) !== idStr);
         } else {
-            // data.json 论文：加入隐藏列表（统一用字符串键）
             deletedPaperIds[idStr] = true;
         }
         
-        // 清理相关数据（统一用字符串键）
         delete readStatus[idStr];
         delete customLinks[idStr];
         delete paperNotes[idStr];
         delete favorites[idStr];
+        delete paperOverrides[idStr];
         
         saveToLocalStorage();
-        await saveToGitHub(true);  // 强制保存，确保数据立即同步
-        buildCategoryFilter();
+        await saveToGitHub(true);
+        buildTagFilter();
         refreshAll();
     }
 
