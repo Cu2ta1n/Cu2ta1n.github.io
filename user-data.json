@@ -168,6 +168,19 @@
       "arxivLink": "https://arxiv.org/pdf/2608.19182",
       "isCustom": true,
       "addedAt": "2026-08-30T07:25:56.413Z"
+    },
+    {
+      "id": "custom_1788074784754",
+      "title": "Learning Dexterous Grasping from Sparse Taxonomy Guidance",
+      "category": "抓取执行",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2604.04138",
+      "isCustom": true,
+      "addedAt": "2026-08-30T07:26:24.754Z"
     }
   ],
   "readStatus": {
