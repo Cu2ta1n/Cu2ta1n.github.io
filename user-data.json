@@ -272,6 +272,19 @@
       "arxivLink": "https://arxiv.org/pdf/2509.22149",
       "isCustom": true,
       "addedAt": "2026-08-30T07:30:56.284Z"
+    },
+    {
+      "id": "custom_1788075085395",
+      "title": "One Hand to Rule Them All: Canonical Representations for Unified Dexterous Manipulation",
+      "category": "Cross-Embodiment",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "One Hand to Rule Them All: Canonical Representations for Unified Dexterous Manipulation",
+      "isCustom": true,
+      "addedAt": "2026-08-30T07:31:25.395Z"
     }
   ],
   "readStatus": {
@@ -347,7 +360,7 @@
   "readingLog": {
     "2026-08-30": {
       "papers": 0,
-      "hours": 0.12505361111111118
+      "hours": 0.12922166666666673
     },
     "2026-07-20": {
       "papers": 0,
@@ -388,5 +401,5 @@
     "custom_1788074505852": true
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 6297.66799999995
+  "totalOnlineSeconds": 6312.67299999995
 }
