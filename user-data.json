@@ -129,6 +129,19 @@
       "arxivLink": "https://arxiv.org/pdf/2606.21148",
       "isCustom": true,
       "addedAt": "2026-08-30T07:24:13.022Z"
+    },
+    {
+      "id": "custom_1788074708665",
+      "title": "Functional Eigen-Grasping Using Approach Heatmaps",
+      "category": "抓取执行",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2401.11681",
+      "isCustom": true,
+      "addedAt": "2026-08-30T07:25:08.665Z"
     }
   ],
   "readStatus": {
@@ -204,7 +217,7 @@
   "readingLog": {
     "2026-08-30": {
       "papers": 0,
-      "hours": 0.0826927777777778
+      "hours": 0.08967694444444448
     },
     "2026-07-20": {
       "papers": 0,
@@ -245,5 +258,5 @@
     "custom_1788074505852": true
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 6145.168999999952
+  "totalOnlineSeconds": 6170.311999999952
 }
