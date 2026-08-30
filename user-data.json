@@ -220,6 +220,19 @@
       "arxivLink": "https://pdf.sciencedirectassets.com/271095/1-s2.0-S0952197626X20218/1-s2.0-S0952197626016271/main.pdf?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDsaCXVzLWVhc3QtMSJIMEYCIQD%2BA45J%2F92ZIpkaktin03cnSfofhZRJTg2dB4bnmfvy5QIhAPvjpsc%2FUK1ZWkbkXzW4YjgNNaDZ0kKlfiq4Z%2B4UnNBoKrIFCAMQBRoMMDU5MDAzNTQ2ODY1Igzgd%2Frhma0gV9JPe7UqjwVRjBZ7NhGwTT7bWmNnKJhB2NvJXp7HMDHmdT633MFwMCTveA1mcPQL1DA2ADJevdht75mMLf22AkGLvNFzzm8UtNcIAMJeETBLNyZsbluqyT2xp3Wb%2FsN9Vp%2BR%2F1M5QYFfW6dB2C3wmrnlwY%2FNA4KWFG%2FkAxGWcpSm73NDKm%2BOFlH%2FfDndntYeMtmSsezeSrnV0zqcphll0edbN3%2FvtfKilxnOioC0PvU2tWb4jK3lGQxYH3oWDvY%2FrZhOHtUMBBpq08cSHZuG3HmvtNvpsuU4bx%2BCihfwEDxmskPAfMg8AoD1Kt7RtpLQU3mL2Tp6hWcyhcLdeq5qEp9JsISg5thsqD%2FtWidEc%2Fhx2iVbRQlq03SfquS3veS1TxMb%2BccqiOcH7iU%2FXD%2BbLjECXuFUNeFY2HgEsW%2Funv03ZxFcja5eVUUckeP1DyWGjsGTi3mZ4kGoiWWAXaSAJ4%2BnW9tfT37E20jPuvdBZRPUnwNOieCJipU2SLl5ufZBTLNeVcWlFwthKXbI7lYcEcIPPjt4QMjOQMnz6D6Dy31mlEg1Pgf6lWktNznowi47u7xb6xbc%2BuvBJ%2BjkiuCD2WGIX6CcUaSfl50fGoFOEsifVvM0XH6mXfXOTCaa16F1cm9reFBfpWsy9Lbhc%2FV2kVtm7W6foZHO0cUZK%2BiHWOD6bno62pw5W91uGDCiVvaq5eGivoEVrYkVFKfEstXYkWKfPDl64W7uF%2FTi6nzps1c7ccoU5QIMbODQi1uZOGvKD3y7XPlrG3EjzMOaeU%2Ftqh8ahZMZvuIGrPm%2Fz4sfBTeOSUk6abUgtXhCJAGewOOvcI1ftxtjOAN956gnBF5FzBOdFXtOk4ctwEKTyVJQbVDpAOS4ZGfbMPjRtdQGOrABXF4K1cfrO1pCypLqOMKjHCAAxTuvnq3eX0dYJsSMH4w3KNz3bzAdbLmZofWyRrBG9OJwmAhMIvcfCm5yOI74gDuGSgx%2FgnB8v2qmuFU8IF5ziPqgTxXc%2BnIk06r0YO3gYhRV2zM998hPMz2fXeFSqGMhN7ICMAvlNbC5HojRDaZMzwhBx06rl%2BhIeU5sYyuJgXtc2srnfaZ5KNLsBoSr9dkpAX84KhkL%2BOM3ilwA1tw%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20260825T104258Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIAQ3PHCVTYYL2TOMNX%2F20260825%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=09e9262c5d6ff4c6344d890526bba994288caf71464ad66c577201e733fd4821&hash=a10eb6a8b69efeb9b097df1cb86c156d3749dfc96de04bdf364698d44904c42a&host=68042c943591013ac2b2430a89b270f6af2c76d8dfd086a07176afe7c76c2c61&pii=S0952197626016271&tid=spdf-56837dfb-c3a4-4295-9b75-2148c1b64b05&sid=3f672f534d408444095a70a7f9c640d69660gxrqa&type=client&tsoh=d3d3LnNjaWVuY2VkaXJlY3QuY29t&rh=d3d3LnNjaWVuY2VkaXJlY3QuY29t&ua=0f17035d565e02015101&rr=a309fe3d9970862c&cc=us",
       "isCustom": true,
       "addedAt": "2026-08-30T07:28:52.214Z"
+    },
+    {
+      "id": "custom_1788074957414",
+      "title": "Dexterous Functional Grasping",
+      "category": "抓取执行",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2312.02975",
+      "isCustom": true,
+      "addedAt": "2026-08-30T07:29:17.414Z"
     }
   ],
   "readStatus": {
@@ -295,7 +308,7 @@
   "readingLog": {
     "2026-08-30": {
       "papers": 0,
-      "hours": 0.11330361111111116
+      "hours": 0.11469333333333338
     },
     "2026-07-20": {
       "papers": 0,
@@ -336,5 +349,5 @@
     "custom_1788074505852": true
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 6255.36799999995
+  "totalOnlineSeconds": 6260.37099999995
 }
