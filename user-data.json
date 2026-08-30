@@ -103,6 +103,19 @@
       "arxivLink": "https://arxiv.org/pdf/2410.02479",
       "isCustom": true,
       "addedAt": "2026-08-30T07:22:37.862Z"
+    },
+    {
+      "id": "custom_1788074626593",
+      "title": "From Grasps to Dexterity: Large-Scale Grasp Pretraining for Dexterous Manipulation",
+      "category": "灵巧操作",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2606.30749",
+      "isCustom": true,
+      "addedAt": "2026-08-30T07:23:46.593Z"
     }
   ],
   "readStatus": {
@@ -178,7 +191,7 @@
   "readingLog": {
     "2026-08-30": {
       "papers": 0,
-      "hours": 0.06740277777777777
+      "hours": 0.07018305555555555
     },
     "2026-07-20": {
       "papers": 0,
@@ -219,5 +232,5 @@
     "custom_1788074505852": true
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 6090.124999999953
+  "totalOnlineSeconds": 6100.133999999953
 }
