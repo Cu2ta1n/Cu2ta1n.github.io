@@ -246,6 +246,19 @@
       "arxivLink": "https://www.roboticsproceedings.org/rss22/p122.pdf",
       "isCustom": true,
       "addedAt": "2026-08-30T07:30:11.504Z"
+    },
+    {
+      "id": "custom_1788075037665",
+      "title": "MANGO-Grasp: Mahalanobis Fields over Geometry-Oriented 3D Gaussians for Cross-Embodiment Dexterous Grasping",
+      "category": "抓取生成",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2608.02014",
+      "isCustom": true,
+      "addedAt": "2026-08-30T07:30:37.665Z"
     }
   ],
   "readStatus": {
@@ -321,7 +334,7 @@
   "readingLog": {
     "2026-08-30": {
       "papers": 0,
-      "hours": 0.11886333333333339
+      "hours": 0.1222744444444445
     },
     "2026-07-20": {
       "papers": 0,
@@ -362,5 +375,5 @@
     "custom_1788074505852": true
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 6275.38299999995
+  "totalOnlineSeconds": 6287.6629999999495
 }
