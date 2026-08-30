@@ -311,6 +311,19 @@
       "arxivLink": "https://arxiv.org/pdf/2409.14519",
       "isCustom": true,
       "addedAt": "2026-08-30T07:32:12.124Z"
+    },
+    {
+      "id": "custom_1788075179786",
+      "title": "Scaling Cross-Embodiment World Models for Dexterous Manipulation",
+      "category": "Cross-Embodiment",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2511.01177",
+      "isCustom": true,
+      "addedAt": "2026-08-30T07:32:59.786Z"
     }
   ],
   "readStatus": {
@@ -386,7 +399,7 @@
   "readingLog": {
     "2026-08-30": {
       "papers": 0,
-      "hours": 0.14312138888888898
+      "hours": 0.148681388888889
     },
     "2026-07-20": {
       "papers": 0,
@@ -427,5 +440,5 @@
     "custom_1788074505852": true
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 6362.711999999949
+  "totalOnlineSeconds": 6382.727999999948
 }
