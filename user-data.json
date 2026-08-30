@@ -77,6 +77,19 @@
       "arxivLink": "https://arxiv.org/pdf/2604.07517",
       "isCustom": true,
       "addedAt": "2026-08-30T07:20:10.217Z"
+    },
+    {
+      "id": "custom_1788074455114",
+      "title": "CoDex: Learning Compositional Dexterous Functional Manipulation without Demonstrations",
+      "category": "灵巧操作",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2606.31909",
+      "isCustom": true,
+      "addedAt": "2026-08-30T07:20:55.114Z"
     }
   ],
   "readStatus": {
@@ -152,7 +165,7 @@
   "readingLog": {
     "2026-08-30": {
       "papers": 0,
-      "hours": 0.04341972222222222
+      "hours": 0.04758861111111111
     },
     "2026-07-20": {
       "papers": 0,
@@ -192,5 +205,5 @@
     "custom_1788074276541": true
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 6003.785999999953
+  "totalOnlineSeconds": 6018.793999999953
 }
