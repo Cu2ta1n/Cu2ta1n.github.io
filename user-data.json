@@ -90,19 +90,6 @@
       "arxivLink": "https://arxiv.org/pdf/2606.31909",
       "isCustom": true,
       "addedAt": "2026-08-30T07:20:55.114Z"
-    },
-    {
-      "id": "custom_1788074505852",
-      "title": "CROSS-EMBODIMENT DEXTEROUS GRASPING WITH REINFORCEMENT LEARNING",
-      "category": "Cross-embodiment",
-      "priority": 1,
-      "readMethod": "精读",
-      "hours": 2,
-      "goal": "待补充",
-      "output": "待补充",
-      "arxivLink": "https://arxiv.org/pdf/2410.02479",
-      "isCustom": true,
-      "addedAt": "2026-08-30T07:21:45.852Z"
     }
   ],
   "readStatus": {
@@ -178,7 +165,7 @@
   "readingLog": {
     "2026-08-30": {
       "papers": 0,
-      "hours": 0.05592833333333333
+      "hours": 0.058708333333333335
     },
     "2026-07-20": {
       "papers": 0,
@@ -218,5 +205,5 @@
     "custom_1788074276541": true
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 6048.816999999953
+  "totalOnlineSeconds": 6058.8249999999525
 }
