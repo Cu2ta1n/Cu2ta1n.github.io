@@ -64,19 +64,6 @@
       "arxivLink": "https://arxiv.org/pdf/2607.29374",
       "isCustom": true,
       "addedAt": "2026-08-30T07:17:08.361Z"
-    },
-    {
-      "id": "custom_1788074276541",
-      "title": "OmniDexVLG: Learning Dexterous Grasp Generation from Vision Language Model-Guided Grasp Semantics, Taxonomy and Functional Affordance",
-      "category": "抓取执行",
-      "priority": 1,
-      "readMethod": "精读",
-      "hours": 2,
-      "goal": "待补充",
-      "output": "待补充",
-      "arxivLink": "",
-      "isCustom": true,
-      "addedAt": "2026-08-30T07:17:56.541Z"
     }
   ],
   "readStatus": {
@@ -152,7 +139,7 @@
   "readingLog": {
     "2026-08-30": {
       "papers": 0,
-      "hours": 0.03348055555555556
+      "hours": 0.03626111111111111
     },
     "2026-07-20": {
       "papers": 0,
@@ -191,5 +178,5 @@
     "38": true
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 5968.004999999952
+  "totalOnlineSeconds": 5978.014999999952
 }
