@@ -194,6 +194,19 @@
       "arxivLink": "https://arxiv.org/pdf/2606.17054",
       "isCustom": true,
       "addedAt": "2026-08-30T07:27:55.318Z"
+    },
+    {
+      "id": "custom_1788074902783",
+      "title": "Towards Affordance-Aware Robotic Dexterous Grasping with Human-like Priors",
+      "category": "抓取执行",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2508.08896",
+      "isCustom": true,
+      "addedAt": "2026-08-30T07:28:22.783Z"
     }
   ],
   "readStatus": {
@@ -269,7 +282,7 @@
   "readingLog": {
     "2026-08-30": {
       "papers": 0,
-      "hours": 0.10496611111111116
+      "hours": 0.10913527777777783
     },
     "2026-07-20": {
       "papers": 0,
@@ -310,5 +323,5 @@
     "custom_1788074505852": true
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 6225.352999999951
+  "totalOnlineSeconds": 6240.36199999995
 }
