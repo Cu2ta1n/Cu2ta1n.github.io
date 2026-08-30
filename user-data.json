@@ -350,6 +350,19 @@
       "arxivLink": "https://arxiv.org/pdf/2202.00164",
       "isCustom": true,
       "addedAt": "2026-08-30T07:33:56.796Z"
+    },
+    {
+      "id": "custom_1788077851221",
+      "title": "BLaDA: Bridging Language to Functional Dexterous Actions within 3DGS Fields",
+      "category": "抓取生成",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2604.08410",
+      "isCustom": true,
+      "addedAt": "2026-08-30T08:17:31.221Z"
     }
   ],
   "readStatus": {
@@ -425,7 +438,7 @@
   "readingLog": {
     "2026-08-30": {
       "papers": 0,
-      "hours": 0.2098400000000002
+      "hours": 0.23346972222222245
     },
     "2026-07-20": {
       "papers": 0,
@@ -467,5 +480,5 @@
     "custom_1788074505852": true
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 6602.898999999945
+  "totalOnlineSeconds": 6687.965999999944
 }
