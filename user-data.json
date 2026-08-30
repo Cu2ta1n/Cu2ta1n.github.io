@@ -298,6 +298,19 @@
       "arxivLink": "https://arxiv.org/pdf/2506.14608",
       "isCustom": true,
       "addedAt": "2026-08-30T07:31:48.956Z"
+    },
+    {
+      "id": "custom_1788075132124",
+      "title": "RobotFingerPrint: Unified Gripper Coordinate Space for Multi-Gripper Grasp Synthesis and Transfer",
+      "category": "Cross-Embodiment",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2409.14519",
+      "isCustom": true,
+      "addedAt": "2026-08-30T07:32:12.124Z"
     }
   ],
   "readStatus": {
@@ -373,7 +386,7 @@
   "readingLog": {
     "2026-08-30": {
       "papers": 0,
-      "hours": 0.13478166666666674
+      "hours": 0.13895138888888897
     },
     "2026-07-20": {
       "papers": 0,
@@ -414,5 +427,5 @@
     "custom_1788074505852": true
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 6332.688999999949
+  "totalOnlineSeconds": 6347.699999999949
 }
