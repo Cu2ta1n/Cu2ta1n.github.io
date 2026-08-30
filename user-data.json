@@ -259,6 +259,19 @@
       "arxivLink": "https://arxiv.org/pdf/2608.02014",
       "isCustom": true,
       "addedAt": "2026-08-30T07:30:37.665Z"
+    },
+    {
+      "id": "custom_1788075056284",
+      "title": "DemoGrasp: Universal Dexterous Grasping from a Single Demonstration",
+      "category": "抓取执行",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2509.22149",
+      "isCustom": true,
+      "addedAt": "2026-08-30T07:30:56.284Z"
     }
   ],
   "readStatus": {
@@ -334,7 +347,7 @@
   "readingLog": {
     "2026-08-30": {
       "papers": 0,
-      "hours": 0.1222744444444445
+      "hours": 0.12505361111111118
     },
     "2026-07-20": {
       "papers": 0,
@@ -375,5 +388,5 @@
     "custom_1788074505852": true
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 6287.6629999999495
+  "totalOnlineSeconds": 6297.66799999995
 }
