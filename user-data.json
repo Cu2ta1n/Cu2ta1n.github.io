@@ -116,6 +116,19 @@
       "arxivLink": "https://arxiv.org/pdf/2606.30749",
       "isCustom": true,
       "addedAt": "2026-08-30T07:23:46.593Z"
+    },
+    {
+      "id": "custom_1788074653022",
+      "title": "Pose-Agnostic Robotic Functional Grasping via Observation-Action Canonicalization",
+      "category": "抓取执行",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2606.21148",
+      "isCustom": true,
+      "addedAt": "2026-08-30T07:24:13.022Z"
     }
   ],
   "readStatus": {
