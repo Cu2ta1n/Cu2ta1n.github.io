@@ -181,6 +181,19 @@
       "arxivLink": "https://arxiv.org/pdf/2604.04138",
       "isCustom": true,
       "addedAt": "2026-08-30T07:26:24.754Z"
+    },
+    {
+      "id": "custom_1788074875318",
+      "title": "Human Universal Grasping",
+      "category": "抓取生成",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2606.17054",
+      "isCustom": true,
+      "addedAt": "2026-08-30T07:27:55.318Z"
     }
   ],
   "readStatus": {
@@ -256,7 +269,7 @@
   "readingLog": {
     "2026-08-30": {
       "papers": 0,
-      "hours": 0.09662611111111115
+      "hours": 0.10496611111111116
     },
     "2026-07-20": {
       "papers": 0,
@@ -297,5 +310,5 @@
     "custom_1788074505852": true
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 6195.3289999999515
+  "totalOnlineSeconds": 6225.352999999951
 }
