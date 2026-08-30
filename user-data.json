@@ -155,6 +155,19 @@
       "arxivLink": "https://arxiv.org/pdf/2512.13380",
       "isCustom": true,
       "addedAt": "2026-08-30T07:25:34.912Z"
+    },
+    {
+      "id": "custom_1788074756413",
+      "title": "ADEPT: Accelerating Dexterity via Pre-Training and Sim-to-Real 23 DoF Kuka-Allegro Vision-based (!) Dish Placement Post-Training using Reinforcement Learning",
+      "category": "基础模型",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2608.19182",
+      "isCustom": true,
+      "addedAt": "2026-08-30T07:25:56.413Z"
     }
   ],
   "readStatus": {
@@ -230,7 +243,7 @@
   "readingLog": {
     "2026-08-30": {
       "papers": 0,
-      "hours": 0.09245694444444448
+      "hours": 0.09662611111111115
     },
     "2026-07-20": {
       "papers": 0,
@@ -271,5 +284,5 @@
     "custom_1788074505852": true
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 6180.3199999999515
+  "totalOnlineSeconds": 6195.3289999999515
 }
