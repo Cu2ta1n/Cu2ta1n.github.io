@@ -233,6 +233,19 @@
       "arxivLink": "https://arxiv.org/pdf/2312.02975",
       "isCustom": true,
       "addedAt": "2026-08-30T07:29:17.414Z"
+    },
+    {
+      "id": "custom_1788075011504",
+      "title": "DexGrasp-Zero: A Morphology-Aligned Policy for Zero-Shot Cross-Embodiment Dexterous Grasping",
+      "category": "Cross-Embodiment",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://www.roboticsproceedings.org/rss22/p122.pdf",
+      "isCustom": true,
+      "addedAt": "2026-08-30T07:30:11.504Z"
     }
   ],
   "readStatus": {
@@ -308,7 +321,7 @@
   "readingLog": {
     "2026-08-30": {
       "papers": 0,
-      "hours": 0.11469333333333338
+      "hours": 0.11886333333333339
     },
     "2026-07-20": {
       "papers": 0,
@@ -349,5 +362,5 @@
     "custom_1788074505852": true
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 6260.37099999995
+  "totalOnlineSeconds": 6275.38299999995
 }
