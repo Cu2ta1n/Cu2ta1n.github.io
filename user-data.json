@@ -145,7 +145,7 @@
     },
     {
       "id": "custom_1788074734912",
-      "title": "https://arxiv.org/pdf/2512.13380",
+      "title": "Universal Dexterous Functional Grasping via Demonstration-Editing Reinforcement Learning",
       "category": "抓取执行",
       "priority": 1,
       "readMethod": "精读",
@@ -154,7 +154,10 @@
       "output": "待补充",
       "arxivLink": "https://arxiv.org/pdf/2512.13380",
       "isCustom": true,
-      "addedAt": "2026-08-30T07:25:34.912Z"
+      "addedAt": "2026-08-30T07:25:34.912Z",
+      "tags": [
+        "抓取执行"
+      ]
     },
     {
       "id": "custom_1788074756413",
@@ -467,6 +470,10 @@
     "2026-07-28": {
       "papers": 0,
       "hours": 0.14313861111111123
+    },
+    "2026-08-31": {
+      "papers": 0,
+      "hours": 0.009190555555555556
     }
   },
   "favorites": {
@@ -479,6 +486,7 @@
     "custom_1788074276541": true,
     "custom_1788074505852": true
   },
+  "paperOverrides": {},
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 6734.677999999943
+  "totalOnlineSeconds": 6767.763999999943
 }
