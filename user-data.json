@@ -473,7 +473,7 @@
     },
     "2026-08-31": {
       "papers": 0,
-      "hours": 0.09702722222222229
+      "hours": 0.130476388888889
     }
   },
   "favorites": {
@@ -488,5 +488,5 @@
   },
   "paperOverrides": {},
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 7083.975999999938
+  "totalOnlineSeconds": 7204.392999999938
 }
