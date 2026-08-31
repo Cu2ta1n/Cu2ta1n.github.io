@@ -432,7 +432,10 @@
       "limitation": "",
       "relation": "",
       "code": "",
-      "summary": ""
+      "summary": "",
+      "io": "",
+      "pipeline": "",
+      "action": ""
     }
   },
   "readingLog": {
@@ -470,7 +473,7 @@
     },
     "2026-08-31": {
       "papers": 0,
-      "hours": 0.1844808333333335
+      "hours": 0.18587055555555573
     }
   },
   "favorites": {
@@ -497,5 +500,5 @@
     }
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 7398.808999999936
+  "totalOnlineSeconds": 7403.811999999935
 }
