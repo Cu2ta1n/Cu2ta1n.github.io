@@ -436,7 +436,8 @@
       "io": "",
       "pipeline": "",
       "action": "",
-      "obs": ""
+      "obs": "",
+      "metrics": "succ & objective error"
     }
   },
   "readingLog": {
@@ -474,7 +475,7 @@
     },
     "2026-08-31": {
       "papers": 0,
-      "hours": 0.21820138888888913
+      "hours": 0.22237138888888913
     }
   },
   "favorites": {
@@ -501,5 +502,5 @@
     }
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 7520.202999999932
+  "totalOnlineSeconds": 7535.214999999932
 }
