@@ -430,7 +430,7 @@
       "data": "500k+ obj，3 hands",
       "innovation": "",
       "limitation": "",
-      "relation": "是一种基于目标的抓取执行方式，与我想做的跟随手型、跟随affordance其实本质目标是一样的，他们同样也关注到了一个物体多个affordance的问题，并且他们的确的泛化了，是一种很好的state-based的参考。",
+      "relation": "是一种基于目标的抓取执行方式，与我想做的跟随手型、跟随affordance其实本质目标是一样的，他们同样也关注到了一个物体多个affordance的问题，并且他们的确的泛化了，是一种很好的state-based的参考，但是的确privilege info用的比较多，我感觉泛化能力也很有可能就是来自于这些地方。",
       "code": "https://github.com/zdchan/graspxl",
       "summary": "",
       "io": "",
@@ -475,7 +475,7 @@
     },
     "2026-08-31": {
       "papers": 0,
-      "hours": 0.2632930555555559
+      "hours": 0.2646830555555559
     }
   },
   "favorites": {
@@ -502,5 +502,5 @@
     }
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 7682.532999999929
+  "totalOnlineSeconds": 7687.536999999929
 }
