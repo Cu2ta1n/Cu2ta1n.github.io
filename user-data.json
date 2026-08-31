@@ -353,6 +353,22 @@
       "arxivLink": "https://arxiv.org/pdf/2604.08410",
       "isCustom": true,
       "addedAt": "2026-08-30T08:17:31.221Z"
+    },
+    {
+      "id": "custom_1788161283722",
+      "title": "RDGen: Demonstration Generation for High-Quality Robot Learning via Reinforcement Learning",
+      "tags": [
+        "基础模型"
+      ],
+      "category": "基础模型",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2605.30957",
+      "isCustom": true,
+      "addedAt": "2026-08-31T07:28:03.722Z"
     }
   ],
   "readStatus": {
@@ -475,7 +491,7 @@
     },
     "2026-08-31": {
       "papers": 0,
-      "hours": 0.3965883333333337
+      "hours": 0.4165536111111115
     }
   },
   "favorites": {
@@ -502,5 +518,5 @@
     }
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 8162.3959999999215
+  "totalOnlineSeconds": 8234.270999999924
 }
