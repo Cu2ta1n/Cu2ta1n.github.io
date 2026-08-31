@@ -225,19 +225,6 @@
       "addedAt": "2026-08-30T07:28:52.214Z"
     },
     {
-      "id": "custom_1788074957414",
-      "title": "Dexterous Functional Grasping",
-      "category": "抓取执行",
-      "priority": 1,
-      "readMethod": "精读",
-      "hours": 2,
-      "goal": "待补充",
-      "output": "待补充",
-      "arxivLink": "https://arxiv.org/pdf/2312.02975",
-      "isCustom": true,
-      "addedAt": "2026-08-30T07:29:17.414Z"
-    },
-    {
       "id": "custom_1788075011504",
       "title": "DexGrasp-Zero: A Morphology-Aligned Policy for Zero-Shot Cross-Embodiment Dexterous Grasping",
       "category": "Cross-Embodiment",
@@ -473,7 +460,7 @@
     },
     "2026-08-31": {
       "papers": 0,
-      "hours": 0.130476388888889
+      "hours": 0.16005833333333347
     }
   },
   "favorites": {
@@ -488,5 +475,5 @@
   },
   "paperOverrides": {},
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 7204.392999999938
+  "totalOnlineSeconds": 7310.887999999936
 }
