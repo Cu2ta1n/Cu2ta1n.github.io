@@ -460,7 +460,7 @@
     },
     "2026-08-31": {
       "papers": 0,
-      "hours": 0.16283833333333347
+      "hours": 0.17395638888888904
     }
   },
   "favorites": {
@@ -473,7 +473,19 @@
     "custom_1788074276541": true,
     "custom_1788074505852": true
   },
-  "paperOverrides": {},
+  "paperOverrides": {
+    "23": {
+      "tags": [
+        "抓取执行"
+      ],
+      "title": "GraspXL",
+      "priority": 2,
+      "readMethod": "精读",
+      "hours": 3,
+      "goal": "理解多目标条件下的大规模通用抓取动作生成。",
+      "output": "梳理方法流程，记录目标表示、策略输入输出及跨物体、跨手泛化实验。 重点关注四种条件：抓取区域、接近方向、腕部旋转和手部位置"
+    }
+  },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 7320.895999999936
+  "totalOnlineSeconds": 7360.920999999936
 }
