@@ -426,7 +426,7 @@
     },
     "23": {
       "question": "",
-      "training": "",
+      "training": "ppo",
       "data": "",
       "innovation": "",
       "limitation": "",
@@ -435,7 +435,8 @@
       "summary": "",
       "io": "",
       "pipeline": "",
-      "action": ""
+      "action": "",
+      "obs": ""
     }
   },
   "readingLog": {
@@ -473,7 +474,7 @@
     },
     "2026-08-31": {
       "papers": 0,
-      "hours": 0.19699083333333353
+      "hours": 0.21403138888888912
     }
   },
   "favorites": {
@@ -500,5 +501,5 @@
     }
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 7443.844999999935
+  "totalOnlineSeconds": 7505.1909999999325
 }
