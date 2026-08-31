@@ -436,7 +436,7 @@
       "io": "",
       "pipeline": "",
       "action": "joint action space",
-      "obs": "",
+      "obs": "state-based",
       "metrics": "succ & objective error"
     }
   },
