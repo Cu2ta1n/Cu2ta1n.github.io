@@ -369,6 +369,22 @@
       "arxivLink": "https://arxiv.org/pdf/2605.30957",
       "isCustom": true,
       "addedAt": "2026-08-31T07:28:03.722Z"
+    },
+    {
+      "id": "custom_1788164478100",
+      "title": "UniCross: Unified Cross-Skill Dexterous Manipulation Synthesis",
+      "tags": [
+        "灵巧操作"
+      ],
+      "category": "灵巧操作",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2607.28198",
+      "isCustom": true,
+      "addedAt": "2026-08-31T08:21:18.100Z"
     }
   ],
   "readStatus": {
@@ -491,7 +507,7 @@
     },
     "2026-08-31": {
       "papers": 0,
-      "hours": 0.4304536111111115
+      "hours": 0.5036969444444449
     }
   },
   "favorites": {
@@ -518,5 +534,5 @@
     }
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 8284.310999999929
+  "totalOnlineSeconds": 8547.98699999994
 }
