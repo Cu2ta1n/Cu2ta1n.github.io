@@ -233,6 +233,10 @@
         .btn-favorite.is-favorite { background: #fef3c7; color: #d97706; border-color: #fbbf24; }
         .btn-note { background: #fef3c7; color: #d97706; border: 1px solid #fde68a; }
         .btn-note:hover { background: #fde68a; }
+        .btn-timer { background: #f1f5f9; color: #64748b; border: 1px solid #e2e8f0; }
+        .btn-timer:hover { border-color: #3b82f6; color: #3b82f6; }
+        .btn-timer.is-active { background: #dbeafe; color: #2563eb; border-color: #3b82f6; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
         .btn-edit { background: #e0e7ff; color: #6366f1; border: 1px solid #c7d2fe; }
         .btn-edit:hover { background: #c7d2fe; }
         .btn-add-link { background: #e0e7ff; color: #6366f1; border: 1px solid #c7d2fe; }
@@ -792,7 +796,10 @@
     let paperOverrides = {}; // { paperId: { tags, title, priority, readMethod, hours, goal, output } }
     let startDate = new Date().toISOString().split('T')[0];
     let totalOnlineSeconds = 0;
-    let lastTickTime = Date.now();
+    let activeTimerPaperId = null; // which paper is currently being timed
+    let activeTimerStartTime = null; // when the current timer was started
+    let paperReadingTimes = {}; // { paperId: totalSeconds }
+    let timerDisplayInterval = null;
     let currentFilters = { status: 'all', tag: 'all', priority: 'all', favorite: 'all' };
     let categoryChart = null;
     let weeklyChart = null;
@@ -887,7 +894,8 @@
             deletedPaperIds: deletedPaperIds,
             paperOverrides: paperOverrides,
             startDate: startDate,
-            totalOnlineSeconds: totalOnlineSeconds
+            totalOnlineSeconds: totalOnlineSeconds,
+            paperReadingTimes: paperReadingTimes
         };
         
         const jsonStr = JSON.stringify(data, null, 2);
@@ -994,7 +1002,6 @@
         document.getElementById('tokenModal').classList.remove('show');
         loadFromLocalStorage();
         refreshAll();
-        startOnlineTracking();
     }
 
     function mergeUserData(remote) {
@@ -1025,6 +1032,7 @@
         if (remote.paperOverrides) paperOverrides = Object.assign(paperOverrides, remote.paperOverrides);
         if (remote.startDate) startDate = remote.startDate;
         if (remote.totalOnlineSeconds) totalOnlineSeconds = Math.max(totalOnlineSeconds, remote.totalOnlineSeconds);
+        if (remote.paperReadingTimes) paperReadingTimes = Object.assign(paperReadingTimes, remote.paperReadingTimes);
         
         saveToLocalStorage();
     }
@@ -1039,6 +1047,7 @@
         localStorage.setItem('paperOverrides', JSON.stringify(paperOverrides));
         localStorage.setItem('readingStartDate', startDate);
         localStorage.setItem('totalOnlineSeconds', totalOnlineSeconds.toString());
+        localStorage.setItem('paperReadingTimes', JSON.stringify(paperReadingTimes));
         localStorage.setItem('customPapers', JSON.stringify(customPapers));
     }
 
@@ -1052,6 +1061,7 @@
         paperOverrides = JSON.parse(localStorage.getItem('paperOverrides') || '{}');
         startDate = localStorage.getItem('readingStartDate') || new Date().toISOString().split('T')[0];
         totalOnlineSeconds = parseFloat(localStorage.getItem('totalOnlineSeconds') || '0');
+        paperReadingTimes = JSON.parse(localStorage.getItem('paperReadingTimes') || '{}');
         customPapers = JSON.parse(localStorage.getItem('customPapers') || '[]');
     }
 
@@ -1062,43 +1072,6 @@
         }
         updateSyncIndicator('saving');
         await saveToGitHub(true);
-    }
-
-    // ============ 在线时间追踪 ============
-    function startOnlineTracking() {
-        setInterval(function() {
-            if (document.visibilityState === 'visible') {
-                const now = Date.now();
-                const elapsed = (now - lastTickTime) / 1000;
-                totalOnlineSeconds += elapsed;
-                lastTickTime = now;
-                
-                const today = new Date().toISOString().split('T')[0];
-                if (!readingLog[today]) readingLog[today] = { papers: 0, hours: 0 };
-                readingLog[today].hours += elapsed / 3600;
-                
-                localStorage.setItem('totalOnlineSeconds', totalOnlineSeconds.toString());
-                localStorage.setItem('readingLog', JSON.stringify(readingLog));
-                
-                if (githubToken && Math.floor(totalOnlineSeconds) % 120 < 5) {
-                    debouncedSave();
-                }
-                
-                const hours = totalOnlineSeconds / 3600;
-                document.getElementById('readHours').textContent = hours < 1 
-                    ? Math.round(totalOnlineSeconds / 60) + 'min' 
-                    : hours.toFixed(1) + 'h';
-            } else {
-                lastTickTime = Date.now();
-            }
-        }, 5000);
-    }
-
-    function formatOnlineTime() {
-        const hours = totalOnlineSeconds / 3600;
-        return hours < 1 
-            ? Math.round(totalOnlineSeconds / 60) + 'min' 
-            : hours.toFixed(1) + 'h';
     }
 
     // ============ 数据加载 ============
@@ -1134,7 +1107,6 @@
         
         buildTagFilter();
         refreshAll();
-        startOnlineTracking();
     }
 
     // ============ 标签筛选 ============
@@ -1557,7 +1529,9 @@
         const unreadCount = allPapers.length - readCount;
         const progress = allPapers.length ? Math.round((readCount / allPapers.length) * 100) : 0;
         const totalHours = allPapers.filter(p => !readStatus[String(p.id)]).reduce((s, p) => s + getEffectivePaper(p).hours, 0);
-        const onlineTimeText = formatOnlineTime();
+        const onlineTimeText = totalOnlineSeconds < 3600 
+            ? Math.round(totalOnlineSeconds / 60) + 'min' 
+            : (totalOnlineSeconds / 3600).toFixed(1) + 'h';
         
         document.getElementById('totalPapers').textContent = allPapers.length;
         document.getElementById('readCount').textContent = readCount;
@@ -1566,6 +1540,8 @@
         document.getElementById('readHours').textContent = onlineTimeText;
         document.getElementById('progressText').textContent = progress + '%';
         document.getElementById('progressFill').style.width = progress + '%';
+        
+        refreshAllTimerButtons();
     }
 
     // ============ 论文操作 ============
@@ -1760,6 +1736,7 @@
                 '</div>' +
                 '<div class="paper-actions">' +
                     arxivBtn +
+                    '<button class="btn btn-timer" id="timer-' + p.id + '" onclick="toggleTimer(' + sid + ')">⏱ 开始计时</button>' +
                     '<button class="btn btn-read ' + (isRead ? 'is-read' : '') + '" onclick="toggleRead(' + sid + ')">' +
                         (isRead ? '✓ 已读' : '标记已读') +
                     '</button>' +
@@ -1780,6 +1757,109 @@
         }).join('');
     }
 
+    // ============ 手动计时功能 ============
+    function toggleTimer(paperId) {
+        const idStr = String(paperId);
+        
+        // If this paper is already being timed, stop it
+        if (activeTimerPaperId === idStr) {
+            stopTimer();
+            return;
+        }
+        
+        // If another paper is being timed, stop it first
+        if (activeTimerPaperId !== null) {
+            stopTimer();
+        }
+        
+        // Start timer for this paper
+        activeTimerPaperId = idStr;
+        activeTimerStartTime = Date.now();
+        
+        // Start display update interval
+        if (timerDisplayInterval) clearInterval(timerDisplayInterval);
+        timerDisplayInterval = setInterval(updateTimerDisplay, 1000);
+        
+        updateTimerButton(idStr);
+    }
+    
+    function stopTimer() {
+        if (activeTimerPaperId === null) return;
+        
+        const elapsed = (Date.now() - activeTimerStartTime) / 1000;
+        const idStr = activeTimerPaperId;
+        
+        // Accumulate time
+        if (!paperReadingTimes[idStr]) paperReadingTimes[idStr] = 0;
+        paperReadingTimes[idStr] += elapsed;
+        
+        // Update reading log
+        const today = new Date().toISOString().split('T')[0];
+        if (!readingLog[today]) readingLog[today] = { papers: 0, hours: 0 };
+        readingLog[today].hours += elapsed / 3600;
+        totalOnlineSeconds += elapsed;
+        
+        // Save
+        saveToLocalStorage();
+        if (githubToken) debouncedSave();
+        
+        // Clear timer state
+        activeTimerPaperId = null;
+        activeTimerStartTime = null;
+        if (timerDisplayInterval) {
+            clearInterval(timerDisplayInterval);
+            timerDisplayInterval = null;
+        }
+        
+        updateTimerButton(idStr);
+        updateStats();
+        renderContribution();
+    }
+    
+    function updateTimerDisplay() {
+        if (activeTimerPaperId === null) return;
+        const elapsed = (Date.now() - activeTimerStartTime) / 1000;
+        const total = (paperReadingTimes[activeTimerPaperId] || 0) + elapsed;
+        const btn = document.getElementById('timer-' + activeTimerPaperId);
+        if (btn) {
+            btn.textContent = '⏱ ' + formatTimerTime(total) + ' (停止)';
+        }
+    }
+    
+    function updateTimerButton(paperId) {
+        const btn = document.getElementById('timer-' + paperId);
+        if (!btn) return;
+        
+        if (activeTimerPaperId === String(paperId)) {
+            btn.classList.add('is-active');
+            btn.textContent = '⏱ 00:00 (停止)';
+        } else {
+            btn.classList.remove('is-active');
+            const total = paperReadingTimes[String(paperId)] || 0;
+            if (total > 0) {
+                btn.textContent = '⏱ ' + formatTimerTime(total);
+            } else {
+                btn.textContent = '⏱ 开始计时';
+            }
+        }
+    }
+    
+    function formatTimerTime(seconds) {
+        const h = Math.floor(seconds / 3600);
+        const m = Math.floor((seconds % 3600) / 60);
+        const s = Math.floor(seconds % 60);
+        if (h > 0) {
+            return h + ':' + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+        }
+        return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+    }
+    
+    function refreshAllTimerButtons() {
+        getAllPapers().forEach(p => {
+            updateTimerButton(p.id);
+        });
+    }
+    
     // ============ 其他功能 ============
     function resetTodayReadingTime() {
         const today = new Date().toISOString().split('T')[0];
@@ -1788,7 +1868,6 @@
             totalOnlineSeconds = 0;
             saveToLocalStorage();
             if (githubToken) debouncedSave();
-            lastTickTime = Date.now();
             updateStats();
             renderContribution();
             alert('今日阅读时间已清零');
