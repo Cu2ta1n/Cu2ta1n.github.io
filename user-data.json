@@ -450,6 +450,22 @@
       "arxivLink": "https://arxiv.org/pdf/2410.24164",
       "isCustom": true,
       "addedAt": "2026-09-01T04:03:22.382Z"
+    },
+    {
+      "id": "custom_1788327324446",
+      "title": "DexMachina: Functional Retargeting for Bimanual Dexterous Manipulation",
+      "tags": [
+        "Retarget"
+      ],
+      "category": "Retarget",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2505.24853",
+      "isCustom": true,
+      "addedAt": "2026-09-02T05:35:24.446Z"
     }
   ],
   "readStatus": {
