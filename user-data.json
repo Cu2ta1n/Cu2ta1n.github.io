@@ -463,7 +463,8 @@
     "32": true,
     "34": true,
     "37": true,
-    "custom_1784005827661": true
+    "custom_1784005827661": true,
+    "custom_1788228977626": true
   },
   "customLinks": {
     "0": "https://link.springer.com/article/10.1007/s10462-025-11262-2",
@@ -577,6 +578,10 @@
     "2026-09-01": {
       "papers": 0,
       "hours": 0.08371083333333337
+    },
+    "2026-09-02": {
+      "papers": 1,
+      "hours": 0
     }
   },
   "favorites": {
@@ -603,5 +608,6 @@
     }
   },
   "startDate": "2026-07-13",
-  "totalOnlineSeconds": 8894.019999999962
+  "totalOnlineSeconds": 8894.019999999962,
+  "paperReadingTimes": {}
 }
