@@ -582,6 +582,22 @@
       "arxivLink": "https://arxiv.org/pdf/2605.30957",
       "isCustom": true,
       "addedAt": "2026-09-03T08:34:33.150Z"
+    },
+    {
+      "id": "custom_1788424491654",
+      "title": "UNIHM: UNIFIED DEXTEROUS HAND MANIPULATION WITH VISION LANGUAGE MODEL",
+      "tags": [
+        "VLA"
+      ],
+      "category": "VLA",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2603.00732",
+      "isCustom": true,
+      "addedAt": "2026-09-03T08:34:51.654Z"
     }
   ],
   "readStatus": {
