@@ -466,6 +466,22 @@
       "arxivLink": "https://arxiv.org/pdf/2505.24853",
       "isCustom": true,
       "addedAt": "2026-09-02T05:35:24.446Z"
+    },
+    {
+      "id": "custom_1788424204148",
+      "title": "DeepMimic: Example-Guided Deep Reinforcement Learning of Physics-Based Character Skills",
+      "tags": [
+        "RL"
+      ],
+      "category": "RL",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/1804.02717",
+      "isCustom": true,
+      "addedAt": "2026-09-03T08:30:04.148Z"
     }
   ],
   "readStatus": {
