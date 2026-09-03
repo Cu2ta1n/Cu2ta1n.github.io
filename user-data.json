@@ -662,6 +662,22 @@
       "arxivLink": "https://arxiv.org/pdf/2209.11221",
       "isCustom": true,
       "addedAt": "2026-09-03T08:37:57.324Z"
+    },
+    {
+      "id": "custom_1788424720385",
+      "title": "Bridging the Human to Robot Dexterity Gap through Object-Oriented Rewards",
+      "tags": [
+        "RL"
+      ],
+      "category": "RL",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2410.23289",
+      "isCustom": true,
+      "addedAt": "2026-09-03T08:38:40.385Z"
     }
   ],
   "readStatus": {
