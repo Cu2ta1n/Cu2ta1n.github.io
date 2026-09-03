@@ -1279,6 +1279,17 @@
         }
         
         const link = document.getElementById('newLink').value.trim();
+        
+        // 检查链接是否重复
+        if (link) {
+            const allPapers = getAllPapers();
+            const duplicate = allPapers.find(p => p.arxivLink && p.arxivLink === link);
+            if (duplicate) {
+                document.getElementById('addPaperStatus').innerHTML = '<div class="sync-status error">⚠ 链接已存在！与论文「' + duplicate.title + '」的链接重复，无法添加</div>';
+                return;
+            }
+        }
+        
         const priority = parseInt(document.getElementById('newPriority').value);
         const method = document.getElementById('newMethod').value;
         const hours = parseFloat(document.getElementById('newHours').value) || 2;
