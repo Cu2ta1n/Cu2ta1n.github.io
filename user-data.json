@@ -514,6 +514,23 @@
       "arxivLink": "https://arxiv.org/pdf/2509.26633",
       "isCustom": true,
       "addedAt": "2026-09-03T08:32:34.287Z"
+    },
+    {
+      "id": "custom_1788424376295",
+      "title": "UniDex: A Robot Foundation Suite for Universal Dexterous Hand Control from Egocentric Human Videos",
+      "tags": [
+        "VLA",
+        "基础模型"
+      ],
+      "category": "VLA",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2603.22264",
+      "isCustom": true,
+      "addedAt": "2026-09-03T08:32:56.295Z"
     }
   ],
   "readStatus": {
