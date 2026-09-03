@@ -531,6 +531,24 @@
       "arxivLink": "https://arxiv.org/pdf/2603.22264",
       "isCustom": true,
       "addedAt": "2026-09-03T08:32:56.295Z"
+    },
+    {
+      "id": "custom_1788424394556",
+      "title": "EgoScale: Scaling Dexterous Manipulation with Diverse Egocentric Human Data",
+      "tags": [
+        "VLA",
+        "数据集",
+        "基础模型"
+      ],
+      "category": "VLA",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2602.16710",
+      "isCustom": true,
+      "addedAt": "2026-09-03T08:33:14.556Z"
     }
   ],
   "readStatus": {
