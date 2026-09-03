@@ -630,6 +630,22 @@
       "arxivLink": "https://arxiv.org/pdf/2509.19752",
       "isCustom": true,
       "addedAt": "2026-09-03T08:36:56.265Z"
+    },
+    {
+      "id": "custom_1788424640744",
+      "title": "MimicGen: A Data Generation System for Scalable Robot Learning using Human Demonstrations",
+      "tags": [
+        "数据集"
+      ],
+      "category": "数据集",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2310.17596",
+      "isCustom": true,
+      "addedAt": "2026-09-03T08:37:20.744Z"
     }
   ],
   "readStatus": {
