@@ -565,6 +565,23 @@
       "arxivLink": "https://arxiv.org/pdf/2108.05877",
       "isCustom": true,
       "addedAt": "2026-09-03T08:33:51.467Z"
+    },
+    {
+      "id": "custom_1788424473150",
+      "title": "RDGen: Demonstration Generation for High-Quality Robot Learning via Reinforcement Learning",
+      "tags": [
+        "VLA",
+        "基础模型"
+      ],
+      "category": "VLA",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2605.30957",
+      "isCustom": true,
+      "addedAt": "2026-09-03T08:34:33.150Z"
     }
   ],
   "readStatus": {
