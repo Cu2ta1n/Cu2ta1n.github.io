@@ -598,6 +598,22 @@
       "arxivLink": "https://arxiv.org/pdf/2603.00732",
       "isCustom": true,
       "addedAt": "2026-09-03T08:34:51.654Z"
+    },
+    {
+      "id": "custom_1788424573165",
+      "title": "Beyond Human Demonstrations: Diffusion-Based Reinforcement Learning to Generate Data for VLA Training",
+      "tags": [
+        "VLA"
+      ],
+      "category": "VLA",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2509.19752",
+      "isCustom": true,
+      "addedAt": "2026-09-03T08:36:13.165Z"
     }
   ],
   "readStatus": {
