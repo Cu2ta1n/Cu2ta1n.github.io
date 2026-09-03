@@ -678,6 +678,22 @@
       "arxivLink": "https://arxiv.org/pdf/2410.23289",
       "isCustom": true,
       "addedAt": "2026-09-03T08:38:40.385Z"
+    },
+    {
+      "id": "custom_1788424738845",
+      "title": "One Demonstration, Many Objects: Generalizing Manipulation via Local Contact Geometry",
+      "tags": [
+        "灵巧操作"
+      ],
+      "category": "灵巧操作",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2609.01938",
+      "isCustom": true,
+      "addedAt": "2026-09-03T08:38:58.845Z"
     }
   ],
   "readStatus": {
