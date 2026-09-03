@@ -646,6 +646,22 @@
       "arxivLink": "https://arxiv.org/pdf/2310.17596",
       "isCustom": true,
       "addedAt": "2026-09-03T08:37:20.744Z"
+    },
+    {
+      "id": "custom_1788424677324",
+      "title": "Learning Dexterous Manipulation from Exemplar Object Trajectories and Pre-Grasps",
+      "tags": [
+        "灵巧操作"
+      ],
+      "category": "灵巧操作",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2209.11221",
+      "isCustom": true,
+      "addedAt": "2026-09-03T08:37:57.324Z"
     }
   ],
   "readStatus": {
