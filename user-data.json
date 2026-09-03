@@ -549,6 +549,22 @@
       "arxivLink": "https://arxiv.org/pdf/2602.16710",
       "isCustom": true,
       "addedAt": "2026-09-03T08:33:14.556Z"
+    },
+    {
+      "id": "custom_1788424431467",
+      "title": "DexMV: Imitation Learning for Dexterous Manipulation from Human Videos",
+      "tags": [
+        "灵巧操作"
+      ],
+      "category": "灵巧操作",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2108.05877",
+      "isCustom": true,
+      "addedAt": "2026-09-03T08:33:51.467Z"
     }
   ],
   "readStatus": {
