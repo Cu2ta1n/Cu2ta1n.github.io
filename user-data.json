@@ -782,7 +782,7 @@
       "metrics": "succ & objective error"
     },
     "custom_1788424738845": {
-      "question": "intro 中总结的问题： 1. 只有retarget的轨迹恢复对于灵巧手操作是不够的 2. ",
+      "question": "intro 中总结的问题： 1. 只有retarget的轨迹恢复对于灵巧手操作是不够的 2. 目前的基于demo的rl 往往存在sim2real偏弱的情况，",
       "action": "",
       "pipeline": "",
       "io": "",
