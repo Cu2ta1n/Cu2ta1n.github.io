@@ -179,6 +179,14 @@
         .paper-card:hover { border-color: #3b82f6; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(59,130,246,0.1); }
         .paper-card.read { opacity: 0.6; }
         .paper-card.read .paper-title { text-decoration: line-through; color: #94a3b8; }
+        .paper-timestamps {
+            text-align: right;
+            font-size: 0.72em;
+            color: #94a3b8;
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+        .paper-timestamps span { margin-left: 10px; }
         .paper-card .read-badge {
             display: none;
             position: absolute;
@@ -809,6 +817,26 @@
     let saveTimer = null;
     let lastSyncTime = localStorage.getItem('lastSyncTime') || '';
     let editingPaperId = null; // 当前编辑的论文 ID
+
+    // ============ 规范化 readStatus 条目（兼容旧布尔值格式） ============
+    function normalizeReadStatus(entry) {
+        if (entry === true) return { read: true, readAt: null };
+        if (entry === false || !entry) return { read: false, readAt: null };
+        return { read: !!entry.read, readAt: entry.readAt || null };
+    }
+    function isRead(idStr) { return normalizeReadStatus(readStatus[idStr]).read; }
+    function getReadAt(idStr) { return normalizeReadStatus(readStatus[idStr]).readAt; }
+    
+    function formatDate(isoString) {
+        if (!isoString) return '';
+        const d = new Date(isoString);
+        const year = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        const hours = String(d.getHours()).padStart(2, '0');
+        const mins = String(d.getMinutes()).padStart(2, '0');
+        return `${year}-${month}-${day} ${hours}:${mins}`;
+    }
 
     // ============ 获取论文有效数据（合并 override） ============
     function getEffectivePaper(p) {
@@ -1536,10 +1564,10 @@
 
     function updateStats() {
         const allPapers = getAllPapers();
-        const readCount = allPapers.filter(p => readStatus[String(p.id)]).length;
+        const readCount = allPapers.filter(p => isRead(String(p.id))).length;
         const unreadCount = allPapers.length - readCount;
         const progress = allPapers.length ? Math.round((readCount / allPapers.length) * 100) : 0;
-        const totalHours = allPapers.filter(p => !readStatus[String(p.id)]).reduce((s, p) => s + getEffectivePaper(p).hours, 0);
+        const totalHours = allPapers.filter(p => !isRead(String(p.id))).reduce((s, p) => s + getEffectivePaper(p).hours, 0);
         const onlineTimeText = totalOnlineSeconds < 3600 
             ? Math.round(totalOnlineSeconds / 60) + 'min' 
             : (totalOnlineSeconds / 3600).toFixed(1) + 'h';
@@ -1558,8 +1586,15 @@
     // ============ 论文操作 ============
     function toggleRead(id) {
         const idStr = String(id);
-        const wasRead = readStatus[idStr];
-        readStatus[idStr] = !readStatus[idStr];
+        const wasRead = isRead(idStr);
+        
+        // 记录/清除已读时间戳
+        if (!wasRead) {
+            readStatus[idStr] = { read: true, readAt: new Date().toISOString() };
+        } else {
+            readStatus[idStr] = { read: false, readAt: null };
+        }
+        
         saveToLocalStorage();
         if (githubToken) debouncedSave();
         
@@ -1654,8 +1689,8 @@
         let filtered = allPapers.filter(p => {
             const idStr = String(p.id);
             const ep = getEffectivePaper(p);
-            if (currentFilters.status === 'read' && !readStatus[idStr]) return false;
-            if (currentFilters.status === 'unread' && readStatus[idStr]) return false;
+            if (currentFilters.status === 'read' && !isRead(idStr)) return false;
+            if (currentFilters.status === 'unread' && isRead(idStr)) return false;
             if (currentFilters.favorite === 'yes' && !favorites[idStr]) return false;
             if (currentFilters.tag !== 'all' && !(ep.tags || []).includes(currentFilters.tag)) return false;
             if (currentFilters.priority !== 'all' && ep.priority !== parseInt(currentFilters.priority)) return false;
@@ -1664,14 +1699,19 @@
         });
         
         filtered.sort((a, b) => {
+            // 已读状态为最高优先级：未读在前，已读在后
+            const aRead = isRead(String(a.id)) ? 1 : 0;
+            const bRead = isRead(String(b.id)) ? 1 : 0;
+            if (aRead !== bRead) return aRead - bRead;
+            
+            // 同状态内：自定义论文在前，按添加时间倒序
             if (a.isCustom && !b.isCustom) return -1;
             if (!a.isCustom && b.isCustom) return 1;
             if (a.isCustom && b.isCustom) {
                 return (b.addedAt || '').localeCompare(a.addedAt || '');
             }
-            const aRead = readStatus[String(a.id)] ? 1 : 0;
-            const bRead = readStatus[String(b.id)] ? 1 : 0;
-            return aRead - bRead;
+            // 非自定义论文按 id 倒序（新的在前）
+            return b.id - a.id;
         });
         
         if (!filtered.length) {
@@ -1682,7 +1722,7 @@
         grid.innerHTML = filtered.map(p => {
             const idStr = String(p.id);
             const ep = getEffectivePaper(p);
-            const isRead = readStatus[idStr];
+            const paperIsRead = isRead(idStr);
             const pClass = ep.priority === 1 ? 'badge-p1' : ep.priority === 2 ? 'badge-p2' : 'badge-p3';
             const pText = ep.priority === 1 ? 'P1 必读' : ep.priority === 2 ? 'P2 重要' : 'P3 选读';
             const arxivLink = customLinks[idStr] || p.arxivLink;
@@ -1730,7 +1770,7 @@
                 '</div>'
             ).join('');
             
-            return '<div class="paper-card ' + (isRead ? 'read' : '') + '">' +
+            return '<div class="paper-card ' + (paperIsRead ? 'read' : '') + '">' +
                 '<span class="read-badge">已读</span>' +
                 '<div class="paper-top">' +
                     '<div class="paper-title">' + ep.title + '</div>' +
@@ -1748,8 +1788,8 @@
                 '<div class="paper-actions">' +
                     arxivBtn +
                     '<button class="btn btn-timer" id="timer-' + p.id + '" onclick="toggleTimer(' + sid + ')">⏱ 开始计时</button>' +
-                    '<button class="btn btn-read ' + (isRead ? 'is-read' : '') + '" onclick="toggleRead(' + sid + ')">' +
-                        (isRead ? '✓ 已读' : '标记已读') +
+                    '<button class="btn btn-read ' + (paperIsRead ? 'is-read' : '') + '" onclick="toggleRead(' + sid + ')">' +
+                        (paperIsRead ? '✓ 已读' : '标记已读') +
                     '</button>' +
                     '<button class="btn btn-note" onclick="toggleNote(' + sid + ')">📝 笔记</button>' +
                     '<button class="btn btn-favorite ' + (favorites[p.id] ? 'is-favorite' : '') + '" onclick="toggleFavorite(' + sid + ')">' +
@@ -1763,6 +1803,10 @@
                 '<div class="notes-section" id="notes-' + p.id + '">' +
                     '<h4>阅读笔记</h4>' +
                     notesHtml +
+                '</div>' +
+                '<div class="paper-timestamps">' +
+                    (p.addedAt ? '<span>📅 添加: ' + formatDate(p.addedAt) + '</span>' : '') +
+                    (paperIsRead ? '<span>✅ 已读: ' + (getReadAt(idStr) ? formatDate(getReadAt(idStr)) : '时间未知') + '</span>' : '') +
                 '</div>' +
             '</div>';
         }).join('');
