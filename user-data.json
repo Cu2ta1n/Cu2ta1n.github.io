@@ -843,6 +843,23 @@
       "arxivLink": "https://arxiv.org/pdf/2502.05485",
       "isCustom": true,
       "addedAt": "2026-09-08T00:32:42.173Z"
+    },
+    {
+      "id": "custom_1788827622705",
+      "title": "Humanoid Policy∼Human Policy",
+      "tags": [
+        "数据集",
+        "灵巧操作"
+      ],
+      "category": "数据集",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2503.13441",
+      "isCustom": true,
+      "addedAt": "2026-09-08T00:33:42.705Z"
     }
   ],
   "readStatus": {
