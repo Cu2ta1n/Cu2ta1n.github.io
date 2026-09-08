@@ -892,6 +892,22 @@
       "arxivLink": "https://arxiv.org/pdf/2501.09898",
       "isCustom": true,
       "addedAt": "2026-09-08T00:35:10.638Z"
+    },
+    {
+      "id": "custom_1788827751424",
+      "title": "MENTOR: Mixture-of-Experts Network with Task-Oriented Perturbation for Visual Reinforcement Learning",
+      "tags": [
+        "RL"
+      ],
+      "category": "RL",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2410.14972",
+      "isCustom": true,
+      "addedAt": "2026-09-08T00:35:51.424Z"
     }
   ],
   "readStatus": {
