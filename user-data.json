@@ -808,6 +808,23 @@
       "arxivLink": "https://arxiv.org/pdf/2307.04577",
       "isCustom": true,
       "addedAt": "2026-09-08T00:30:40.092Z"
+    },
+    {
+      "id": "custom_1788827512376",
+      "title": "HERMES: Human-to-Robot Embodied Learning from Multi-SouRce Motion Data for MobilE DexterouS Manipulation",
+      "tags": [
+        "灵巧操作",
+        "Mobile Robot"
+      ],
+      "category": "灵巧操作",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2508.20085",
+      "isCustom": true,
+      "addedAt": "2026-09-08T00:31:52.376Z"
     }
   ],
   "readStatus": {
