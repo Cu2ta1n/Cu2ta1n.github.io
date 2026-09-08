@@ -908,6 +908,22 @@
       "arxivLink": "https://arxiv.org/pdf/2410.14972",
       "isCustom": true,
       "addedAt": "2026-09-08T00:35:51.424Z"
+    },
+    {
+      "id": "custom_1788827845496",
+      "title": "Crossing the Human-Robot Embodiment Gap with Sim-to-Real RL using One Human Demonstration",
+      "tags": [
+        "灵巧操作"
+      ],
+      "category": "灵巧操作",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2504.12609",
+      "isCustom": true,
+      "addedAt": "2026-09-08T00:37:25.496Z"
     }
   ],
   "readStatus": {
