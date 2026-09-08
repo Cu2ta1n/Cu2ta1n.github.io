@@ -744,6 +744,22 @@
       "arxivLink": "https://arxiv.org/pdf/2603.10451",
       "isCustom": true,
       "addedAt": "2026-09-08T00:27:15.912Z"
+    },
+    {
+      "id": "custom_1788827268731",
+      "title": "Residual Reinforcement Learning from Demonstrations",
+      "tags": [
+        "RL"
+      ],
+      "category": "RL",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2106.08050",
+      "isCustom": true,
+      "addedAt": "2026-09-08T00:27:48.731Z"
     }
   ],
   "readStatus": {
