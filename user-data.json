@@ -860,6 +860,22 @@
       "arxivLink": "https://arxiv.org/pdf/2503.13441",
       "isCustom": true,
       "addedAt": "2026-09-08T00:33:42.705Z"
+    },
+    {
+      "id": "custom_1788827694658",
+      "title": "Object-Centric Dexterous Manipulation from Human Motion Data",
+      "tags": [
+        "灵巧操作"
+      ],
+      "category": "灵巧操作",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2411.04005",
+      "isCustom": true,
+      "addedAt": "2026-09-08T00:34:54.658Z"
     }
   ],
   "readStatus": {
