@@ -776,6 +776,22 @@
       "arxivLink": "https://arxiv.org/pdf/2503.21860",
       "isCustom": true,
       "addedAt": "2026-09-08T00:29:05.811Z"
+    },
+    {
+      "id": "custom_1788827396632",
+      "title": "MEMER: SCALING UP MEMORY FOR ROBOT CON- TROL VIA EXPERIENCE RETRIEVAL",
+      "tags": [
+        "Robotic Agent"
+      ],
+      "category": "Robotic Agent",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://proceedings.iclr.cc/paper_files/paper/2026/file/9da515b1ad19d032a7398f00f5ff9b0c-Paper-Conference.pdf",
+      "isCustom": true,
+      "addedAt": "2026-09-08T00:29:56.632Z"
     }
   ],
   "readStatus": {
