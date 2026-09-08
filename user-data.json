@@ -825,6 +825,24 @@
       "arxivLink": "https://arxiv.org/pdf/2508.20085",
       "isCustom": true,
       "addedAt": "2026-09-08T00:31:52.376Z"
+    },
+    {
+      "id": "custom_1788827562173",
+      "title": "HAMSTER: HIERARCHICAL ACTION MODELS FOR OPEN-WORLD ROBOT MANIPULATION",
+      "tags": [
+        "灵巧操作",
+        "基础模型",
+        "Robotic Agent"
+      ],
+      "category": "灵巧操作",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2502.05485",
+      "isCustom": true,
+      "addedAt": "2026-09-08T00:32:42.173Z"
     }
   ],
   "readStatus": {
