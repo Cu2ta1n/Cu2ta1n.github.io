@@ -876,6 +876,22 @@
       "arxivLink": "https://arxiv.org/pdf/2411.04005",
       "isCustom": true,
       "addedAt": "2026-09-08T00:34:54.658Z"
+    },
+    {
+      "id": "custom_1788827710638",
+      "title": "FoundationStereo: Zero-Shot Stereo Matching",
+      "tags": [
+        "基础模型"
+      ],
+      "category": "基础模型",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2501.09898",
+      "isCustom": true,
+      "addedAt": "2026-09-08T00:35:10.638Z"
     }
   ],
   "readStatus": {
