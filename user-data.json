@@ -726,6 +726,24 @@
       "arxivLink": "https://arxiv.org/pdf/2601.01651",
       "isCustom": true,
       "addedAt": "2026-09-08T00:24:26.699Z"
+    },
+    {
+      "id": "custom_1788827235912",
+      "title": "FAR-Dex: Few-shot Data Augmentation and Adaptive Residual Policy Refinement for Dexterous Manipulation",
+      "tags": [
+        "灵巧操作",
+        "基础模型",
+        "数据集"
+      ],
+      "category": "灵巧操作",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2603.10451",
+      "isCustom": true,
+      "addedAt": "2026-09-08T00:27:15.912Z"
     }
   ],
   "readStatus": {
