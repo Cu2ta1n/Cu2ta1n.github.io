@@ -792,6 +792,22 @@
       "arxivLink": "https://proceedings.iclr.cc/paper_files/paper/2026/file/9da515b1ad19d032a7398f00f5ff9b0c-Paper-Conference.pdf",
       "isCustom": true,
       "addedAt": "2026-09-08T00:29:56.632Z"
+    },
+    {
+      "id": "custom_1788827440092",
+      "title": "AnyTeleop: A General Vision-Based Dexterous Robot Arm-Hand Teleoperation System",
+      "tags": [
+        "Retarget"
+      ],
+      "category": "Retarget",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2307.04577",
+      "isCustom": true,
+      "addedAt": "2026-09-08T00:30:40.092Z"
     }
   ],
   "readStatus": {
