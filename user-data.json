@@ -760,6 +760,22 @@
       "arxivLink": "https://arxiv.org/pdf/2106.08050",
       "isCustom": true,
       "addedAt": "2026-09-08T00:27:48.731Z"
+    },
+    {
+      "id": "custom_1788827345811",
+      "title": "MANIPTRANS: Efficient Dexterous Bimanual Manipulation Transfer via Residual Learning",
+      "tags": [
+        "灵巧操作"
+      ],
+      "category": "灵巧操作",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2503.21860",
+      "isCustom": true,
+      "addedAt": "2026-09-08T00:29:05.811Z"
     }
   ],
   "readStatus": {
