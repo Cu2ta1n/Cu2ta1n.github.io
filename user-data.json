@@ -956,6 +956,23 @@
       "arxivLink": "https://arxiv.org/pdf/2609.03199",
       "isCustom": true,
       "addedAt": "2026-09-08T06:10:36.563Z"
+    },
+    {
+      "id": "custom_1788847874813",
+      "title": "ZETA: A Controlled Study of Zero-Shot Cross-Embodiment VLA Transfer for Tabletop Manipulation",
+      "tags": [
+        "Cross-Embodiment",
+        "VLA"
+      ],
+      "category": "Cross-Embodiment",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/search/?query=dexterous&searchtype=all&source=header",
+      "isCustom": true,
+      "addedAt": "2026-09-08T06:11:14.813Z"
     }
   ],
   "readStatus": {
