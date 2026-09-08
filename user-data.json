@@ -940,6 +940,22 @@
       "arxivLink": "https://arxiv.org/pdf/2609.05206",
       "isCustom": true,
       "addedAt": "2026-09-08T06:09:13.040Z"
+    },
+    {
+      "id": "custom_1788847836563",
+      "title": "ROBOTOK: AN INTERNET-SCALE DATA ENGINE FOR HUMAN DEMONSTRATION RETRIEVAL AND DEXTER- OUS MANIPULATION LEARNING",
+      "tags": [
+        "数据集"
+      ],
+      "category": "数据集",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2609.03199",
+      "isCustom": true,
+      "addedAt": "2026-09-08T06:10:36.563Z"
     }
   ],
   "readStatus": {
