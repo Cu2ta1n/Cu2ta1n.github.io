@@ -989,6 +989,22 @@
       "arxivLink": "https://arxiv.org/pdf/2609.11775",
       "isCustom": true,
       "addedAt": "2026-09-14T05:52:26.618Z"
+    },
+    {
+      "id": "custom_1789365288335",
+      "title": "Learning Visual-Tactile Dexterous Manipulation From Human Videos with Simulated Interaction",
+      "tags": [
+        "灵巧操作"
+      ],
+      "category": "灵巧操作",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2609.07747",
+      "isCustom": true,
+      "addedAt": "2026-09-14T05:54:48.335Z"
     }
   ],
   "readStatus": {
