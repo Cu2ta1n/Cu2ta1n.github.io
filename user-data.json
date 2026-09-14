@@ -973,6 +973,22 @@
       "arxivLink": "https://arxiv.org/search/?query=dexterous&searchtype=all&source=header",
       "isCustom": true,
       "addedAt": "2026-09-08T06:11:14.813Z"
+    },
+    {
+      "id": "custom_1789365146618",
+      "title": "Rapid Learning of Dexterous In-Hand Pen Writing through Real-Time Jacobian Estimation",
+      "tags": [
+        "灵巧操作"
+      ],
+      "category": "灵巧操作",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2609.11775",
+      "isCustom": true,
+      "addedAt": "2026-09-14T05:52:26.618Z"
     }
   ],
   "readStatus": {
