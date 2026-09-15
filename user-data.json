@@ -1021,6 +1021,23 @@
       "arxivLink": "https://arxiv.org/pdf/2606.11628",
       "isCustom": true,
       "addedAt": "2026-09-15T07:12:05.258Z"
+    },
+    {
+      "id": "custom_1789456775689",
+      "title": "Attention-Based Map Encoding for Learning Generalized Legged Locomotion",
+      "tags": [
+        "RL",
+        "Locomotion"
+      ],
+      "category": "RL",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2506.09588",
+      "isCustom": true,
+      "addedAt": "2026-09-15T07:19:35.689Z"
     }
   ],
   "readStatus": {
