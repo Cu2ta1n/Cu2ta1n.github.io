@@ -1005,6 +1005,22 @@
       "arxivLink": "https://arxiv.org/pdf/2609.07747",
       "isCustom": true,
       "addedAt": "2026-09-14T05:54:48.335Z"
+    },
+    {
+      "id": "custom_1789456325258",
+      "title": "LUCID: Learning Embodiment-Agnostic Intent Models from Unstructured Human Videos for Scalable Dexterous Robot Skill Acquisition",
+      "tags": [
+        "灵巧操作"
+      ],
+      "category": "灵巧操作",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2606.11628",
+      "isCustom": true,
+      "addedAt": "2026-09-15T07:12:05.258Z"
     }
   ],
   "readStatus": {
