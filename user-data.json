@@ -1038,6 +1038,23 @@
       "arxivLink": "https://arxiv.org/pdf/2506.09588",
       "isCustom": true,
       "addedAt": "2026-09-15T07:19:35.689Z"
+    },
+    {
+      "id": "custom_1789635751601",
+      "title": "UniDex-ViTac: Learning Unified Visuo-Tactile Dexterous Manipulation Policy from Human Video Data",
+      "tags": [
+        "灵巧操作",
+        "Tactile"
+      ],
+      "category": "灵巧操作",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2609.16504",
+      "isCustom": true,
+      "addedAt": "2026-09-17T09:02:31.601Z"
     }
   ],
   "readStatus": {
