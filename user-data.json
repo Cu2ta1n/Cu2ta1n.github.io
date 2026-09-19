@@ -1071,6 +1071,22 @@
       "arxivLink": "https://arxiv.org/pdf/2607.28394",
       "isCustom": true,
       "addedAt": "2026-09-19T05:20:59.672Z"
+    },
+    {
+      "id": "custom_1789795310005",
+      "title": "Human-Centric Intelligence in the Era of FoundationModels: ASurvey",
+      "tags": [
+        "综述"
+      ],
+      "category": "综述",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2608.18184",
+      "isCustom": true,
+      "addedAt": "2026-09-19T05:21:50.005Z"
     }
   ],
   "readStatus": {
