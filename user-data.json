@@ -1055,6 +1055,22 @@
       "arxivLink": "https://arxiv.org/pdf/2609.16504",
       "isCustom": true,
       "addedAt": "2026-09-17T09:02:31.601Z"
+    },
+    {
+      "id": "custom_1789795259672",
+      "title": "Hand-Object Interaction in the Age of Large Foundation Models: Reconstruction, Generation, and Embodied Transfer",
+      "tags": [
+        "综述"
+      ],
+      "category": "综述",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2607.28394",
+      "isCustom": true,
+      "addedAt": "2026-09-19T05:20:59.672Z"
     }
   ],
   "readStatus": {
