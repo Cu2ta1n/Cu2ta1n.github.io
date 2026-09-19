@@ -1087,6 +1087,22 @@
       "arxivLink": "https://arxiv.org/pdf/2608.18184",
       "isCustom": true,
       "addedAt": "2026-09-19T05:21:50.005Z"
+    },
+    {
+      "id": "custom_1789796131750",
+      "title": "DexterousManipulationPolicies fromRGBHumanVideos via3DHand-ObjectTrajectoryReconstruction",
+      "tags": [
+        "Demonstration-guided"
+      ],
+      "category": "Demonstration-guided",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2602.09013",
+      "isCustom": true,
+      "addedAt": "2026-09-19T05:35:31.750Z"
     }
   ],
   "readStatus": {
