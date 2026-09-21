@@ -1188,6 +1188,22 @@
       "arxivLink": "https://dexterous-humanoid-manipulation.github.io/src/file/paper/hlee.pdf",
       "isCustom": true,
       "addedAt": "2026-09-21T04:12:12.224Z"
+    },
+    {
+      "id": "custom_1789963962283",
+      "title": "ViViDex: Learning Vision-based Dexterous Manipulation from Human Videos",
+      "tags": [
+        "Demonstration-guided"
+      ],
+      "category": "Demonstration-guided",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2404.15709",
+      "isCustom": true,
+      "addedAt": "2026-09-21T04:12:42.283Z"
     }
   ],
   "readStatus": {
