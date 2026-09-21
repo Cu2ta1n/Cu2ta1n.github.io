@@ -1119,6 +1119,23 @@
       "arxivLink": "https://arxiv.org/pdf/2508.08241",
       "isCustom": true,
       "addedAt": "2026-09-19T06:21:09.474Z"
+    },
+    {
+      "id": "custom_1789963813467",
+      "title": "WEAVE: Learning Whole-Body Dexterous Loco-Manipulation from Human–Object Interactions",
+      "tags": [
+        "Locomotion",
+        "Demonstration-guided"
+      ],
+      "category": "Locomotion",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2609.16683",
+      "isCustom": true,
+      "addedAt": "2026-09-21T04:10:13.467Z"
     }
   ],
   "readStatus": {
