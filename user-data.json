@@ -1204,6 +1204,22 @@
       "arxivLink": "https://arxiv.org/pdf/2404.15709",
       "isCustom": true,
       "addedAt": "2026-09-21T04:12:42.283Z"
+    },
+    {
+      "id": "custom_1789966841988",
+      "title": "Efficient Learning on Point Clouds with Basis Point Sets",
+      "tags": [
+        "基础模型"
+      ],
+      "category": "基础模型",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/1908.09186",
+      "isCustom": true,
+      "addedAt": "2026-09-21T05:00:41.988Z"
     }
   ],
   "readStatus": {
