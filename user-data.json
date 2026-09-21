@@ -1270,6 +1270,23 @@
       "arxivLink": "https://arxiv.org/pdf/2607.06555",
       "isCustom": true,
       "addedAt": "2026-09-21T10:12:28.141Z"
+    },
+    {
+      "id": "custom_1789985589663",
+      "title": "DexMimicGen: Automated Data Generation for Bimanual Dexterous Manipulation via Imitation Learning",
+      "tags": [
+        "Bimanual",
+        "数据集"
+      ],
+      "category": "Bimanual",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2410.24185",
+      "isCustom": true,
+      "addedAt": "2026-09-21T10:13:09.663Z"
     }
   ],
   "readStatus": {
