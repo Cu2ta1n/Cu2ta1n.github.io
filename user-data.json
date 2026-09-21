@@ -1154,6 +1154,23 @@
       "arxivLink": "https://arxiv.org/pdf/2510.05070",
       "isCustom": true,
       "addedAt": "2026-09-21T04:10:45.803Z"
+    },
+    {
+      "id": "custom_1789963894599",
+      "title": "Grounding Generated Video Plans in Simulation Towards Versatile Dexterous Controllers",
+      "tags": [
+        "Demonstration-guided",
+        "灵巧操作"
+      ],
+      "category": "Demonstration-guided",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2609.10050",
+      "isCustom": true,
+      "addedAt": "2026-09-21T04:11:34.599Z"
     }
   ],
   "readStatus": {
