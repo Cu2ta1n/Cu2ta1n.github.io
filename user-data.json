@@ -1254,6 +1254,22 @@
       "arxivLink": "https://arxiv.org/pdf/2602.10105",
       "isCustom": true,
       "addedAt": "2026-09-21T10:11:33.644Z"
+    },
+    {
+      "id": "custom_1789985548141",
+      "title": "ProxyPose: 6-DoF Pose Tracking via Video-to-Video Translation",
+      "tags": [
+        "基础模型"
+      ],
+      "category": "基础模型",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2607.06555",
+      "isCustom": true,
+      "addedAt": "2026-09-21T10:12:28.141Z"
     }
   ],
   "readStatus": {
