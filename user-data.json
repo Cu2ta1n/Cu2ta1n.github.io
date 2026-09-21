@@ -1171,6 +1171,23 @@
       "arxivLink": "https://arxiv.org/pdf/2609.10050",
       "isCustom": true,
       "addedAt": "2026-09-21T04:11:34.599Z"
+    },
+    {
+      "id": "custom_1789963932224",
+      "title": "DexRefine: Refine Human Motion to Physically Feasible Robotic Actions",
+      "tags": [
+        "Retarget",
+        "Demonstration-guided"
+      ],
+      "category": "Retarget",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://dexterous-humanoid-manipulation.github.io/src/file/paper/hlee.pdf",
+      "isCustom": true,
+      "addedAt": "2026-09-21T04:12:12.224Z"
     }
   ],
   "readStatus": {
