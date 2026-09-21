@@ -1220,6 +1220,23 @@
       "arxivLink": "https://arxiv.org/pdf/1908.09186",
       "isCustom": true,
       "addedAt": "2026-09-21T05:00:41.988Z"
+    },
+    {
+      "id": "custom_1789969587828",
+      "title": "C2Dex: Contact-Consistent Reconstruction and Retargeting for Dexterous Manipulation from Monocular Video",
+      "tags": [
+        "Retarget",
+        "灵巧操作"
+      ],
+      "category": "Retarget",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2608.07045",
+      "isCustom": true,
+      "addedAt": "2026-09-21T05:46:27.828Z"
     }
   ],
   "readStatus": {
