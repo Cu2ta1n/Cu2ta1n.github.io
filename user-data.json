@@ -1237,6 +1237,23 @@
       "arxivLink": "https://arxiv.org/pdf/2608.07045",
       "isCustom": true,
       "addedAt": "2026-09-21T05:46:27.828Z"
+    },
+    {
+      "id": "custom_1789985493644",
+      "title": "DexImit: Learning Bimanual Dexterous Manipulation from Monocular Human Videos",
+      "tags": [
+        "灵巧操作",
+        "Demonstration-guided"
+      ],
+      "category": "灵巧操作",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2602.10105",
+      "isCustom": true,
+      "addedAt": "2026-09-21T10:11:33.644Z"
     }
   ],
   "readStatus": {
