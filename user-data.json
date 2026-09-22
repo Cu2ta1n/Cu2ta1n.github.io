@@ -1316,8 +1316,8 @@
       "readAt": "2026-09-22T00:30:26.867Z"
     },
     "custom_1788164478100": {
-      "read": true,
-      "readAt": "2026-09-22T00:33:10.087Z"
+      "read": false,
+      "readAt": null
     }
   },
   "customLinks": {
@@ -1461,7 +1461,7 @@
       "hours": 2.0567641666666665
     },
     "2026-09-22": {
-      "papers": 2,
+      "papers": 1,
       "hours": 0
     }
   },
