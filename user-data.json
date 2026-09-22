@@ -1338,6 +1338,22 @@
       "arxivLink": "https://arxiv.org/pdf/2502.16932",
       "isCustom": true,
       "addedAt": "2026-09-22T01:12:30.022Z"
+    },
+    {
+      "id": "custom_1790039577977",
+      "title": "Novel Demonstration Generation with Gaussian Splatting Enables Robust One-Shot Manipulation",
+      "tags": [
+        "Data Augment"
+      ],
+      "category": "Data Augment",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2504.13175",
+      "isCustom": true,
+      "addedAt": "2026-09-22T01:12:57.977Z"
     }
   ],
   "readStatus": {
