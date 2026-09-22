@@ -1305,6 +1305,23 @@
       "arxivLink": "https://arxiv.org/pdf/2510.08475",
       "isCustom": true,
       "addedAt": "2026-09-22T01:11:45.504Z"
+    },
+    {
+      "id": "custom_1790039522221",
+      "title": "WiLoR: End-to-end 3D Hand Localization and Reconstruction in-the-wild",
+      "tags": [
+        "基础模型",
+        "Retarget"
+      ],
+      "category": "基础模型",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2409.12259",
+      "isCustom": true,
+      "addedAt": "2026-09-22T01:12:02.221Z"
     }
   ],
   "readStatus": {
