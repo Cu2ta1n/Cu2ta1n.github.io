@@ -1322,6 +1322,22 @@
       "arxivLink": "https://arxiv.org/pdf/2409.12259",
       "isCustom": true,
       "addedAt": "2026-09-22T01:12:02.221Z"
+    },
+    {
+      "id": "custom_1790039550022",
+      "title": "DemoGen: Synthetic Demonstration Generation for Data-Efficient Visuomotor Policy Learning",
+      "tags": [
+        "数据集"
+      ],
+      "category": "数据集",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2502.16932",
+      "isCustom": true,
+      "addedAt": "2026-09-22T01:12:30.022Z"
     }
   ],
   "readStatus": {
