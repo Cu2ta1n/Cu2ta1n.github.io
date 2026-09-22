@@ -1287,6 +1287,24 @@
       "arxivLink": "https://arxiv.org/pdf/2410.24185",
       "isCustom": true,
       "addedAt": "2026-09-21T10:13:09.663Z"
+    },
+    {
+      "id": "custom_1790039505504",
+      "title": "DEXMAN: LEARNING BIMANUAL DEXTEROUS MANIP- ULATION FROM HUMAN AND GENERATED VIDEOS",
+      "tags": [
+        "Bimanual",
+        "灵巧操作",
+        "Demonstration-guided"
+      ],
+      "category": "Bimanual",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2510.08475",
+      "isCustom": true,
+      "addedAt": "2026-09-22T01:11:45.504Z"
     }
   ],
   "readStatus": {
