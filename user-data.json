@@ -144,22 +144,6 @@
       "addedAt": "2026-08-30T07:25:08.665Z"
     },
     {
-      "id": "custom_1788074734912",
-      "title": "Universal Dexterous Functional Grasping via Demonstration-Editing Reinforcement Learning",
-      "category": "抓取执行",
-      "priority": 1,
-      "readMethod": "精读",
-      "hours": 2,
-      "goal": "待补充",
-      "output": "待补充",
-      "arxivLink": "https://arxiv.org/pdf/2512.13380",
-      "isCustom": true,
-      "addedAt": "2026-08-30T07:25:34.912Z",
-      "tags": [
-        "抓取执行"
-      ]
-    },
-    {
       "id": "custom_1788074756413",
       "title": "ADEPT: Accelerating Dexterity via Pre-Training and Sim-to-Real 23 DoF Kuka-Allegro Vision-based (!) Dish Placement Post-Training using Reinforcement Learning",
       "category": "基础模型",
