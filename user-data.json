@@ -1338,6 +1338,23 @@
       "arxivLink": "https://arxiv.org/pdf/2504.13175",
       "isCustom": true,
       "addedAt": "2026-09-22T01:12:57.977Z"
+    },
+    {
+      "id": "custom_1790591314695",
+      "title": "Dexterous Robot Manipulation from Human Demonstrations via Contact-Anchored Retargeting and Residual Policy Learning",
+      "tags": [
+        "Demonstration-guided",
+        "灵巧操作"
+      ],
+      "category": "Demonstration-guided",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2609.24093",
+      "isCustom": true,
+      "addedAt": "2026-09-28T10:28:34.695Z"
     }
   ],
   "readStatus": {
