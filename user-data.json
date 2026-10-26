@@ -1599,6 +1599,23 @@
       "arxivLink": "https://arxiv.org/pdf/2610.24392",
       "isCustom": true,
       "addedAt": "2026-10-26T03:09:28.530Z"
+    },
+    {
+      "id": "custom_1792984450063",
+      "title": "FACT: A Multimodal Force–Action–Track Foundation Model for Human-to-Robot Dexterity",
+      "tags": [
+        "Foundation Model",
+        "human videos"
+      ],
+      "category": "Foundation Model",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2610.19155",
+      "isCustom": true,
+      "addedAt": "2026-10-26T03:14:10.063Z"
     }
   ],
   "readStatus": {
