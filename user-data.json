@@ -1632,6 +1632,22 @@
       "arxivLink": "https://arxiv.org/pdf/2610.18822",
       "isCustom": true,
       "addedAt": "2026-10-26T03:15:58.128Z"
+    },
+    {
+      "id": "custom_1792984673814",
+      "title": "EgoCPT: Learning Dexterous Manipulation from a Single Ego-Centric Video with Contact-Aware Optimization",
+      "tags": [
+        "Demonstration-guided"
+      ],
+      "category": "Demonstration-guided",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2610.17572",
+      "isCustom": true,
+      "addedAt": "2026-10-26T03:17:53.814Z"
     }
   ],
   "readStatus": {
