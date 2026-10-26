@@ -1535,6 +1535,22 @@
       "arxivLink": "https://arxiv.org/pdf/2505.20795",
       "isCustom": true,
       "addedAt": "2026-10-13T02:47:50.470Z"
+    },
+    {
+      "id": "custom_1792983822698",
+      "title": "OMNIHOI: DEXTEROUS HAND-OBJECT INTERACTION FROM MONOCULAR HUMAN VIDEO",
+      "tags": [
+        "HOI"
+      ],
+      "category": "HOI",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2610.10855",
+      "isCustom": true,
+      "addedAt": "2026-10-26T03:03:42.698Z"
     }
   ],
   "readStatus": {
