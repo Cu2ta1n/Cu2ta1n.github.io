@@ -1696,6 +1696,22 @@
       "arxivLink": "https://arxiv.org/pdf/2610.00360",
       "isCustom": true,
       "addedAt": "2026-10-26T03:21:07.295Z"
+    },
+    {
+      "id": "custom_1792984907272",
+      "title": "DexAgent: An Agentic Human2Sim2Robot Framework for Dexterous Manipulation with Self-Evolving Tool Library",
+      "tags": [
+        "Robotic Agent"
+      ],
+      "category": "Robotic Agent",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2609.35318",
+      "isCustom": true,
+      "addedAt": "2026-10-26T03:21:47.272Z"
     }
   ],
   "readStatus": {
