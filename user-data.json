@@ -1551,6 +1551,22 @@
       "arxivLink": "https://arxiv.org/pdf/2610.10855",
       "isCustom": true,
       "addedAt": "2026-10-26T03:03:42.698Z"
+    },
+    {
+      "id": "custom_1792983874584",
+      "title": "Do as I Do: Dexterous Manipulation Data from Everyday Human Videos",
+      "tags": [
+        "Demonstration-guided"
+      ],
+      "category": "Demonstration-guided",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/abs/2606.19333",
+      "isCustom": true,
+      "addedAt": "2026-10-26T03:04:34.584Z"
     }
   ],
   "readStatus": {
