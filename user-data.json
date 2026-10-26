@@ -1664,6 +1664,22 @@
       "arxivLink": "https://arxiv.org/pdf/2610.15769",
       "isCustom": true,
       "addedAt": "2026-10-26T03:18:34.174Z"
+    },
+    {
+      "id": "custom_1792984770517",
+      "title": "PatternDex: Learning Interaction Patterns to Guide Reinforcement Learning of Bimanual Dexterous Manipulation of Articulated Objects",
+      "tags": [
+        "Demonstration-guided"
+      ],
+      "category": "Demonstration-guided",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2610.04765",
+      "isCustom": true,
+      "addedAt": "2026-10-26T03:19:30.517Z"
     }
   ],
   "readStatus": {
