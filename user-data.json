@@ -1648,6 +1648,22 @@
       "arxivLink": "https://arxiv.org/pdf/2610.17572",
       "isCustom": true,
       "addedAt": "2026-10-26T03:17:53.814Z"
+    },
+    {
+      "id": "custom_1792984714174",
+      "title": "HAND2ROBOT: OBJECT-CENTRIC 4D HAND RECONSTRUCTION FROM HUMAN DEMONSTRATIONS FOR ROBOTICS",
+      "tags": [
+        "HOI"
+      ],
+      "category": "HOI",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2610.15769",
+      "isCustom": true,
+      "addedAt": "2026-10-26T03:18:34.174Z"
     }
   ],
   "readStatus": {
