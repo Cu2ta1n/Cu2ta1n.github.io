@@ -1712,6 +1712,22 @@
       "arxivLink": "https://arxiv.org/pdf/2609.35318",
       "isCustom": true,
       "addedAt": "2026-10-26T03:21:47.272Z"
+    },
+    {
+      "id": "custom_1793003818358",
+      "title": "LEARNING ADAPTABLE DEXTEROUS SKILLS VIA HY BRID DEXTEROUS MIMICKING",
+      "tags": [
+        "Demonstration-guided"
+      ],
+      "category": "Demonstration-guided",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2610.28628",
+      "isCustom": true,
+      "addedAt": "2026-10-26T08:36:58.358Z"
     }
   ],
   "readStatus": {
