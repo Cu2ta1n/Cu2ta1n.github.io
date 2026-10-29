@@ -1760,6 +1760,23 @@
       "arxivLink": "https://arxiv.org/pdf/2610.30438",
       "isCustom": true,
       "addedAt": "2026-10-29T06:40:35.429Z"
+    },
+    {
+      "id": "custom_1793256185931",
+      "title": "GeneralistDexterousBimanualTrackingControlfrom HumanDemonstrations",
+      "tags": [
+        "Demonstration-guided",
+        "Bimanual"
+      ],
+      "category": "Demonstration-guided",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2610.29997",
+      "isCustom": true,
+      "addedAt": "2026-10-29T06:43:05.931Z"
     }
   ],
   "readStatus": {
