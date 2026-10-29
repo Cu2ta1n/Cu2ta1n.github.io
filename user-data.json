@@ -1728,6 +1728,22 @@
       "arxivLink": "https://arxiv.org/pdf/2610.28628",
       "isCustom": true,
       "addedAt": "2026-10-26T08:36:58.358Z"
+    },
+    {
+      "id": "custom_1793255905081",
+      "title": "PIHAND: LATENT HAND–OBJECT INTERACTION PRI ORS FOR PHYSICS-BASED POLICY LEARNING",
+      "tags": [
+        "HOI"
+      ],
+      "category": "HOI",
+      "priority": 1,
+      "readMethod": "精读",
+      "hours": 2,
+      "goal": "待补充",
+      "output": "待补充",
+      "arxivLink": "https://arxiv.org/pdf/2610.31299",
+      "isCustom": true,
+      "addedAt": "2026-10-29T06:38:25.081Z"
     }
   ],
   "readStatus": {
